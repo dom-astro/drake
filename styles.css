@@ -1,0 +1,123 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    /*height: 100vh;*/
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 96%;
+    display: flex;
+    left: 1%;
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+#drake {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+}
+
+.form-group {
+    /*display: flex;*/
+    align-items: center;
+    margin-top: 10px;
+}
+
+.form-group img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+label {
+    margin-right: 10px;
+}
+
+input {
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-grow: 1;
+    width: 10%;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+img {
+    width: 12px;
+    height: 12px;
+}
+
+input {
+    float: right;
+}
+
+.explication {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+    width: 66%;
+    border-radius: 15px;
+    padding-left: 10px;
+    top: -10px;
+    position: relative;
+}
+.explication>h1 {
+    color: #4CAF50;
+}
+.explication>p {
+    line-height: 1.6;
+}
+.equation {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #eee;
+    padding: 10px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    position: relative;
+    left: calc(50% - 180px);
+    font-weight: bold;
+    font-size: large;
+}
+
+i {
+    font-size: 24px;
+}

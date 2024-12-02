@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Équation de Drake</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="js/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <h1>Équation de Drake</h1>
+    <h3>L'équation de Drake est une formule utilisée pour estimer le nombre de civilisations extraterrestres dans notre galaxie, la Voie lactée, dont nous pourrions détecter les signaux.</h3>
+    <h3>Elle a été développée par l'astronome Frank Drake en 1961.</h3>
+    <p class="equation">N =  <i>R<sup>*</sup></i> x  <i>f<sub>p</sub></i> x ne x fl x fi x fc x L</p>
+    <div class="container">
+        <div id="drake">
+            <div class="form-group" id="R">
+                <img src="images/R.png" alt=" <i>R<sup>*</sup></i>">
+                <label for="R"> <i>R<sup>*</sup></i> (taux de formation d'étoiles)</label>
+                <input type="number" id="R" name="R" step="0.01" value="1.6" required>
+            </div>
+
+            <div class="form-group" id="fp">
+                <img src="images/fp.jpg" alt="fp">
+                <label for="fp"> <i>f<sub>p</sub></i> (fraction d'étoiles avec des planètes)</label>
+                <input type="number" id="fp" name="fp" step="0.01" value="1.0" required>
+            </div>
+
+            <div class="form-group">
+                <img src="images/ne.jpg" alt="ne">
+                <label for="ne">ne (nombre de planètes par étoile dans la zone habitable)</label>
+                <input type="number" id="ne" name="ne" step="0.01" value="2.0" required>
+            </div>
+
+            <div class="form-group">
+                <img src="images/fl.jpg" alt="fl">
+                <label for="fl">fl (fraction de planètes où la vie apparaît)</label>
+                <input type="number" id="fl" name="fl" step="0.01" value="0.13" required>
+            </div>
+
+            <div class="form-group">
+                <img src="images/fi.jpg" alt="fi">
+                <label for="fi">fi (fraction de planètes où la vie devient intelligente)</label>
+                <input type="number" id="fi" name="fi" step="0.01" value="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <img src="images/fc.jpg" alt="fc">
+                <label for="fc">fc (fraction de civilisations capables de communiquer)</label>
+                <input type="number" id="fc" name="fc" step="0.01" value="0.2" required>
+            </div>
+
+            <div class="form-group">
+                <img src="images/L.jpg" alt="L">
+                <label for="L">L (durée de vie moyenne d'une civilisation)</label>
+                <input type="number" id="L" name="L" step="0.01" value="10000000" required>
+            </div>
+
+            <button id="calcul">Calculer</button>
+            <span id="result"></span>
+        </div>
+        <div id="explication-r" class="explication">
+            <h2>Définition de  <i>R<sup>*</sup></i></h2>
+            <p> <i>R<sup>*</sup></i> représente le taux moyen de formation d'étoiles dans notre galaxie. En d'autres termes, c'est le nombre d'étoiles qui se forment chaque année dans la Voie lactée. Ce paramètre est crucial car il détermine la fréquence à laquelle de nouvelles étoiles, et potentiellement de nouveaux systèmes planétaires, apparaissent.</p>
+        
+            <h2>Importance de  <i>R<sup>*</sup></i></h2>
+            <p>Le taux de formation d'étoiles est un indicateur important de l'activité de la galaxie. Une galaxie avec un taux de formation d'étoiles élevé a plus de chances de contenir des systèmes planétaires jeunes et potentiellement habitables. En revanche, une galaxie avec un taux de formation d'étoiles faible pourrait avoir moins de nouvelles étoiles et donc moins de possibilités pour la vie de se développer.</p>
+        
+            <h2>Valeur estimée de  <i>R<sup>*</sup></i></h2>
+            <p>Les estimations de  <i>R<sup>*</sup></i> varient, mais les valeurs couramment utilisées se situent entre 1,65 et 3 étoiles par an. Ces estimations sont basées sur des observations astronomiques et des modèles de formation stellaire.</p>
+        
+            <h2>Conclusion</h2>
+            <p> <i>R<sup>*</sup></i> est une variable fondamentale de l'équation de Drake, car elle influence directement le nombre potentiel de civilisations extraterrestres dans notre galaxie. Comprendre et estimer précisément ce paramètre est essentiel pour évaluer la probabilité de l'existence de la vie ailleurs dans l'univers.</p>
+        
+        </div>
+        <div id="explication-fp" class="explication" style="display: none";>
+            <h2>Définition de <i>f<sub>p</sub></i></h2>
+            <p> <i>f<sub>p</sub></i> représente la fraction des étoiles dans la Voie lactée qui possèdent un système planétaire. En d'autres termes, c'est la proportion d'étoiles autour desquelles orbitent une ou plusieurs planètes. Ce paramètre est crucial car il détermine la fréquence à laquelle des systèmes planétaires existent autour des étoiles.</p>
+        
+            <h2>Importance de  <i>f<sub>p</sub></i></h2>
+            <p>La fraction d'étoiles avec des planètes est un indicateur important de la probabilité de trouver des systèmes planétaires dans notre galaxie. Une valeur élevée de  <i>f<sub>p</sub></i> suggère qu'il y a de nombreuses étoiles avec des planètes, augmentant ainsi les chances de trouver des planètes habitables. En revanche, une valeur faible de  <i>f<sub>p</sub></i> pourrait indiquer que les systèmes planétaires sont rares, réduisant les possibilités de vie extraterrestre.</p>
+        
+            <h2>Valeur estimée de  <i>f<sub>p</sub></i></h2>
+            <p>Les estimations de  <i>f<sub>p</sub></i> ont évolué avec les avancées en astronomie et les découvertes d'exoplanètes. Les observations récentes, notamment celles du télescope spatial Kepler, suggèrent que  <i>f<sub>p</sub></i> pourrait être proche de 1, ce qui signifie que presque toutes les étoiles ont des planètes. Cependant, les estimations varient et peuvent être plus conservatrices, autour de 0,2 à 0,5.</p>
+                
+            <h2>Conclusion</h2>
+            <p> <i>f<sub>p</sub></i> est une variable fondamentale de l'équation de Drake, car elle influence directement le nombre potentiel de civilisations extraterrestres dans notre galaxie. Comprendre et estimer précisément ce paramètre est essentiel pour évaluer la probabilité de l'existence de la vie ailleurs dans l'univers.</p>
+                
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
