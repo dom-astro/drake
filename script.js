@@ -14,12 +14,40 @@ document.getElementById('calcul').addEventListener('click', function(event) {
     document.getElementById('result').innerText = `Nombre estimé de civilisations: ${N.toFixed(2)}`;
 });
 
-document.getElementById('R').addEventListener('click', function(event) {
-    $(".explication").hide();
-    $("#explication-r").show(500);
+$("#R").on('click', function(event) {
+    show_variable('r');
 });
 
-document.getElementById('fp').addEventListener('click', function(event) {
-    $(".explication").hide();
-    $("#explication-fp").show(500);
+$("#fp").on('click', function(event) {
+    show_variable('fp');
 });
+
+$("#fl").on('click', function(event) {
+    show_variable('ne');
+});
+
+$("#fl").on('click', function(event) {
+    show_variable('fl');
+});
+
+$("#fi").on('click', function(event) {
+    show_variable('fi');
+});
+
+$("#fc").on('click', function(event) {
+    show_variable('fc');
+});
+
+$("#L").on('click', function(event) {
+    show_variable('l');
+});
+
+function show_variable(varDrake) {
+    showTime=1000;
+    if ($("#explication-"+varDrake).is(':visible')) {
+        showTime=0;
+    }
+    $(".explication").hide();
+    $("#explication-"+varDrake).show(showTime);
+
+}

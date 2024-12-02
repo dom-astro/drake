@@ -11,7 +11,7 @@
     <h1>Équation de Drake</h1>
     <h3>L'équation de Drake est une formule utilisée pour estimer le nombre de civilisations extraterrestres dans notre galaxie, la Voie lactée, dont nous pourrions détecter les signaux.</h3>
     <h3>Elle a été développée par l'astronome Frank Drake en 1961.</h3>
-    <p class="equation">N =  <i>R<sup>*</sup></i> x  <i>f<sub>p</sub></i> x ne x fl x fi x fc x L</p>
+    <p class="equation"><i>N</i> =  <i>R<sup>*</sup></i> x  <i>f<sub>p</sub></i> x <i>N<sub>e</sub></i> x <i>F<sub>l</sub></i> x <i>F<sub>i</sub></i> x <i>F<sub>c</sub></i> x <i>L</i></p>
     <div class="container">
         <div id="drake">
             <div class="form-group" alt="R">
@@ -28,31 +28,31 @@
 
             <div class="form-group">
                 <img src="images/ne.jpg" alt="ne">
-                <label for="ne">ne (nombre de planètes par étoile dans la zone habitable)</label>
+                <label for="ne"><i>N<sub>e</sub></i> (nombre de planètes par étoile dans la zone habitable)</label>
                 <input type="number" id="ne" name="ne" step="0.01" value="2.0" required>
             </div>
 
             <div class="form-group">
                 <img src="images/fl.jpg" alt="fl">
-                <label for="fl">fl (fraction de planètes où la vie apparaît)</label>
+                <label for="fl"><i>F<sub>l</sub></i> (fraction de planètes où la vie apparaît)</label>
                 <input type="number" id="fl" name="fl" step="0.01" value="0.13" required>
             </div>
 
             <div class="form-group">
                 <img src="images/fi.jpg" alt="fi">
-                <label for="fi">fi (fraction de planètes où la vie devient intelligente)</label>
+                <label for="fi"><i>F<sub>i</sub></i> (fraction de planètes où la vie devient intelligente)</label>
                 <input type="number" id="fi" name="fi" step="0.01" value="0.01" required>
             </div>
 
             <div class="form-group">
                 <img src="images/fc.jpg" alt="fc">
-                <label for="fc">fc (fraction de civilisations capables de communiquer)</label>
+                <label for="fc"><i>F<sub>c</sub></i> (fraction de civilisations capables de communiquer)</label>
                 <input type="number" id="fc" name="fc" step="0.01" value="0.2" required>
             </div>
 
             <div class="form-group">
                 <img src="images/L.jpg" alt="L">
-                <label for="L">L (durée de vie moyenne d'une civilisation)</label>
+                <label for="L"><i>L</i> (durée de vie moyenne d'une civilisation)</label>
                 <input type="number" id="L" name="L" step="0.01" value="10000000" required>
             </div>
 
@@ -83,9 +83,56 @@
             <h2>Valeur estimée de  <i>f<sub>p</sub></i></h2>
             <p>Les estimations de  <i>f<sub>p</sub></i> ont évolué avec les avancées en astronomie et les découvertes d'exoplanètes. Les observations récentes, notamment celles du télescope spatial Kepler, suggèrent que  <i>f<sub>p</sub></i> pourrait être proche de 1, ce qui signifie que presque toutes les étoiles ont des planètes. Cependant, les estimations varient et peuvent être plus conservatrices, autour de 0,2 à 0,5.</p>
                 
-            <h2>Conclusion</h2>
-            <p> <i>f<sub>p</sub></i> est une variable fondamentale de l'équation de Drake, car elle influence directement le nombre potentiel de civilisations extraterrestres dans notre galaxie. Comprendre et estimer précisément ce paramètre est essentiel pour évaluer la probabilité de l'existence de la vie ailleurs dans l'univers.</p>
+        </div>
+        <div id="explication-ne" class="explication" style="display: none";>
+            <h2>Définition de <i>N<sub>e</sub></i></h2>
+            <p><i>N<sub>e</sub></i> représente le nombre moyen de planètes ou de satellites par système stellaire dont l'environnement pourrait permettre l'émergence de la vie. La zone habitable, également connue sous le nom de zone de Goldilocks, est la région autour d'une étoile où les conditions sont favorables à l'existence d'eau liquide à la surface d'une planète, ce qui est considéré comme essentiel pour la vie telle que nous la connaissons.</p>
+        
+            <h2>Importance de <i>N<sub>e</sub></i></h2>
+            <p>Le nombre de planètes dans la zone habitable est crucial pour estimer la probabilité de trouver de la vie extraterrestre. Une valeur élevée de <i>N<sub>e</sub></i> suggère qu'il y a de nombreuses planètes dans des conditions favorables à la vie, augmentant ainsi les chances de trouver des civilisations extraterrestres. En revanche, une valeur faible de <i>N<sub>e</sub></i> pourrait indiquer que les planètes habitables sont rares, réduisant les possibilités de vie extraterrestre.</p>
+        
+            <h2>Valeur estimée de <i>N<sub>e</sub></i></h2>
+            <p>Les estimations de <i>N<sub>e</sub></i> varient en fonction des découvertes d'exoplanètes et des modèles de formation planétaire. Les observations récentes suggèrent que <i>N<sub>e</sub></i> pourrait être autour de 0,4 à 2, ce qui signifie qu'en moyenne, chaque étoile pourrait avoir entre 0,4 et 2 planètes dans la zone habitable. Cependant, ces estimations sont encore incertaines et peuvent évoluer avec de nouvelles découvertes.</p>                        
+        </div>
+        <div id="explication-fl" class="explication" style="display: none";>
+            <h2>Définition de <i>F<sub>l</sub></i></h2>
+            <p><i>F<sub>l</sub></i> représente la fraction des planètes situées dans la zone habitable autour de leurs étoiles où la vie apparaît effectivement. En d'autres termes, c'est la proportion de planètes habitables où les conditions sont suffisantes pour que la vie émerge.</p>
                 
+            <h2>Importance de <i>F<sub>l</sub></i></h2>
+            <p>La fraction de planètes où la vie apparaît est un indicateur crucial de la probabilité de trouver de la vie extraterrestre. Une valeur élevée de <i>F<sub>l</sub></i> suggère que la vie est commune dans l'univers, augmentant ainsi les chances de trouver des civilisations extraterrestres. En revanche, une valeur faible de <i>F<sub>l</sub></i> pourrait indiquer que l'émergence de la vie est rare, réduisant les possibilités de vie extraterrestre.</p>
+        
+            <h2>Valeur estimée de <i>F<sub>l</sub></i></h2>
+            <p>Les estimations de <i>F<sub>l</sub></i> sont très incertaines et varient considérablement en fonction des hypothèses et des modèles utilisés. Certaines estimations optimistes suggèrent que <i>F<sub>l</sub></i> pourrait être proche de 1, ce qui signifie que la vie apparaît sur presque toutes les planètes habitables. Cependant, des estimations plus conservatrices placent <i>F<sub>l</sub></i> autour de 0,1 ou même moins, reflétant l'incertitude quant aux conditions nécessaires pour l'émergence de la vie.</p>
+        </div>
+        <div id="explication-fi" class="explication" style="display: none";>
+            <h2>Définition de <i>F<sub>i</sub></i></h2>
+            <p><i>F<sub>i</sub></i> représente la fraction des planètes où la vie, après être apparue, évolue vers des formes intelligentes. En d'autres termes, c'est la proportion de planètes habitables où des organismes développent des capacités cognitives avancées, telles que la résolution de problèmes, la communication complexe et la création de technologies.</p>
+        
+            <h2>Importance de <i>F<sub>i</sub></i></h2>
+            <p>La fraction de planètes où la vie devient intelligente est un indicateur crucial de la probabilité de trouver des civilisations extraterrestres avancées. Une valeur élevée de <i>F<sub>i</sub></i> suggère que l'évolution de la vie intelligente est commune, augmentant ainsi les chances de détecter des signaux extraterrestres. En revanche, une valeur faible de <i>F<sub>i</sub></i> pourrait indiquer que l'émergence de l'intelligence est rare, réduisant les possibilités de contact avec des civilisations extraterrestres.</p>
+        
+            <h2>Valeur estimée de <i>F<sub>i</sub></i></h2>
+            <p>Les estimations de <i>F<sub>i</sub></i> sont très incertaines et varient considérablement en fonction des hypothèses et des modèles utilisés. Certaines estimations optimistes suggèrent que <i>F<sub>i</sub></i> pourrait être proche de 1, ce qui signifie que la vie intelligente émerge sur presque toutes les planètes où la vie apparaît. Cependant, des estimations plus conservatrices placent <i>F<sub>i</sub></i> autour de 0,01 ou même moins, reflétant l'incertitude quant aux conditions nécessaires pour l'émergence de l'intelligence.</p>
+        </div>
+        <div id="explication-fc" class="explication" style="display: none";>
+            <h2>Définition de <i>F<sub>c</sub></i></h2>
+            <p><i>F<sub>c</sub></i> représente la fraction des civilisations intelligentes qui développent une technologie capable d'émettre des signaux détectables à travers l'espace. En d'autres termes, c'est la proportion de civilisations qui atteignent un niveau technologique suffisant pour envoyer des signaux électromagnétiques que nous pourrions capter avec nos instruments.</p>
+        
+            <h2>Importance de <i>F<sub>c</sub></i></h2>
+            <p>La fraction de civilisations capables de communiquer est un indicateur crucial de la probabilité de détecter des signaux extraterrestres. Une valeur élevée de <i>F<sub>c</sub></i> suggère que de nombreuses civilisations développent des technologies de communication avancées, augmentant ainsi les chances de détecter des signaux. En revanche, une valeur faible de <i>F<sub>c</sub></i> pourrait indiquer que peu de civilisations atteignent ce niveau technologique, réduisant les possibilités de contact.</p>
+        
+            <h2>Valeur estimée de <i>F<sub>c</sub></i></h2>
+            <p>Les estimations de <i>F<sub>c</sub></i> sont très incertaines et varient considérablement en fonction des hypothèses et des modèles utilisés. Certaines estimations optimistes suggèrent que <i>F<sub>c</sub></i> pourrait être proche de 1, ce qui signifie que presque toutes les civilisations intelligentes développent des technologies de communication avancées. Cependant, des estimations plus conservatrices placent <i>F<sub>c</sub></i> autour de 0,1 à 0,2, reflétant l'incertitude quant aux conditions nécessaires pour atteindre ce niveau technologique.</p>
+        </div>
+        <div id="explication-l" class="explication" style="display: none";>
+            <h2>Définition de <i>L</i></h2>
+            <p><i>L</i> représente la durée moyenne pendant laquelle une civilisation technologiquement avancée émet des signaux détectables. En d'autres termes, c'est le temps pendant lequel une civilisation reste active et capable de communiquer avant de disparaître ou de cesser ses émissions.</p>
+        
+            <h2>Importance de <i>L</i></h2>
+            <p>La durée de vie moyenne d'une civilisation est un indicateur crucial de la probabilité de détecter des signaux extraterrestres. Une valeur élevée de <i>L</i> suggère que les civilisations technologiquement avancées existent pendant de longues périodes, augmentant ainsi les chances de détecter leurs signaux. En revanche, une valeur faible de <i>L</i> pourrait indiquer que les civilisations disparaissent rapidement, réduisant les possibilités de contact.</p>
+        
+            <h2>Valeur estimée de <i>L</i></h2>
+            <p>Les estimations de <i>L</i> sont très incertaines et varient considérablement en fonction des hypothèses et des modèles utilisés. Certaines estimations optimistes suggèrent que <i>L</i> pourrait être de l'ordre de plusieurs millions d'années, ce qui signifie que les civilisations technologiquement avancées pourraient exister pendant de très longues périodes. Cependant, des estimations plus conservatrices placent <i>L</i> autour de 100 à 1 000 ans, reflétant l'incertitude quant à la durabilité des civilisations technologiques.</p>
         </div>
     </div>
     <script src="script.js"></script>
