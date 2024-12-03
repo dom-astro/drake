@@ -22,6 +22,10 @@ $("#fp").on('click', function(event) {
     show_variable('fp');
 });
 
+$("#ne").on('click', function(event) {
+    show_variable('ne');
+});
+
 $("#fl").on('click', function(event) {
     show_variable('ne');
 });
