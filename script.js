@@ -27,10 +27,6 @@ $("#ne").on('click', function(event) {
 });
 
 $("#fl").on('click', function(event) {
-    show_variable('ne');
-});
-
-$("#fl").on('click', function(event) {
     show_variable('fl');
 });
 
