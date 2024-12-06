@@ -10,10 +10,10 @@ body {
 
 .container {
     background-color: #fff;
-    padding: 20px;
+    padding: 20px 0px 20px 10px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 96%;
+    width: 97%;
     display: flex;
     left: 1%;
     position: relative;
@@ -32,7 +32,7 @@ h3 {
 #drake {
     display: flex;
     flex-direction: column;
-    width: 33%;
+    width: 40%;
 }
 
 .form-group {
@@ -87,6 +87,7 @@ img {
 
 input {
     float: right;
+    margin-right: 5px;
 }
 
 .explication {
@@ -97,6 +98,7 @@ input {
     width: 66%;
     border-radius: 15px;
     padding-left: 10px;
+    padding-right: 10px;
     top: -10px;
     position: relative;
 }

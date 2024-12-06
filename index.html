@@ -17,43 +17,50 @@
             <div class="form-group">
                 <img src="images/R.png" alt=" <i>R<sup>*</sup></i>">
                 <label for="R"> <i>R<sup>*</sup></i> (taux de formation d'étoiles)</label>
-                <input type="number" id="R" name="R" step="0.01" value="1.6" required>
+                <input type="number" id="R-pessimiste" name="R" step="0.01" value="1.6" required class="pessimiste">
+                <input type="number" id="R-optimiste" name="R" step="0.01" value="1.6" required class="optimiste">
             </div>
 
             <div class="form-group">
                 <img src="images/fp.jpg" alt="fp">
                 <label for="fp"> <i>f<sub>p</sub></i> (fraction d'étoiles avec des planètes)</label>
-                <input type="number" id="fp" name="fp" step="0.01" value="1.0" required>
+                <input type="number" id="fp-pessimiste" name="fp" step="0.01" value="1.0" required class="pessimiste">
+                <input type="number" id="fp-optimiste" name="fp" step="0.01" value="1.0" required class="optimiste">
             </div>
 
             <div class="form-group">
                 <img src="images/ne.jpg" alt="ne">
                 <label for="ne"><i>N<sub>e</sub></i> (nombre de planètes par étoile dans la zone habitable)</label>
-                <input type="number" id="ne" name="ne" step="0.01" value="2.0" required>
+                <input type="number" id="ne-pessimiste" name="ne" step="0.01" value="2.0" required class="pessimiste">
+                <input type="number" id="ne-optimiste" name="ne" step="0.01" value="2.0" required class="optimiste">
             </div>
 
             <div class="form-group">
                 <img src="images/fl.jpg" alt="fl">
                 <label for="fl"><i>F<sub>l</sub></i> (fraction de planètes où la vie apparaît)</label>
-                <input type="number" id="fl" name="fl" step="0.01" value="0.13" required>
+                <input type="number" id="fl-pessimiste" name="fl" step="0.01" value="0.13" required class="pessimiste">
+                <input type="number" id="fl-optimiste" name="fl" step="0.01" value="0.13" required class="optimiste">
             </div>
 
             <div class="form-group">
                 <img src="images/fi.jpg" alt="fi">
                 <label for="fi"><i>F<sub>i</sub></i> (fraction de planètes où la vie devient intelligente)</label>
-                <input type="number" id="fi" name="fi" step="0.01" value="0.01" required>
+                <input type="number" id="fi-pessimiste" name="fi" step="0.01" value="0.01" required class="pessimiste">
+                <input type="number" id="fi-optimiste" name="fi" step="0.01" value="0.01" required class="optimiste">
             </div>
 
             <div class="form-group">
                 <img src="images/fc.jpg" alt="fc">
                 <label for="fc"><i>F<sub>c</sub></i> (fraction de civilisations capables de communiquer)</label>
-                <input type="number" id="fc" name="fc" step="0.01" value="0.2" required>
+                <input type="number" id="fc-pessimiste" name="fc" step="0.01" value="0.2" required class="pessimiste">
+                <input type="number" id="fc-optimiste" name="fc" step="0.01" value="0.2" required class="optimiste">
             </div>
 
             <div class="form-group">
                 <img src="images/L.jpg" alt="L">
                 <label for="L"><i>L</i> (durée de vie moyenne d'une civilisation)</label>
-                <input type="number" id="L" name="L" step="0.01" value="10000000" required>
+                <input type="number" id="L-pessimiste" name="L" step="0.01" value="10000000" required class="pessimiste">
+                <input type="number" id="L-optimiste" name="L" step="0.01" value="10000000" required class="optimiste">
             </div>
 
             <button id="calcul">Calculer</button>
