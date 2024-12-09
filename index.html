@@ -11,53 +11,53 @@
     <h1>Équation de Drake</h1>
     <h3>L'équation de Drake est une formule utilisée pour estimer le nombre de civilisations extraterrestres dans notre galaxie, la Voie lactée, dont nous pourrions détecter les signaux.</h3>
     <h3>Elle a été développée par l'astronome Frank Drake en 1961.</h3>
-    <img id="portrait" src="images/Drake.jpg" alt="Franck Drake">
     <p class="equation"><i>N</i> =  <i>R<sup>*</sup></i> x  <i>f<sub>p</sub></i> x <i>N<sub>e</sub></i> x <i>F<sub>l</sub></i> x <i>F<sub>i</sub></i> x <i>F<sub>c</sub></i> x <i>L</i></p>
+    <img id="portrait" src="images/Drake.jpg" alt="Franck Drake">
     <div class="container">
         <div id="drake">
-            <div class="form-group">
+            <div class="form-group" id="R">
                 <img src="images/R.png" alt=" <i>R<sup>*</sup></i>">
                 <label for="R"> <i>R<sup>*</sup></i> (taux de formation d'étoiles)</label>
                 <input type="number" id="R-pessimiste" name="R" step="0.01" value="1.6" required class="pessimiste">
                 <input type="number" id="R-optimiste" name="R" step="0.01" value="1.6" required class="optimiste">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="fp">
                 <img src="images/fp.jpg" alt="fp">
                 <label for="fp"> <i>f<sub>p</sub></i> (fraction d'étoiles avec des planètes)</label>
                 <input type="number" id="fp-pessimiste" name="fp" step="0.01" value="1.0" required class="pessimiste">
                 <input type="number" id="fp-optimiste" name="fp" step="0.01" value="1.0" required class="optimiste">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="ne">
                 <img src="images/ne.jpg" alt="ne">
                 <label for="ne"><i>N<sub>e</sub></i> (nombre de planètes par étoile dans la zone habitable)</label>
                 <input type="number" id="ne-pessimiste" name="ne" step="0.01" value="2.0" required class="pessimiste">
                 <input type="number" id="ne-optimiste" name="ne" step="0.01" value="2.0" required class="optimiste">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="fl">
                 <img src="images/fl.jpg" alt="fl">
                 <label for="fl"><i>F<sub>l</sub></i> (fraction de planètes où la vie apparaît)</label>
                 <input type="number" id="fl-pessimiste" name="fl" step="0.01" value="0.13" required class="pessimiste">
                 <input type="number" id="fl-optimiste" name="fl" step="0.01" value="0.13" required class="optimiste">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="fi">
                 <img src="images/fi.jpg" alt="fi">
                 <label for="fi"><i>F<sub>i</sub></i> (fraction de planètes où la vie devient intelligente)</label>
                 <input type="number" id="fi-pessimiste" name="fi" step="0.01" value="0.01" required class="pessimiste">
                 <input type="number" id="fi-optimiste" name="fi" step="0.01" value="0.01" required class="optimiste">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="fc">
                 <img src="images/fc.jpg" alt="fc">
                 <label for="fc"><i>F<sub>c</sub></i> (fraction de civilisations capables de communiquer)</label>
                 <input type="number" id="fc-pessimiste" name="fc" step="0.01" value="0.2" required class="pessimiste">
                 <input type="number" id="fc-optimiste" name="fc" step="0.01" value="0.2" required class="optimiste">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="L">
                 <img src="images/L.jpg" alt="L">
                 <label for="L"><i>L</i> (durée de vie moyenne d'une civilisation)</label>
                 <input type="number" id="L-pessimiste" name="L" step="0.01" value="10000000" required class="pessimiste">
@@ -69,13 +69,17 @@
         </div>
         <div id="explication-r" class="explication">
             <h2>Définition de  <i>R<sup>*</sup></i></h2>
-            <p> <i>R<sup>*</sup></i> représente le taux moyen de formation d'étoiles dans notre galaxie. En d'autres termes, c'est le nombre d'étoiles qui se forment chaque année dans la Voie lactée. Ce paramètre est crucial car il détermine la fréquence à laquelle de nouvelles étoiles, et potentiellement de nouveaux systèmes planétaires, apparaissent.</p>
+            <p> Dans la formulation originale de l'équation, le facteur <i>R<sup>*</sup></i> représente le taux de formation d'étoiles de type solaire dans notre galaxie. Drake avait initialement estimé cette valeur à environ 10 étoiles par an.
         
-            <h2>Importance de  <i>R<sup>*</sup></i></h2>
-            <p>Le taux de formation d'étoiles est un indicateur important de l'activité de la galaxie. Une galaxie avec un taux de formation d'étoiles élevé a plus de chances de contenir des systèmes planétaires jeunes et potentiellement habitables. En revanche, une galaxie avec un taux de formation d'étoiles faible pourrait avoir moins de nouvelles étoiles et donc moins de possibilités pour la vie de se développer.</p>
-        
-            <h2>Valeur estimée de  <i>R<sup>*</sup></i></h2>
-            <p>Les estimations de  <i>R<sup>*</sup></i> varient, mais les valeurs couramment utilisées se situent entre 1,65 et 3 étoiles par an. Ces estimations sont basées sur des observations astronomiques et des modèles de formation stellaire.</p>
+            <h2>Mesure de <i>R<sup>*</sup></i></h2>
+            <ul>
+                <li><b>Contreverses:</b></li>
+                <ul>
+                    <li><b>Échelle de temps inadaptée:</b> Le nombre de civilisations à un instant donné ne dépend pas du taux de formation d'étoiles récent, mais plutôt du nombre total d'étoiles pouvant abriter la vie.</li>
+                    <li><b>Variation historique:</b> Le taux de formation d'étoiles actuel diffère considérablement de celui d'il y a plusieurs milliards d'années, quand les étoiles potentiellement habitables se sont formées.</li>
+                    <li><b>Restriction aux étoiles de type solaire:</b> L'équation originale ne considère que les étoiles similaires au Soleil, limitant ainsi les possibilités.</li>
+                </ul>
+            </ul>
         </div>
         <div id="explication-fp" class="explication" style="display: none";>
             <h2>Définition de <i>f<sub>p</sub></i></h2>

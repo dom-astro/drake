@@ -9,7 +9,8 @@ body {
 }
 
 .container {
-    background-color: #fff;
+    border: 1px solid lightblue;
+    background-color: white;
     padding: 20px 0px 20px 10px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -109,16 +110,19 @@ input {
     line-height: 1.6;
 }
 .equation {
-    font-family: 'Courier New', Courier, monospace;
-    background-color: #eee;
+    background-color: white;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid lightblue;
+    border-radius: 10px;
     display: inline-block;
     position: relative;
-    left: calc(20% + 180px);
+    left: 38%;
     top: -60px;
-    font-weight: bold;
+    font-weight: normal;
     font-size: large;
+    font-family: 'Arial', sans-serif;
+    font-style: italic;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 i {
@@ -129,5 +133,7 @@ i {
     width: 120px;
     height: 120px;
     position: relative;
-    left: 20%;
+    left: 38%;
+    border: 1px solid lightblue;
+    border-radius: 10px;
 }
