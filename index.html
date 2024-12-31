@@ -10,16 +10,18 @@
 <body>
     <h1>Équation de Drake</h1>
     <h3>L'équation de Drake est une formule utilisée pour estimer le nombre de civilisations extraterrestres dans notre galaxie, la Voie lactée, dont nous pourrions détecter les signaux.</h3>
-    <h3>Elle a été développée par l'astronome Frank Drake en 1961.</h3>
+    <h3>Elle a été développée par l'astronome Frank Drake en 1961. Alors jeune astronome, il proposa sa formule pour justifier sa tentative de détection
+	avec le programme SETI.</h3>
     <p class="equation"><i>N</i> =  <i>R<sup>*</sup></i> x  <i>f<sub>p</sub></i> x <i>N<sub>e</sub></i> x <i>F<sub>l</sub></i> x <i>F<sub>i</sub></i> x <i>F<sub>c</sub></i> x <i>L</i></p>
     <img id="portrait" src="images/Drake.jpg" alt="Franck Drake">
+    <h3>Nous allons procéder au calcul de l'équation, mais avant nous allons remplacer les termes R* par N*, le nombre d'étoiles dans la Voie lactée et L par L/Ag, la probabilité qu'une autre civilisation coexiste avec la nôtre.</h3>
     <div class="container">
         <div id="drake">
             <div class="form-group" id="R">
-                <img src="images/R.png" alt=" <i>R<sup>*</sup></i>">
-                <label for="R"> <i>R<sup>*</sup></i> (taux de formation d'étoiles)</label>
-                <input type="number" id="R-pessimiste" name="R" step="0.01" value="1.6" required class="pessimiste">
-                <input type="number" id="R-optimiste" name="R" step="0.01" value="1.6" required class="optimiste">
+                <img src="images/R.png" alt="R*">
+                <label for="R"> <i>N<sup>*</sup></i> (nombre d'étoiles en milliards)</label>
+                <input type="number" id="R-optimiste" name="R" step="10" value="200" required class="optimiste">
+                <input type="number" id="R-pessimiste" name="R" step="10" value="100" required class="pessimiste">
             </div>
 
             <div class="form-group" id="fp">
@@ -64,22 +66,25 @@
                 <input type="number" id="L-optimiste" name="L" step="0.01" value="10000000" required class="optimiste">
             </div>
 
+            <div class="form-group" id="A">
+                <img src="images/L.jpg" alt="Ag">
+                <label for="L"><i>A</i><sub>g</sub> (âge de la Voie lactée en milliards d'année)</label>
+                <input type="number" id="A-optimiste" name="A" step="1" value="13" required class="optimiste">
+                <input type="number" id="A-pessimiste" name="A" step="1" value="13" required class="pessimiste">
+            </div>
+
             <button id="calcul">Calculer</button>
             <span id="result"></span>
         </div>
         <div id="explication-r" class="explication">
-            <h2>Définition de  <i>R<sup>*</sup></i></h2>
-            <p> Dans la formulation originale de l'équation, le facteur <i>R<sup>*</sup></i> représente le taux de formation d'étoiles de type solaire dans notre galaxie. Drake avait initialement estimé cette valeur à environ 10 étoiles par an.
-        
-            <h2>Mesure de <i>R<sup>*</sup></i></h2>
-            <ul>
-                <li><b>Contreverses:</b></li>
-                <ul>
-                    <li><b>Échelle de temps inadaptée:</b> Le nombre de civilisations à un instant donné ne dépend pas du taux de formation d'étoiles récent, mais plutôt du nombre total d'étoiles pouvant abriter la vie.</li>
-                    <li><b>Variation historique:</b> Le taux de formation d'étoiles actuel diffère considérablement de celui d'il y a plusieurs milliards d'années, quand les étoiles potentiellement habitables se sont formées.</li>
-                    <li><b>Restriction aux étoiles de type solaire:</b> L'équation originale ne considère que les étoiles similaires au Soleil, limitant ainsi les possibilités.</li>
-                </ul>
-            </ul>
+            <h2>Définition de  <i>N<sup>*</sup></i></h2>
+            <p> Pour estimer le nombre d'étoiles dans notre galaxie, la Voie Lactée, les astronomes utilisent plusieurs méthodes et observations:
+			<ul>
+                <li><b>Analyse de la lumière stellaire:</b> Les chercheurs évaluent la quantité de lumière stellaire émise par notre galaxie pour estimer le nombre d'étoiles.</li><br>
+                <li><b>Utilisation de données satellitaires:</b> L'analyse des données du satellite Gaia de l'ESA a permis d'affiner les estimations en combinant les distances, les couleurs et la magnitude des étoiles observées.</li><br>
+                <li><b>Modélisation:</b> Les scientifiques utilisent des modèles prédictifs de la distribution des étoiles dans notre galaxie, comme le modèle de la Galaxie de Besançon, pour affiner leurs estimations</li><br>
+			</ul>
+			<p>Selon ces méthodes, les estimations actuelles du nombre d'étoiles dans la Voie Lactée varient de 100 à 200 milliards d'étoiles.</p>
         </div>
         <div id="explication-fp" class="explication" style="display: none";>
             <h2>Définition de <i>f<sub>p</sub></i></h2>
@@ -87,10 +92,10 @@
         
             <h2>Mesure de <i>f<sub>p</sub></i></h2>
             <ul>
-                <li><b>Augmentation de la valeur estimée:</b> Les missions spatiales comme Kepler et TESS ont révélé que les exoplanètes sont beaucoup plus communes qu'on ne le pensait initialement2. Cela a conduit à une révision à la hausse significative de l'estimation de <i>f<sub>p</sub></i>.</li>
-                <li><b>Diversité des systèmes planétaires:</b> La découverte d'une grande variété de types d'exoplanètes et de configurations orbitales a élargi notre compréhension des systèmes planétaires possibles, augmentant potentiellement la valeur de <i>f<sub>p</sub></i>.</li>
-                <li><b>Amélioration de la précision:</b> Les nouvelles techniques de détection, notamment la méthode des vitesses radiales et la photométrie de transit, ont permis une estimation plus précise de <i>f<sub>p</sub></i> en détectant des planètes plus petites et plus éloignées de leur étoile.</li>
-                <li><b>Réévaluation des hypothèses:</b> La découverte de nombreuses géantes gazeuses proches de leur étoile a remis en question certaines hypothèses sur la formation des systèmes planétaires, influençant potentiellement l'estimation de <i>f<sub>p</sub></i>.</li>
+                <li><b>Augmentation de la valeur estimée:</b> Les missions spatiales comme Kepler et TESS ont révélé que les exoplanètes sont beaucoup plus communes qu'on ne le pensait initialement. Cela a conduit à une révision à la hausse significative de l'estimation de <i>f<sub>p</sub></i>.</li><br>
+                <li><b>Diversité des systèmes planétaires:</b> La découverte d'une grande variété de types d'exoplanètes et de configurations orbitales a élargi notre compréhension des systèmes planétaires possibles, augmentant potentiellement la valeur de <i>f<sub>p</sub></i>.</li><br>
+                <li><b>Amélioration de la précision:</b> Les nouvelles techniques de détection, notamment la méthode des vitesses radiales et la photométrie de transit, ont permis une estimation plus précise de <i>f<sub>p</sub></i> en détectant des planètes plus petites et plus éloignées de leur étoile.</li><br>
+                <li><b>Réévaluation des hypothèses:</b> La découverte de nombreuses géantes gazeuses proches de leur étoile a remis en question certaines hypothèses sur la formation des systèmes planétaires, influençant potentiellement l'estimation de <i>f<sub>p</sub></i>.</li><br>
                 <li><b>Stabilité de l'estimation:</b> Malgré ces avancées, <i>f<sub>p</sub></i> reste l'un des paramètres les plus stables de l'équation de Drake, avec une incertitude moindre comparée à d'autres facteurs</li>
             </ul>
         
