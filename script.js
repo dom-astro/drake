@@ -59,3 +59,82 @@ function show_variable(varDrake) {
     $(".explication").hide();
     $("#explication-"+varDrake).show(showTime);
 }
+
+$("#explication-n2").hide();
+
+$("#n1").on('click', function(event) {
+	$("#explication-n2").hide();
+	$("#explication-r").show(500);
+});
+
+
+// Initialiser le graphique ECharts
+var chartDom = document.getElementById('hr');
+var myChart = echarts.init(chartDom);
+var option;
+
+$("#n2").on('click', function(event) {
+
+
+// Données pour les types d'étoiles
+var data = [
+    { name: 'Type O', value: [30000, 6], symbolSize: 3, itemStyle: { color: '#ff0000' } },
+    { name: 'Type B', value: [20000, 4], symbolSize: 6, itemStyle: { color: '#ff8000' } },
+    { name: 'Type A', value: [10000, 3], symbolSize: 9, itemStyle: { color: '#ffff00' } },
+    { name: 'Type F', value: [7000, 2], symbolSize: 12, itemStyle: { color: '#ffff80' } },
+    { name: 'Type G', value: [5800, 1], symbolSize: 15, itemStyle: { color: '#ffffff' } },
+    { name: 'Type K', value: [4500, -1], symbolSize: 18, itemStyle: { color: '#ffcc99' } },
+    { name: 'Type M', value: [3000, -2], symbolSize: 21, itemStyle: { color: '#ff9999' } }
+];
+
+// Configuration du graphique
+option = {
+    title: {
+        text: 'Diagramme de Hertzsprung-Russell',
+        left: 'center'
+    },
+    tooltip: {
+        trigger: 'item',
+        formatter: function (params) {
+            return params.name + '<br>Température: ' + params.value[0] + ' K<br>Luminosité: ' + params.value[1] + ' L☉';
+        }
+    },
+    xAxis: {
+        type: 'value',
+        name: 'Température de Surface (K)',
+        scale: true,
+        axisLabel: {
+            formatter: '{value} K'
+        },
+        inverse: true
+    },
+    yAxis: {
+        type: 'value',
+        name: 'Luminosité (Soleil = 1)',
+        scale: true,
+        axisLabel: {
+            formatter: '10^{value} L☉'
+        }
+    },
+    series: [
+        {
+            type: 'scatter',
+            data: data,
+            symbolSize: function (data) {
+                return data[2];
+            },
+            label: {
+                show: true,
+                formatter: '{b}',
+                position: 'right'
+            }
+        }
+    ]
+};
+
+// Utiliser la configuration pour rendre le graphique
+myChart.setOption(option);
+
+	$("#explication-r").hide();
+	$("#explication-n2").show(500);
+});
