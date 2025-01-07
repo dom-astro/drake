@@ -8,6 +8,7 @@ document.getElementById('calcul').addEventListener('click', function(event) {
     const fi_pessimiste = parseFloat(document.getElementById('fi-pessimiste').value);
     const fc_pessimiste = parseFloat(document.getElementById('fc-pessimiste').value);
     const L_pessimiste = parseFloat(document.getElementById('L-pessimiste').value);
+    const A_pessimiste = parseFloat(document.getElementById('A-pessimiste').value);
 
     const R_optimiste = parseFloat(document.getElementById('R-optimiste').value);
     const fp_optimiste = parseFloat(document.getElementById('fp-optimiste').value);
@@ -16,11 +17,12 @@ document.getElementById('calcul').addEventListener('click', function(event) {
     const fi_optimiste = parseFloat(document.getElementById('fi-optimiste').value);
     const fc_optimiste = parseFloat(document.getElementById('fc-optimiste').value);
     const L_optimiste = parseFloat(document.getElementById('L-optimiste').value);
+    const A_optimiste = parseFloat(document.getElementById('A-optimiste').value);
 
-    const N_pessimiste = R_pessimiste * fp_pessimiste * ne_pessimiste * fl_pessimiste * fi_pessimiste * fc_pessimiste * L_pessimiste;
-    const N_optimiste = R_optimiste * fp_optimiste * ne_optimiste * fl_optimiste * fi_optimiste * fc_optimiste * L_optimiste;
+    const N_pessimiste = R_pessimiste * fp_pessimiste * ne_pessimiste * fl_pessimiste * fi_pessimiste * fc_pessimiste * L_pessimiste / A_pessimiste;
+    const N_optimiste = R_optimiste * fp_optimiste * ne_optimiste * fl_optimiste * fi_optimiste * fc_optimiste * L_optimiste / A_optimiste;
 
-    document.getElementById('result').innerText = `Nombre estimé de civilisations: ${N_pessimiste.toFixed(2)} / ${N_optimiste.toFixed(2)}`;
+    document.getElementById('result').innerText = `Nombre estimé de civilisations: ${N_pessimiste.toFixed(0)} / ${N_optimiste.toFixed(0)}`;
 });
 
 $("#R").on('click', function(event) {
@@ -101,19 +103,30 @@ option = {
     },
     xAxis: {
         type: 'value',
-        name: 'Température de Surface (K)',
+        name: '',
         scale: true,
         axisLabel: {
             formatter: '{value} K'
         },
-        inverse: true
+        inverse: true,
+        splitLine: {
+          lineStyle: {
+            type: 'dashed'
+          }
+        }
     },
     yAxis: {
         type: 'value',
-        name: 'Luminosité (Soleil = 1)',
+        name: 'Luminosité Soleil',
+        min: -3,
         scale: true,
         axisLabel: {
             formatter: '10^{value} L☉'
+        },
+        splitLine: {
+          lineStyle: {
+            type: 'dashed'
+          }
         }
     },
     series: [
@@ -128,6 +141,19 @@ option = {
                 formatter: '{b}',
                 position: 'right'
             }
+        },
+        {
+          name: 'line',
+          type: 'line',
+          smooth: true,
+          datasetIndex: function (data) {
+            return data[1][0];
+        },
+          symbolSize: 0.1,
+          symbol: 'circle',
+          label: { show: true, fontSize: 16 },
+          labelLayout: { dx: -20 },
+          encode: { label: 2, tooltip: 1 }
         }
     ]
 };

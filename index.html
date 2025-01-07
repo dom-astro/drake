@@ -10,8 +10,8 @@
 </head>
 <body>
     <h1>Équation de Drake</h1>
-    <h3>L'équation de Drake est une formule utilisée pour estimer le nombre de civilisations extraterrestres dans notre galaxie, la Voie lactée, dont nous pourrions détecter les signaux.</h3>
-    <h3>Elle a été développée par l'astronome Frank Drake en 1961. Alors jeune astronome, il proposa sa formule pour justifier sa tentative de détection
+    <h3>L'équation de Drake est une formule utilisée pour estimer le nombre de civilisations extraterrestres dans notre galaxie, la Voie lactée, dont nous pourrions détecter les signaux.
+    Elle a été développée par l'astronome Frank Drake en 1961. Alors jeune astronome, il proposa sa formule pour justifier sa tentative de détection
 	avec le programme SETI.</h3>
     <p class="equation"><i>N</i> =  <i>R<sup>*</sup></i> x  <i>f<sub>p</sub></i> x <i>N<sub>e</sub></i> x <i>F<sub>l</sub></i> x <i>F<sub>i</sub></i> x <i>F<sub>c</sub></i> x <i>L</i></p>
     <img id="portrait" src="images/Drake.jpg" alt="Franck Drake">
@@ -91,33 +91,41 @@
         </div>
         <div id="explication-n2" class="explication">
 			<div id="hr"></div>
-			<ul>
-				<li>Type O : Environ 0,00003% des étoiles. Ce sont des étoiles très massives.<li>
-				<li>Type B : Environ 0,13% des étoiles. Ce sont des étoiles massives et chaudes.</li>
-				<li>Type A : Environ 0,6% des étoiles. Ce sont des étoiles de taille moyenne et chaudes.</li>
-				<li>Type F : Environ 3% des étoiles. Ce sont des étoiles de taille moyenne et modérément chaudes.</li>
-				<li>Type G : Environ 7,6% des étoiles. Ce sont des étoiles comme notre Soleil.</li>
-				<li>Type K : Environ 12,1% des étoiles. Ce sont des étoiles plus petites et plus froides que le Soleil.</li>
-				<li>Type M : Environ 76,45% des étoiles. Ce sont les étoiles les plus petites et les plus froides.</li>
-			</ul>
+			<div id="hr2">
+                <ul>
+                    <li><b>Type O:</b> ~3x10^<sup>-5</sup>% des étoiles. Etoiles très massives.</li><br>
+                    <li><b>Type B:</b> ~0,13% des étoiles. Etoiles massives et chaudes.</li><br>
+                    <li><b>Type A:</b> ~0,6% des étoiles. Etoiles de taille moyenne et chaudes.</li><br>
+                    <li><b>Type F:</b> ~3% des étoiles. Etoiles de taille moyenne et modérément chaudes.</li><br>
+                    <li><b>Type G:</b> ~7,6% des étoiles. Etoiles comme notre Soleil.</li><br>
+                    <li><b>Type K:</b> ~12,1% des étoiles. Etoiles plus petites et plus froides que le Soleil.</li><br>
+                    <li><b>Type M:</b> ~76,45% des étoiles. Etoiles les plus petites et les plus froides.</li><br>
+                </ul>
+            </div>
 			<span class="page">2/2</span>
-			<span class="next">Retour <i id="n1" class="arrow left"></i></span>
+			<span class="next"><i id="n1" class="arrow left"></i> Retour</span>
         </div>
         <div id="explication-fp" class="explication" style="display: none";>
             <h2>Définition de <i>f<sub>p</sub></i></h2>
-            <p> <i>f<sub>p</sub></i> représente la fraction des étoiles dans la Voie lactée qui possèdent un système planétaire. En d'autres termes, c'est la proportion d'étoiles autour desquelles orbitent une ou plusieurs planètes. Ce paramètre est crucial car il détermine la fréquence à laquelle des systèmes planétaires existent autour des étoiles.</p>
-        
-            <h2>Mesure de <i>f<sub>p</sub></i></h2>
+            <p> <i>f<sub>p</sub></i> représente la fraction des étoiles dans la Voie lactée qui possèdent un système planétaire. Depuis la découverte par Michel Mayor et Didier Queloz
+                d'une planète orbitant autour de l'étoile 51 Pegasi, le 6 octobre 1995 , on sait qu'il existe des planètes orbitants autour d'autres étoiles.</p>
+            <p>Les méthodes pour les détecter sont variés:</p>
             <ul>
-                <li><b>Augmentation de la valeur estimée:</b> Les missions spatiales comme Kepler et TESS ont révélé que les exoplanètes sont beaucoup plus communes qu'on ne le pensait initialement. Cela a conduit à une révision à la hausse significative de l'estimation de <i>f<sub>p</sub></i>.</li><br>
-                <li><b>Diversité des systèmes planétaires:</b> La découverte d'une grande variété de types d'exoplanètes et de configurations orbitales a élargi notre compréhension des systèmes planétaires possibles, augmentant potentiellement la valeur de <i>f<sub>p</sub></i>.</li><br>
-                <li><b>Amélioration de la précision:</b> Les nouvelles techniques de détection, notamment la méthode des vitesses radiales et la photométrie de transit, ont permis une estimation plus précise de <i>f<sub>p</sub></i> en détectant des planètes plus petites et plus éloignées de leur étoile.</li><br>
-                <li><b>Réévaluation des hypothèses:</b> La découverte de nombreuses géantes gazeuses proches de leur étoile a remis en question certaines hypothèses sur la formation des systèmes planétaires, influençant potentiellement l'estimation de <i>f<sub>p</sub></i>.</li><br>
-                <li><b>Stabilité de l'estimation:</b> Malgré ces avancées, <i>f<sub>p</sub></i> reste l'un des paramètres les plus stables de l'équation de Drake, avec une incertitude moindre comparée à d'autres facteurs</li>
+                <li><b>Vitesses radiales:</b> mesure des variations périodiques de la vitesse radiale d'une étoile.</li><br>
+                <li><b>Transit:</b> détection de la baisse de luminosité d'une étoile.</li><br>
+                <li><b>Astrométrie:</b> mesure des petits déplacements cycliques d'une étoile.</li><br>
+                <li><b>Microlentilles gravitationnelles:</b> mesure de la déviation de la lumière d'une étoile lointaine par une étoile plus proche et sa planète.</li><br>
+                <li><b>Imagerie directe:</b> photographie des exoplanètes par des télescopes très puissants et des techniques avancées comme l'optique adaptative et la coronographie.</li><br>
+                <li><b>Variation du moment de transit:</b> détecte des variations dans la périodicité du transit d'une planète connue.</li>
             </ul>
         
             <h2>Valeur estimée de  <i>f<sub>p</sub></i></h2>
-            <p>Les estimations de  <i>f<sub>p</sub></i> ont évolué avec les avancées en astronomie et les découvertes d'exoplanètes. Les observations récentes, notamment celles du télescope spatial Kepler, suggèrent que  <i>f<sub>p</sub></i> pourrait être proche de 1, ce qui signifie que presque toutes les étoiles ont des planètes. Cependant, les estimations varient et peuvent être plus conservatrices, autour de 0,2 à 0,5.</p>
+            <p>Les estimations de  <i>f<sub>p</sub></i> ont évolué avec les avancées en astronomie et les découvertes d'exoplanètes. Les observations récentes suggèrent que
+               <i>f<sub>p</sub></i> pourrait être proche de 1, ce qui signifie que presque toutes les étoiles ont des planètes.</p>
+            <div class="sketchfab-embed-wrapper">
+                <iframe title="Système 51 Pegasi" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/8b48217b85584af99f2430bdf390d381/embed"> </iframe>
+                <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
+                    <a href="https://sketchfab.com/3d-models/systeme-51-pegasi-8b48217b85584af99f2430bdf390d381?utm_medium=embed&utm_campaign=share-popup&utm_content=8b48217b85584af99f2430bdf390d381" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Système 51 Pegasi </a> by <a href="https://sketchfab.com/pacorama?utm_medium=embed&utm_campaign=share-popup&utm_content=8b48217b85584af99f2430bdf390d381" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> ExplorNova Studio </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=8b48217b85584af99f2430bdf390d381" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
                 
         </div>
         <div id="explication-ne" class="explication" style="display: none";>

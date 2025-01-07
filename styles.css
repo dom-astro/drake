@@ -184,6 +184,13 @@ i {
 }
 
 #hr {
-	width: 800px;
+	width: 600px;
 	height: 600px;
+}
+
+#hr2 {
+    position: relative;
+    width: 550px;
+    top: -555px;
+    left: 550px;
 }
