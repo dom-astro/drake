@@ -1,3 +1,26 @@
+
+$(".input-switch").on("change", function() {
+    let isChecked = $(this).prop('checked');
+    if(isChecked) {
+        var id = $(this).attr('id').replace("toggleSwitch-", "");
+        show_variable(id);
+        enabledVar(id);
+    }
+
+    $('input.input-switch').prop('checked', false);
+    $(this).prop('checked',isChecked);
+});
+
+enabledVar("r");
+
+function enabledVar(id) {
+    $("input.pessimiste").prop('disabled', true);
+    $("input.optimiste").prop('disabled', true);
+    $("#"+id+"-pessimiste").prop('disabled', false);
+    $("#"+id+"-optimiste").prop('disabled', false);    
+}
+
+
 document.getElementById('calcul').addEventListener('click', function(event) {
     event.preventDefault();
 
@@ -25,6 +48,7 @@ document.getElementById('calcul').addEventListener('click', function(event) {
     document.getElementById('result').innerText = `Nombre estimé de civilisations: ${N_pessimiste.toFixed(0)} / ${N_optimiste.toFixed(0)}`;
 });
 
+/*
 $("#R").on('click', function(event) {
     show_variable('r');
 });
@@ -52,6 +76,7 @@ $("#fc").on('click', function(event) {
 $("#L").on('click', function(event) {
     show_variable('l');
 });
+*/
 
 function show_variable(varDrake) {
     showTime=1000;

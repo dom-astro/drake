@@ -50,6 +50,8 @@ h3 {
     width: 30px;
     height: 30px;
     margin-right: 10px;
+    position: relative;
+    top: 10px;
 }
 
 label {

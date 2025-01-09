@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Équation de Drake</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="switch.css">
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
 </head>
@@ -18,21 +19,27 @@
     <h3>Nous allons procéder au calcul de l'équation, mais avant nous allons remplacer les termes R* par N*, le nombre d'étoiles dans la Voie lactée et L par L/Ag, la probabilité qu'une autre civilisation coexiste avec la nôtre.</h3>
     <div class="container">
         <div id="drake">
-            <div class="form-group" id="R">
+            <div class="form-group" id="r">
+                <label class="switch">
+                    <input type="checkbox" id="toggleSwitch-r"  class="input-switch" checked>
+                    <span class="slider"></span>
+                </label>
                 <img src="images/R.png" alt="R*">
                 <label for="R"> <i>N<sup>*</sup></i> (nombre d'étoiles en milliards)</label>
-                <input type="number" id="R-optimiste" name="R" step="10" value="200" required class="optimiste">
-                <input type="number" id="R-pessimiste" name="R" step="10" value="100" required class="pessimiste">
+                <input type="number" id="r-optimiste" name="R" step="10" value="200" required class="optimiste">
+                <input type="number" id="r-pessimiste" name="R" step="10" value="100" required class="pessimiste">
             </div>
 
             <div class="form-group" id="fp">
+                <label class="switch"><input type="checkbox" id="toggleSwitch-fp" class="input-switch"><span class="slider"></span></label>
                 <img src="images/fp.jpg" alt="fp">
                 <label for="fp"> <i>f<sub>p</sub></i> (fraction d'étoiles avec des planètes)</label>
-                <input type="number" id="fp-pessimiste" name="fp" step="0.01" value="1.0" required class="pessimiste">
-                <input type="number" id="fp-optimiste" name="fp" step="0.01" value="1.0" required class="optimiste">
+                <input type="number" id="fp-pessimiste" name="fp" step="0.01" value="1.0" required class="pessimiste" disabled>
+                <input type="number" id="fp-optimiste" name="fp" step="0.01" value="1.0" required class="optimiste" disabled>
             </div>
 
             <div class="form-group" id="ne">
+                <label class="switch"><input type="checkbox" id="toggleSwitch-ne" class="input-switch"><span class="slider"></span></label>
                 <img src="images/ne.jpg" alt="ne">
                 <label for="ne"><i>N<sub>e</sub></i> (nombre de planètes par étoile dans la zone habitable)</label>
                 <input type="number" id="ne-pessimiste" name="ne" step="0.01" value="2.0" required class="pessimiste">
@@ -40,6 +47,7 @@
             </div>
 
             <div class="form-group" id="fl">
+                <label class="switch"><input type="checkbox" id="toggleSwitch-fl" class="input-switch"><span class="slider"></span></label>
                 <img src="images/fl.jpg" alt="fl">
                 <label for="fl"><i>F<sub>l</sub></i> (fraction de planètes où la vie apparaît)</label>
                 <input type="number" id="fl-pessimiste" name="fl" step="0.01" value="0.13" required class="pessimiste">
@@ -47,6 +55,7 @@
             </div>
 
             <div class="form-group" id="fi">
+                <label class="switch"><input type="checkbox" id="toggleSwitch-fi" class="input-switch"><span class="slider"></span></label>
                 <img src="images/fi.jpg" alt="fi">
                 <label for="fi"><i>F<sub>i</sub></i> (fraction de planètes où la vie devient intelligente)</label>
                 <input type="number" id="fi-pessimiste" name="fi" step="0.01" value="0.01" required class="pessimiste">
@@ -54,24 +63,27 @@
             </div>
 
             <div class="form-group" id="fc">
+                <label class="switch"><input type="checkbox" id="toggleSwitch-fc" class="input-switch"><span class="slider"></span></label>
                 <img src="images/fc.jpg" alt="fc">
                 <label for="fc"><i>F<sub>c</sub></i> (fraction de civilisations capables de communiquer)</label>
-                <input type="number" id="fc-pessimiste" name="fc" step="0.01" value="0.2" required class="pessimiste">
-                <input type="number" id="fc-optimiste" name="fc" step="0.01" value="0.2" required class="optimiste">
+                <input type="number" id="fc-pessimiste" name="fc" step="0.01" value="0.2" required class="pessimiste" disabled>
+                <input type="number" id="fc-optimiste" name="fc" step="0.01" value="0.2" required class="optimiste" disabled>
             </div>
 
-            <div class="form-group" id="L">
+            <div class="form-group" id="l">
+                <label class="switch"><input type="checkbox" id="toggleSwitch-l" class="input-switch"><span class="slider"></span></label>
                 <img src="images/L.jpg" alt="L">
                 <label for="L"><i>L</i> (durée de vie moyenne d'une civilisation)</label>
-                <input type="number" id="L-pessimiste" name="L" step="0.01" value="10000000" required class="pessimiste">
-                <input type="number" id="L-optimiste" name="L" step="0.01" value="10000000" required class="optimiste">
+                <input type="number" id="l-pessimiste" name="L" step="0.01" value="10000000" required class="pessimiste">
+                <input type="number" id="l-optimiste" name="L" step="0.01" value="10000000" required class="optimiste">
             </div>
 
-            <div class="form-group" id="A">
+            <div class="form-group" id="a">
+                <label class="switch"><input type="checkbox" id="toggleSwitch-a" class="input-switch"><span class="slider"></span></label>
                 <img src="images/L.jpg" alt="Ag">
                 <label for="L"><i>A</i><sub>g</sub> (âge de la Voie lactée en milliards d'année)</label>
-                <input type="number" id="A-optimiste" name="A" step="1" value="13" required class="optimiste">
-                <input type="number" id="A-pessimiste" name="A" step="1" value="13" required class="pessimiste">
+                <input type="number" id="a-optimiste" name="A" step="1" value="13" required class="optimiste">
+                <input type="number" id="a-pessimiste" name="A" step="1" value="13" required class="pessimiste">
             </div>
 
             <button id="calcul">Calculer</button>
