@@ -9,8 +9,8 @@ Drake est une application web moderne et interactive.
 - **HTML5** - Structure de base
 - **CSS3** - Stylisation et mise en page
   - Fichiers CSS personnalisés (`styles.css`, `switch.css`)
-- **JavaScript** - Logique côté client
-  - Vanilla JavaScript (`script.js`)
+- **jQuery v3.7.1** - Bibliothèque JavaScript pour la manipulation du DOM et les interactions
+- **ECharts v5.4.3** - Bibliothèque de visualisation de données
 
 ### Structure du Projet
 ```
@@ -20,6 +20,8 @@ drake/
 ├── switch.css
 ├── script.js
 ├── js/
+│   ├── jquery-3.7.1.min.js
+│   └── echarts.min.js
 ├── images/
 └── README.md
 ```
@@ -38,3 +40,4 @@ Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de
 
 ## 🤝 Contribution
 Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou à soumettre une pull request.
+-
