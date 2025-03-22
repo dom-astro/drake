@@ -1,7 +1,7 @@
 # Drake - Application Web
 
 ## 📋 Description
-Drake est une application web moderne et interactive.
+Drake est une application web de présentation de l'équation de Drake
 
 ## 🛠️ Technologies Utilisées
 
@@ -30,7 +30,7 @@ drake/
 
 1. Clonez le repository :
 ```bash
-git clone https://github.com/votre-username/drake.git
+git clone https://github.com/dom-astro/drake.git
 ```
 
 2. Ouvrez `index.html` dans votre navigateur web préféré.
