@@ -26,7 +26,6 @@ body {
 }
 
 .container {
-    max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
     background: var(--background-color);
@@ -34,7 +33,7 @@ body {
     box-shadow: var(--shadow);
     border: 1px solid var(--border-color);
     padding: var(--spacing-lg) 0 var(--spacing-lg) var(--spacing-md);
-    width: 97%;
+    width: 95%;
     display: flex;
     left: 1%;
     position: relative;
@@ -54,8 +53,8 @@ h3 {
     text-align: center;
     padding-left: 5%;
     padding-right: 5%;
-	width: 66%;
-    left: 16%;
+	width: 80%;
+    left: 10%;
     position: relative;
 }
 
@@ -82,8 +81,10 @@ h3 {
 
 label {
     margin-right: 10px;
-		overflow: hidden;
-	white-space: nowrap;
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 200px;
+    display: inline-block;
 }
 
 input {
@@ -92,7 +93,9 @@ input {
     border: 1px solid #ccc;
     border-radius: 4px;
     flex-grow: 1;
-    width: 10%;
+    width: 40px;
+    float: right;
+    margin-right: 5px;
 }
 
 button {
@@ -121,17 +124,12 @@ img {
     height: 12px;
 }
 
-input {
-    float: right;
-    margin-right: 5px;
-}
-
 .explication {
     font-family: Arial, sans-serif;
     margin: 20px;
     background-color: #f4f4f4;
     color: #333;
-    width: 66%;
+    width: 60%;
     border-radius: 15px;
     padding-left: 10px;
     padding-right: 10px;
@@ -248,4 +246,8 @@ i {
     input {
         width: 20% !important;
     }
+}
+
+.td-label {
+    min-width: 300px;
 }

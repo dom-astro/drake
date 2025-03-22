@@ -40,7 +40,7 @@ const VALIDATION_RULES = {
     'fl': { min: 0, max: 1 },
     'fi': { min: 0, max: 1 },
     'fc': { min: 0, max: 1 },
-    'L': { min: 0, max: 1000000000 },
+    'L': { min: 0, max: 10000 },
     'A': { min: 1, max: 100 }
 };
 
@@ -85,7 +85,7 @@ document.getElementById('calcul').addEventListener('click', function(event) {
         const results = {};
         for (const scenario of ['pessimiste', 'optimiste']) {
             const v = values[scenario];
-            results[scenario] = (v.R * v.fp * v.ne * v.fl * v.fi * v.fc * v.L) / v.A;
+            results[scenario] = (v.R * v.fp * v.ne * v.fl * v.fi * v.fc * v.L * 100) / v.A;
         }
         
         // Affichage des résultats avec formatage
