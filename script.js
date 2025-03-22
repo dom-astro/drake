@@ -1,51 +1,103 @@
+// Cache des sélecteurs jQuery fréquemment utilisés
+const $inputSwitch = $('.input-switch');
+const $pessimiste = $('.pessimiste');
+const $optimiste = $('.optimiste');
+const $explication = $('.explication');
 
-$(".input-switch").on("change", function() {
-    let isChecked = $(this).prop('checked');
+// Gestion des interrupteurs pour activer/désactiver les variables
+$inputSwitch.on("change", function() {
+    const $this = $(this);
+    const isChecked = $this.prop('checked');
     if(isChecked) {
-        var id = $(this).attr('id').replace("toggleSwitch-", "");
+        const id = $this.attr('id').replace("toggleSwitch-", "");
         show_variable(id);
         enabledVar(id);
     }
 
-    $('input.input-switch').prop('checked', false);
-    $(this).prop('checked',isChecked);
+    // Désactive tous les autres interrupteurs sauf celui sélectionné
+    $inputSwitch.prop('checked', false);
+    $this.prop('checked', isChecked);
 });
 
+// Active par défaut la variable R au chargement
 enabledVar("r");
 
+// Fonction pour activer/désactiver les champs de saisie optimiste et pessimiste
 function enabledVar(id) {
-    $("input.pessimiste").prop('disabled', true);
-    $("input.optimiste").prop('disabled', true);
-    $("#"+id+"-pessimiste").prop('disabled', false);
-    $("#"+id+"-optimiste").prop('disabled', false);    
+    // Désactive tous les champs de saisie
+    $pessimiste.prop('disabled', true);
+    $optimiste.prop('disabled', true);
+    // Active uniquement les champs correspondant à la variable sélectionnée
+    $(`#${id}-pessimiste`).prop('disabled', false);
+    $(`#${id}-optimiste`).prop('disabled', false);    
 }
 
+// Constantes pour la validation
+const VALIDATION_RULES = {
+    'R': { min: 0, max: 1000 },
+    'fp': { min: 0, max: 1 },
+    'ne': { min: 0, max: 10 },
+    'fl': { min: 0, max: 1 },
+    'fi': { min: 0, max: 1 },
+    'fc': { min: 0, max: 1 },
+    'L': { min: 0, max: 1000000000 },
+    'A': { min: 1, max: 100 }
+};
 
+// Fonction de validation des entrées
+function validateInput(value, type) {
+    const rules = VALIDATION_RULES[type];
+    if (!rules) return true;
+    
+    const numValue = parseFloat(value);
+    return !isNaN(numValue) && numValue >= rules.min && numValue <= rules.max;
+}
+
+// Gestionnaire d'événement pour le calcul de l'équation de Drake
 document.getElementById('calcul').addEventListener('click', function(event) {
     event.preventDefault();
-
-    const R_pessimiste = parseFloat(document.getElementById('R-pessimiste').value);
-    const fp_pessimiste = parseFloat(document.getElementById('fp-pessimiste').value);
-    const ne_pessimiste = parseFloat(document.getElementById('ne-pessimiste').value);
-    const fl_pessimiste = parseFloat(document.getElementById('fl-pessimiste').value);
-    const fi_pessimiste = parseFloat(document.getElementById('fi-pessimiste').value);
-    const fc_pessimiste = parseFloat(document.getElementById('fc-pessimiste').value);
-    const L_pessimiste = parseFloat(document.getElementById('L-pessimiste').value);
-    const A_pessimiste = parseFloat(document.getElementById('A-pessimiste').value);
-
-    const R_optimiste = parseFloat(document.getElementById('R-optimiste').value);
-    const fp_optimiste = parseFloat(document.getElementById('fp-optimiste').value);
-    const ne_optimiste = parseFloat(document.getElementById('ne-optimiste').value);
-    const fl_optimiste = parseFloat(document.getElementById('fl-optimiste').value);
-    const fi_optimiste = parseFloat(document.getElementById('fi-optimiste').value);
-    const fc_optimiste = parseFloat(document.getElementById('fc-optimiste').value);
-    const L_optimiste = parseFloat(document.getElementById('L-optimiste').value);
-    const A_optimiste = parseFloat(document.getElementById('A-optimiste').value);
-
-    const N_pessimiste = R_pessimiste * fp_pessimiste * ne_pessimiste * fl_pessimiste * fi_pessimiste * fc_pessimiste * L_pessimiste / A_pessimiste;
-    const N_optimiste = R_optimiste * fp_optimiste * ne_optimiste * fl_optimiste * fi_optimiste * fc_optimiste * L_optimiste / A_optimiste;
-
-    document.getElementById('result').innerText = `Nombre estimé de civilisations: ${N_pessimiste.toFixed(0)} / ${N_optimiste.toFixed(0)}`;
+    
+    try {
+        // Objet pour stocker les valeurs
+        const values = {
+            pessimiste: {},
+            optimiste: {}
+        };
+        
+        // Liste des variables à valider
+        const variables = ['R', 'fp', 'ne', 'fl', 'fi', 'fc', 'L', 'A'];
+        
+        // Validation et récupération des valeurs
+        for (const variable of variables) {
+            for (const scenario of ['pessimiste', 'optimiste']) {
+                const elementId = `${variable.toLowerCase()}-${scenario}`;
+                const value = document.getElementById(elementId).value;
+                
+                if (!validateInput(value, variable)) {
+                    throw new Error(`Valeur invalide pour ${variable} (${scenario})`);
+                }
+                
+                values[scenario][variable] = parseFloat(value);
+            }
+        }
+        
+        // Calcul pour chaque scénario
+        const results = {};
+        for (const scenario of ['pessimiste', 'optimiste']) {
+            const v = values[scenario];
+            results[scenario] = (v.R * v.fp * v.ne * v.fl * v.fi * v.fc * v.L) / v.A;
+        }
+        
+        // Affichage des résultats avec formatage
+        document.getElementById('result').innerHTML = 
+            `Nombre estimé de civilisations:<br>
+            Scénario pessimiste: ${results.pessimiste.toLocaleString(undefined, {maximumFractionDigits: 2})}<br>
+            Scénario optimiste: ${results.optimiste.toLocaleString(undefined, {maximumFractionDigits: 2})}`;
+            
+    } catch (error) {
+        document.getElementById('result').innerHTML = 
+            `<span style="color: red">Erreur: ${error.message}</span>`;
+    }
 });
 
 /*
@@ -78,40 +130,41 @@ $("#L").on('click', function(event) {
 });
 */
 
+// Fonction pour afficher les explications des variables
 function show_variable(varDrake) {
-    showTime=1000;
-    if ($("#explication-"+varDrake).is(':visible')) {
-        showTime=0;
-    }
-    $(".explication").hide();
-    $("#explication-"+varDrake).show(showTime);
+    const $targetExplication = $(`#explication-${varDrake}`);
+    const showTime = $targetExplication.is(':visible') ? 0 : 1000;
+    
+    // Cache toutes les explications et affiche celle de la variable sélectionnée
+    $explication.hide();
+    $targetExplication.show(showTime);
 }
 
+// Cache l'explication n2 par défaut
 $("#explication-n2").hide();
 
+// Gestion des boutons de navigation entre les explications
 $("#n1").on('click', function(event) {
 	$("#explication-n2").hide();
 	$("#explication-r").show(500);
 });
 
-
-// Initialiser le graphique ECharts
+// Configuration du diagramme de Hertzsprung-Russell
 var chartDom = document.getElementById('hr');
 var myChart = echarts.init(chartDom);
 var option;
 
 $("#n2").on('click', function(event) {
 
-
-// Données pour les types d'étoiles
+// Définition des données pour les différents types d'étoiles
 var data = [
-    { name: 'Type O', value: [30000, 6], symbolSize: 3, itemStyle: { color: '#ff0000' } },
+    { name: 'Type O', value: [30000, 6], symbolSize: 3, itemStyle: { color: '#ff0000' } }, // Étoiles très chaudes et lumineuses
     { name: 'Type B', value: [20000, 4], symbolSize: 6, itemStyle: { color: '#ff8000' } },
     { name: 'Type A', value: [10000, 3], symbolSize: 9, itemStyle: { color: '#ffff00' } },
     { name: 'Type F', value: [7000, 2], symbolSize: 12, itemStyle: { color: '#ffff80' } },
-    { name: 'Type G', value: [5800, 1], symbolSize: 15, itemStyle: { color: '#ffffff' } },
+    { name: 'Type G', value: [5800, 1], symbolSize: 15, itemStyle: { color: '#ffffff' } }, // Type solaire
     { name: 'Type K', value: [4500, -1], symbolSize: 18, itemStyle: { color: '#ffcc99' } },
-    { name: 'Type M', value: [3000, -2], symbolSize: 21, itemStyle: { color: '#ff9999' } }
+    { name: 'Type M', value: [3000, -2], symbolSize: 21, itemStyle: { color: '#ff9999' } } // Étoiles froides et peu lumineuses
 ];
 
 // Configuration du graphique

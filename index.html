@@ -1,40 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <!-- Configuration de base de la page -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Équation de Drake</title>
-    
-    <!-- Liens vers les feuilles de style -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="switch.css">
-    
-    <!-- Inclusion des bibliothèques JavaScript -->
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
 </head>
 <body>
-    <!-- En-tête de la page avec titre et introduction -->
     <h1>Équation de Drake</h1>
     <h3>L'équation de Drake est une formule utilisée pour estimer le nombre de civilisations extraterrestres dans notre galaxie, la Voie lactée, dont nous pourrions détecter les signaux.
     Elle a été développée par l'astronome Frank Drake en 1961. Alors jeune astronome, il proposa sa formule pour justifier sa tentative de détection
 	avec le programme SETI.</h3>
-
-    <!-- Affichage de l'équation -->
     <p class="equation"><i>N</i> =  <i>R<sup>*</sup></i> x  <i>f<sub>p</sub></i> x <i>N<sub>e</sub></i> x <i>F<sub>l</sub></i> x <i>F<sub>i</sub></i> x <i>F<sub>c</sub></i> x <i>L</i></p>
-    
-    <!-- Portrait de Frank Drake -->
     <img id="portrait" src="images/Drake.jpg" alt="Franck Drake">
-    
-    <!-- Note sur la modification des termes -->
     <h3>Nous allons procéder au calcul de l'équation, mais avant nous allons remplacer les termes R* par N*, le nombre d'étoiles dans la Voie lactée et L par L/Ag, la probabilité qu'une autre civilisation coexiste avec la nôtre.</h3>
-
-    <!-- Conteneur principal pour le formulaire et les explications -->
     <div class="container">
-        <!-- Section du formulaire de l'équation de Drake -->
         <div id="drake">
-            <!-- Groupe de formulaire pour N* (nombre d'étoiles) -->
             <div class="form-group" id="r">
                 <label class="switch">
                     <input type="checkbox" id="toggleSwitch-r"  class="input-switch" checked>
@@ -46,7 +30,6 @@
                 <input type="number" id="r-pessimiste" name="R" step="10" value="100" required class="pessimiste">
             </div>
 
-            <!-- Groupe de formulaire pour fp (fraction d'étoiles avec planètes) -->
             <div class="form-group" id="fp">
                 <label class="switch"><input type="checkbox" id="toggleSwitch-fp" class="input-switch"><span class="slider"></span></label>
                 <img src="images/fp.jpg" alt="fp">
@@ -55,7 +38,6 @@
                 <input type="number" id="fp-optimiste" name="fp" step="0.01" value="1.0" required class="optimiste" disabled>
             </div>
 
-            <!-- Groupe de formulaire pour Ne (planètes habitables par étoile) -->
             <div class="form-group" id="ne">
                 <label class="switch"><input type="checkbox" id="toggleSwitch-ne" class="input-switch"><span class="slider"></span></label>
                 <img src="images/ne.jpg" alt="ne">
@@ -64,7 +46,6 @@
                 <input type="number" id="ne-optimiste" name="ne" step="0.01" value="2.0" required class="optimiste">
             </div>
 
-            <!-- Groupe de formulaire pour Fl (fraction où la vie apparaît) -->
             <div class="form-group" id="fl">
                 <label class="switch"><input type="checkbox" id="toggleSwitch-fl" class="input-switch"><span class="slider"></span></label>
                 <img src="images/fl.jpg" alt="fl">
@@ -73,7 +54,6 @@
                 <input type="number" id="fl-optimiste" name="fl" step="0.01" value="0.13" required class="optimiste">
             </div>
 
-            <!-- Groupe de formulaire pour Fi (fraction où la vie devient intelligente) -->
             <div class="form-group" id="fi">
                 <label class="switch"><input type="checkbox" id="toggleSwitch-fi" class="input-switch"><span class="slider"></span></label>
                 <img src="images/fi.jpg" alt="fi">
@@ -82,7 +62,6 @@
                 <input type="number" id="fi-optimiste" name="fi" step="0.01" value="0.01" required class="optimiste">
             </div>
 
-            <!-- Groupe de formulaire pour Fc (fraction capable de communiquer) -->
             <div class="form-group" id="fc">
                 <label class="switch"><input type="checkbox" id="toggleSwitch-fc" class="input-switch"><span class="slider"></span></label>
                 <img src="images/fc.jpg" alt="fc">
@@ -91,7 +70,6 @@
                 <input type="number" id="fc-optimiste" name="fc" step="0.01" value="0.2" required class="optimiste" disabled>
             </div>
 
-            <!-- Groupe de formulaire pour L (durée de vie des civilisations) -->
             <div class="form-group" id="l">
                 <label class="switch"><input type="checkbox" id="toggleSwitch-l" class="input-switch"><span class="slider"></span></label>
                 <img src="images/L.jpg" alt="L">
@@ -100,7 +78,6 @@
                 <input type="number" id="l-optimiste" name="L" step="0.01" value="10000000" required class="optimiste">
             </div>
 
-            <!-- Groupe de formulaire pour Ag (âge de la galaxie) -->
             <div class="form-group" id="a">
                 <label class="switch"><input type="checkbox" id="toggleSwitch-a" class="input-switch"><span class="slider"></span></label>
                 <img src="images/L.jpg" alt="Ag">
@@ -109,13 +86,9 @@
                 <input type="number" id="a-pessimiste" name="A" step="1" value="13" required class="pessimiste">
             </div>
 
-            <!-- Bouton de calcul et affichage du résultat -->
             <button id="calcul">Calculer</button>
             <span id="result"></span>
         </div>
-
-        <!-- Sections d'explications pour chaque paramètre -->
-        <!-- Explication pour N* -->
         <div id="explication-r" class="explication">
             <h2>Définition de  <i>N<sup>*</sup></i></h2>
             <p> Pour estimer le nombre d'étoiles dans notre galaxie, la Voie Lactée, les astronomes utilisent plusieurs méthodes et observations:
@@ -128,8 +101,6 @@
 			<span class="page">1/2</span>
 			<span class="next">Voir la population d'étoile <i id="n2" class="arrow right"></i></span>
         </div>
-
-        <!-- Explication pour la population d'étoiles -->
         <div id="explication-n2" class="explication">
 			<div id="hr"></div>
 			<div id="hr2">
@@ -146,8 +117,6 @@
 			<span class="page">2/2</span>
 			<span class="next"><i id="n1" class="arrow left"></i> Retour</span>
         </div>
-
-        <!-- Explication pour fp -->
         <div id="explication-fp" class="explication" style="display: none";>
             <h2>Définition de <i>f<sub>p</sub></i></h2>
             <p> <i>f<sub>p</sub></i> représente la fraction des étoiles dans la Voie lactée qui possèdent un système planétaire. Depuis la découverte par Michel Mayor et Didier Queloz
@@ -171,8 +140,6 @@
                     <a href="https://sketchfab.com/3d-models/systeme-51-pegasi-8b48217b85584af99f2430bdf390d381?utm_medium=embed&utm_campaign=share-popup&utm_content=8b48217b85584af99f2430bdf390d381" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Système 51 Pegasi </a> by <a href="https://sketchfab.com/pacorama?utm_medium=embed&utm_campaign=share-popup&utm_content=8b48217b85584af99f2430bdf390d381" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> ExplorNova Studio </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=8b48217b85584af99f2430bdf390d381" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
                 
         </div>
-
-        <!-- Explication pour Ne -->
         <div id="explication-ne" class="explication" style="display: none";>
             <h2>Définition de <i>N<sub>e</sub></i></h2>
             <p><i>N<sub>e</sub></i> représente le nombre moyen de planètes ou de satellites par système stellaire dont l'environnement pourrait permettre l'émergence de la vie. La zone habitable, également connue sous le nom de zone de Goldilocks, est la région autour d'une étoile où les conditions sont favorables à l'existence d'eau liquide à la surface d'une planète, ce qui est considéré comme essentiel pour la vie telle que nous la connaissons.</p>
@@ -190,8 +157,6 @@
             <h2>Valeur estimée de <i>N<sub>e</sub></i></h2>
             <p>Les estimations de <i>N<sub>e</sub></i> varient en fonction des découvertes d'exoplanètes et des modèles de formation planétaire. Les observations récentes suggèrent que <i>N<sub>e</sub></i> pourrait être autour de 0,4 à 2, ce qui signifie qu'en moyenne, chaque étoile pourrait avoir entre 0,4 et 2 planètes dans la zone habitable. Cependant, ces estimations sont encore incertaines et peuvent évoluer avec de nouvelles découvertes.</p>                        
         </div>
-
-        <!-- Explication pour Fl -->
         <div id="explication-fl" class="explication" style="display: none";>
             <h2>Définition de <i>F<sub>l</sub></i></h2>
             <p><i>F<sub>l</sub></i> représente la fraction des planètes situées dans la zone habitable autour de leurs étoiles où la vie apparaît effectivement. En d'autres termes, c'est la proportion de planètes habitables où les conditions sont suffisantes pour que la vie émerge.</p>
@@ -209,8 +174,6 @@
             <h2>Valeur estimée de <i>F<sub>l</sub></i></h2>
             <p>Les estimations de <i>F<sub>l</sub></i> sont très incertaines et varient considérablement en fonction des hypothèses et des modèles utilisés. Certaines estimations optimistes suggèrent que <i>F<sub>l</sub></i> pourrait être proche de 1, ce qui signifie que la vie apparaît sur presque toutes les planètes habitables. Cependant, des estimations plus conservatrices placent <i>F<sub>l</sub></i> autour de 0,1 ou même moins, reflétant l'incertitude quant aux conditions nécessaires pour l'émergence de la vie.</p>
         </div>
-
-        <!-- Explication pour Fi -->
         <div id="explication-fi" class="explication" style="display: none";>
             <h2>Définition de <i>F<sub>i</sub></i></h2>
             <p><i>F<sub>i</sub></i> représente la fraction des planètes où la vie, après être apparue, évolue vers des formes intelligentes. En d'autres termes, c'est la proportion de planètes habitables où des organismes développent des capacités cognitives avancées, telles que la résolution de problèmes, la communication complexe et la création de technologies.</p>
@@ -227,8 +190,6 @@
             <h2>Valeur estimée de <i>F<sub>i</sub></i></h2>
             <p>Les estimations de <i>F<sub>i</sub></i> sont très incertaines et varient considérablement en fonction des hypothèses et des modèles utilisés. Certaines estimations optimistes suggèrent que <i>F<sub>i</sub></i> pourrait être proche de 1, ce qui signifie que la vie intelligente émerge sur presque toutes les planètes où la vie apparaît. Cependant, des estimations plus conservatrices placent <i>F<sub>i</sub></i> autour de 0,01 ou même moins, reflétant l'incertitude quant aux conditions nécessaires pour l'émergence de l'intelligence.</p>
         </div>
-
-        <!-- Explication pour Fc -->
         <div id="explication-fc" class="explication" style="display: none";>
             <h2>Définition de <i>F<sub>c</sub></i></h2>
             <p><i>F<sub>c</sub></i> représente la fraction des civilisations intelligentes qui développent une technologie capable d'émettre des signaux détectables à travers l'espace. En d'autres termes, c'est la proportion de civilisations qui atteignent un niveau technologique suffisant pour envoyer des signaux électromagnétiques que nous pourrions capter avec nos instruments.</p>
@@ -245,8 +206,6 @@
             <h2>Valeur estimée de <i>F<sub>c</sub></i></h2>
             <p>Les estimations de <i>F<sub>c</sub></i> sont très incertaines et varient considérablement en fonction des hypothèses et des modèles utilisés. Certaines estimations optimistes suggèrent que <i>F<sub>c</sub></i> pourrait être proche de 1, ce qui signifie que presque toutes les civilisations intelligentes développent des technologies de communication avancées. Cependant, des estimations plus conservatrices placent <i>F<sub>c</sub></i> autour de 0,1 à 0,2, reflétant l'incertitude quant aux conditions nécessaires pour atteindre ce niveau technologique.</p>
         </div>
-
-        <!-- Explication pour L -->
         <div id="explication-l" class="explication" style="display: none";>
             <h2>Définition de <i>L</i></h2>
             <p><i>L</i> représente la durée moyenne pendant laquelle une civilisation technologiquement avancée émet des signaux détectables. En d'autres termes, c'est le temps pendant lequel une civilisation reste active et capable de communiquer avant de disparaître ou de cesser ses émissions.</p>
@@ -277,8 +236,6 @@
             <p>Les estimations de <i>L</i> sont très incertaines et varient considérablement en fonction des hypothèses et des modèles utilisés. Certaines estimations optimistes suggèrent que <i>L</i> pourrait être de l'ordre de plusieurs millions d'années, ce qui signifie que les civilisations technologiquement avancées pourraient exister pendant de très longues périodes. Cependant, des estimations plus conservatrices placent <i>L</i> autour de 100 à 1 000 ans, reflétant l'incertitude quant à la durabilité des civilisations technologiques.</p>
         </div>
     </div>
-
-    <!-- Inclusion du script JavaScript principal -->
     <script src="script.js"></script>
 </body>
 </html>
