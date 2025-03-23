@@ -317,6 +317,12 @@ i {
     text-decoration: none;
 }
 
+.fr-modal__footer {
+  font-style: italic;
+  font-size: 10px;
+  color: gray;
+}
+
 /* Animation d'entrée */
 @keyframes modalFadeIn {
     from {
