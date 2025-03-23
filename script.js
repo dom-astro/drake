@@ -242,3 +242,45 @@ myChart.setOption(option);
 	$("#explication-r").hide();
 	$("#explication-n2").show(500);
 });
+
+// Gestion de la popup DSFR
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('modal-besancon');
+    const link = document.querySelector('a[aria-controls="modal-besancon"]');
+    const closeButton = document.querySelector('.fr-btn--close');
+    
+    // Ouvrir la popup
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    });
+    
+    // Fermer la popup en cliquant en dehors
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Fermer la popup avec le bouton de fermeture
+    if (closeButton) {
+        closeButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeModal();
+        });
+    }
+    
+    // Fermer la popup avec la touche Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+            closeModal();
+        }
+    });
+
+    // Fonction pour fermer la popup
+    function closeModal() {
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+});
