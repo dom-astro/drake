@@ -54,7 +54,7 @@ function validateInput(value, type) {
 }
 
 // Gestionnaire d'événement pour le calcul de l'équation de Drake
-document.getElementById('calcul').addEventListener('click', function(event) {
+$('#calcul').on('click', function(event) {
     event.preventDefault();
     
     try {
@@ -71,7 +71,7 @@ document.getElementById('calcul').addEventListener('click', function(event) {
         for (const variable of variables) {
             for (const scenario of ['pessimiste', 'optimiste']) {
                 const elementId = `${variable.toLowerCase()}-${scenario}`;
-                const value = document.getElementById(elementId).value;
+                const value = $(`#${elementId}`).val();
                 
                 if (!validateInput(value, variable)) {
                     throw new Error(`Valeur invalide pour ${variable} (${scenario})`);
@@ -89,46 +89,18 @@ document.getElementById('calcul').addEventListener('click', function(event) {
         }
         
         // Affichage des résultats avec formatage
-        document.getElementById('result').innerHTML = 
+        $('#result').html(
             `Nombre estimé de civilisations:<br>
             Scénario pessimiste: ${results.pessimiste.toLocaleString(undefined, {maximumFractionDigits: 2})}<br>
-            Scénario optimiste: ${results.optimiste.toLocaleString(undefined, {maximumFractionDigits: 2})}`;
+            Scénario optimiste: ${results.optimiste.toLocaleString(undefined, {maximumFractionDigits: 2})}`
+        );
             
     } catch (error) {
-        document.getElementById('result').innerHTML = 
-            `<span style="color: red">Erreur: ${error.message}</span>`;
+        $('#result').html(
+            `<span style="color: red">Erreur: ${error.message}</span>`
+        );
     }
 });
-
-/*
-$("#R").on('click', function(event) {
-    show_variable('r');
-});
-
-$("#fp").on('click', function(event) {
-    show_variable('fp');
-});
-
-$("#ne").on('click', function(event) {
-    show_variable('ne');
-});
-
-$("#fl").on('click', function(event) {
-    show_variable('fl');
-});
-
-$("#fi").on('click', function(event) {
-    show_variable('fi');
-});
-
-$("#fc").on('click', function(event) {
-    show_variable('fc');
-});
-
-$("#L").on('click', function(event) {
-    show_variable('l');
-});
-*/
 
 // Fonction pour afficher les explications des variables
 function show_variable(varDrake) {
@@ -145,8 +117,8 @@ $("#explication-n2").hide();
 
 // Gestion des boutons de navigation entre les explications
 $("#n1").on('click', function(event) {
-	$("#explication-n2").hide();
-	$("#explication-r").show(500);
+    $("#explication-n2").hide();
+    $("#explication-r").show(500);
 });
 
 // Configuration du diagramme de Hertzsprung-Russell
@@ -239,48 +211,73 @@ option = {
 // Utiliser la configuration pour rendre le graphique
 myChart.setOption(option);
 
-	$("#explication-r").hide();
-	$("#explication-n2").show(500);
+    $("#explication-r").hide();
+    $("#explication-n2").show(500);
 });
 
 // Gestion de la popup DSFR
-document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('modal-besancon');
-    const link = document.querySelector('a[aria-controls="modal-besancon"]');
-    const closeButton = document.querySelector('.fr-btn--close');
+$(function() {
+    const $modal = $('#modal-besancon');
+    const $link = $('a[aria-controls="modal-besancon"]');
+    const $closeButton = $('.fr-btn--close');
     
     // Ouvrir la popup
-    link.addEventListener('click', function(e) {
+    $link.on('click', function(e) {
         e.preventDefault();
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
+        $modal.attr('aria-hidden', 'false');
+        $('body').css('overflow', 'hidden');
     });
     
     // Fermer la popup en cliquant en dehors
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
+    $modal.on('click', function(e) {
+        if (e.target === $modal[0]) {
             closeModal();
         }
     });
     
     // Fermer la popup avec le bouton de fermeture
-    if (closeButton) {
-        closeButton.addEventListener('click', function(e) {
+    if ($closeButton.length) {
+        $closeButton.on('click', function(e) {
             e.preventDefault();
             closeModal();
         });
     }
     
     // Fermer la popup avec la touche Escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') {
+    $(document).on('keydown', function(e) {
+        if (e.key === 'Escape' && $modal.attr('aria-hidden') === 'false') {
             closeModal();
         }
     });
 
     // Fonction pour fermer la popup
     function closeModal() {
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
+        $modal.attr('aria-hidden', 'true');
+        $('body').css('overflow', '');
     }
+});
+
+const drakeText = "L'équation de Drake est une formule utilisée pour estimer le nombre de civilisations extraterrestres dans notre galaxie, la Voie lactée, dont nous pourrions détecter les signaux. Elle a été développée par l'astronome Frank Drake en 1961. Alors jeune astronome, il proposa sa formule pour justifier sa tentative de détection avec le programme SETI.";
+let typing = false;
+$(function() {
+    const $h1 = $('h1');
+    const $h3 = $('#drake-typer');
+    $h1.css('cursor', 'pointer');
+    $h1.on('click', function() {
+        if (typing) return;
+        typing = true;
+        $h3.text("");
+        let i = 0;
+        function typeWriter() {
+            if (i < drakeText.length) {
+                $h3.text($h3.text() + drakeText.charAt(i));
+                i++;
+                setTimeout(typeWriter, 25);
+            } else {
+                typing = false;
+            }
+        }
+        typeWriter();
+        typing = true;
+    });
 });
