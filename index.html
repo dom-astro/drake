@@ -11,9 +11,32 @@
 </head>
 <body>
     <h1>Équation de Drake</h1>
-    <h3>L'équation de Drake est une formule utilisée pour estimer le nombre de civilisations extraterrestres dans notre galaxie, la Voie lactée, dont nous pourrions détecter les signaux.
-    Elle a été développée par l'astronome Frank Drake en 1961. Alors jeune astronome, il proposa sa formule pour justifier sa tentative de détection
-	avec le programme SETI.</h3>
+    <h3 id="drake-typer" style="min-height:3em;"></h3>
+    <script>
+        const drakeText = "L'équation de Drake est une formule utilisée pour estimer le nombre de civilisations extraterrestres dans notre galaxie, la Voie lactée, dont nous pourrions détecter les signaux. Elle a été développée par l'astronome Frank Drake en 1961. Alors jeune astronome, il proposa sa formule pour justifier sa tentative de détection avec le programme SETI.";
+        let typing = false;
+        document.addEventListener('DOMContentLoaded', function() {
+            const h1 = document.querySelector('h1');
+            const h3 = document.getElementById('drake-typer');
+            h1.style.cursor = "pointer";
+            h1.addEventListener('click', function() {
+                if (typing) return;
+                typing = true;
+                h3.textContent = "";
+                let i = 0;
+                function typeWriter() {
+                    if (i < drakeText.length) {
+                        h3.textContent += drakeText.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 25);
+                    } else {
+                        typing = false;
+                    }
+                }
+                typeWriter();
+            });
+        });
+    </script>
     <p class="equation"><i>N</i> =  <i>R<sup>*</sup></i> x  <i>f<sub>p</sub></i> x <i>N<sub>e</sub></i> x <i>F<sub>l</sub></i> x <i>F<sub>i</sub></i> x <i>F<sub>c</sub></i> x <i>L</i></p>
     <img id="portrait" src="images/Drake.jpg" alt="Franck Drake">
     <h3>Nous allons procéder au calcul de l'équation, mais avant nous allons remplacer les termes R* par N*, le nombre d'étoiles dans la Voie lactée et L par L/Ag, la probabilité qu'une autre civilisation coexiste avec la nôtre.</h3>
