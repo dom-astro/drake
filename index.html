@@ -3,386 +3,367 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Équation de Drake</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="switch.css">
-    <script src="js/jquery-3.7.1.min.js"></script>
-    <script src="js/echarts.min.js"></script>
+    <title>Équation de Drake Interactive</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .term-card {
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .term-card:hover {
+            transform: translateY(-5px);
+        }
+        .equation-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        .result-display {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .term-detail {
+            display: block;
+        }
+        .active-term {
+            border: 3px solid #007bff;
+        }
+        .value-selector {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Équation de Drake</h1>
-    <h3 id="drake-typer" style="min-height:3em;"></h3>
-
-    <p class="equation"><i>N</i> =  <i>R<sup>*</sup></i> x  <i>f<sub>p</sub></i> x <i>N<sub>e</sub></i> x <i>F<sub>l</sub></i> x <i>F<sub>i</sub></i> x <i>F<sub>c</sub></i> x <i>L</i></p>
-    <img id="portrait" src="images/Drake.jpg" alt="Franck Drake">
-    <h3>Nous allons procéder au calcul de l'équation, mais avant nous allons remplacer les termes R* par N*, le nombre d'étoiles dans la Voie lactée et L par L/Ag, la probabilité qu'une autre civilisation coexiste avec la nôtre.</h3>
-    <div class="container">
-        <div id="drake">
-            <div class="form-group" id="r">
-                <table>
-                    <tr>
-                        <td>
-                            <label class="switch">
-                                <input type="checkbox" id="toggleSwitch-r"  class="input-switch" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td>
-                            <img src="images/R.png" alt="R*">
-                        </td>
-                        <td>
-                            <label for="R" class="td-label"> <i>N<sup>*</sup></i> (nombre d'étoiles en milliards)</label>
-                        </td>
-                        <td>
-                            <input type="number" id="r-optimiste" name="R" step="10" value="200" required class="optimiste">
-                            <input type="number" id="r-pessimiste" name="R" step="10" value="100" required class="pessimiste">
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="form-group" id="fp">
-                <table>
-                    <tr>
-                        <td>
-                            <label class="switch"><input type="checkbox" id="toggleSwitch-fp" class="input-switch"><span class="slider"></span></label>
-                        </td>
-                        <td>
-                            <img src="images/fp.jpg" alt="fp">
-                        </td>
-                        <td>
-                            <label for="fp" class="td-label"> <i>f<sub>p</sub></i> (fraction d'étoiles avec des planètes)</label>
-                        </td>
-                        <td>
-                            <input type="number" id="fp-optimiste" name="fp" step="0.01" value="1.0" required class="optimiste" disabled>
-                            <input type="number" id="fp-pessimiste" name="fp" step="0.01" value="1.0" required class="pessimiste" disabled>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="form-group" id="ne">
-                <table>
-                    <tr>
-                        <td>
-                            <label class="switch">
-                                <input type="checkbox" id="toggleSwitch-ne" class="input-switch">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td>
-                            <img src="images/ne.jpg" alt="ne">
-                        </td>
-                        <td>
-                            <label for="ne" class="td-label"><i>N<sub>e</sub></i> (nombre de planètes par étoile dans la zone habitable)</label>
-                        </td>
-                        <td>
-                            <input type="number" id="ne-optimiste" name="ne" step="0.01" value="2.0" required class="optimiste">
-                            <input type="number" id="ne-pessimiste" name="ne" step="0.01" value="2.0" required class="pessimiste">
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="form-group" id="fl">
-                <table>
-                    <tr>
-                        <td>
-                            <label class="switch">
-                                <input type="checkbox" id="toggleSwitch-fl" class="input-switch">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td>
-                            <img src="images/fl.jpg" alt="fl">
-                        </td>
-                        <td>
-                            <label for="fl" class="td-label"><i>F<sub>l</sub></i> (fraction de planètes où la vie apparaît)</label>
-                        </td>
-                        <td>
-                            <input type="number" id="fl-optimiste" name="fl" step="0.01" value="0.13" required class="optimiste">
-                            <input type="number" id="fl-pessimiste" name="fl" step="0.01" value="0.13" required class="pessimiste">
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="form-group" id="fi">
-                <table>
-                    <tr>
-                        <td>
-                            <label class="switch">
-                                <input type="checkbox" id="toggleSwitch-fi" class="input-switch">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td>
-                            <img src="images/fi.jpg" alt="fi">
-                        </td>
-                        <td>
-                            <label for="fi" class="td-label"><i>F<sub>i</sub></i> (fraction de planètes où la vie devient intelligente)</label>
-                        </td>
-                        <td>
-                            <input type="number" id="fi-optimiste" name="fi" step="0.01" value="0.01" required class="optimiste">
-                            <input type="number" id="fi-pessimiste" name="fi" step="0.01" value="0.01" required class="pessimiste">
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="form-group" id="fc">
-                <table>
-                    <tr>
-                        <td>
-                            <label class="switch">
-                                <input type="checkbox" id="toggleSwitch-fc" class="input-switch">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td>
-                            <img src="images/fc.jpg" alt="fc">
-                        </td>
-                        <td>
-                            <label for="fc" class="td-label"><i>F<sub>c</sub></i> (fraction de civilisations capables de communiquer)</label>
-                        </td>
-                        <td>
-                            <input type="number" id="fc-optimiste" name="fc" step="0.01" value="0.2" required class="optimiste" disabled>
-                            <input type="number" id="fc-pessimiste" name="fc" step="0.01" value="0.1" required class="pessimiste" disabled>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="form-group" id="l">
-                <table>
-                    <tr>
-                        <td>
-                            <label class="switch">
-                                <input type="checkbox" id="toggleSwitch-l" class="input-switch">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td>
-                            <img src="images/L.jpg" alt="L">
-                        </td>
-                        <td>
-                            <label for="L" class="td-label"><i>L</i> (durée de vie moyenne d'une civilisation en siècles)</label>
-                        </td>
-                        <td>
-                            <input type="number" id="l-optimiste" name="L" step="1" value="100" required class="optimiste">
-                            <input type="number" id="l-pessimiste" name="L" step="1" value="5" required class="pessimiste">
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="form-group" id="a">
-                <table>
-                    <tr>
-                        <td>
-                            <label class="switch">
-                                <input type="checkbox" id="toggleSwitch-a" class="input-switch">
-                                <span class="slider"></span>
-                            </label>
-                        </td>
-                        <td>
-                            <img src="images/L.jpg" alt="Ag">
-                        </td>
-                        <td>
-                            <label for="L" class="td-label"><i>A</i><sub>g</sub> (âge de la Voie lactée en milliards d'année)</label>
-                        </td>
-                        <td>
-                            <input type="number" id="a-optimiste" name="A" step="1" value="13" required class="optimiste">
-                            <input type="number" id="a-pessimiste" name="A" step="1" value="13" required class="pessimiste">
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <button id="calcul">Calculer</button>
-            <span id="result"></span>
-        </div>
-        <div id="explication-r" class="explication">
-            <h2>Définition de  <i>N<sup>*</sup></i></h2>
-            <p> Pour estimer le nombre d'étoiles dans notre galaxie, la Voie Lactée, les astronomes utilisent plusieurs méthodes et observations:
-			<ul>
-                <li><b>Analyse de la lumière stellaire:</b> Les chercheurs évaluent la quantité de lumière stellaire émise par notre galaxie pour estimer le nombre d'étoiles.</li><br>
-                <li><b>Utilisation de données satellitaires:</b> L'analyse des données du satellite Gaia de l'ESA a permis d'affiner les estimations en combinant les distances, les couleurs et la magnitude des étoiles observées.</li><br>
-                <li><b>Modélisation:</b> Les scientifiques utilisent des modèles prédictifs de la distribution des étoiles dans notre galaxie, comme le modèle de la Galaxie de <a href="#" class="fr-link" data-fr-opened="false" aria-controls="modal-besancon">Besançon</a>, pour affiner leurs estimations</li><br>
-			</ul>
-			<p>Selon ces méthodes, les estimations actuelles du nombre d'étoiles dans la Voie Lactée varient de 100 à 200 milliards d'étoiles.</p>
-			<span class="page">1/2</span>
-			<span class="next">Voir la population d'étoile <i id="n2" class="arrow right"></i></span>
-        </div>
-        <div id="explication-n2" class="explication">
-			<div id="hr"></div>
-			<div id="hr2">
-                <ul>
-                    <li><b>Type O:</b> ~3x10^<sup>-5</sup>% des étoiles. Etoiles très massives.</li><br>
-                    <li><b>Type B:</b> ~0,13% des étoiles. Etoiles massives et chaudes.</li><br>
-                    <li><b>Type A:</b> ~0,6% des étoiles. Etoiles de taille moyenne et chaudes.</li><br>
-                    <li><b>Type F:</b> ~3% des étoiles. Etoiles de taille moyenne et modérément chaudes.</li><br>
-                    <li><b>Type G:</b> ~7,6% des étoiles. Etoiles comme notre Soleil.</li><br>
-                    <li><b>Type K:</b> ~12,1% des étoiles. Etoiles plus petites et plus froides que le Soleil.</li><br>
-                    <li><b>Type M:</b> ~76,45% des étoiles. Etoiles les plus petites et les plus froides.</li><br>
-                </ul>
-            </div>
-			<span class="page">2/2</span>
-			<span class="next"><i id="n1" class="arrow left"></i> Retour</span>
-        </div>
-        <div id="explication-fp" class="explication" style="display: none";>
-            <h2>Définition de <i>f<sub>p</sub></i></h2>
-            <p> <i>f<sub>p</sub></i> représente la fraction des étoiles dans la Voie lactée qui possèdent un système planétaire. Depuis la découverte par Michel Mayor et Didier Queloz
-                d'une planète orbitant autour de l'étoile 51 Pegasi, le 6 octobre 1995 , on sait qu'il existe des planètes orbitants autour d'autres étoiles.</p>
-            <p>Les méthodes pour les détecter sont variés:</p>
-            <ul>
-                <li><b>Vitesses radiales:</b> mesure des variations périodiques de la vitesse radiale d'une étoile.</li><br>
-                <li><b>Transit:</b> détection de la baisse de luminosité d'une étoile.</li><br>
-                <li><b>Astrométrie:</b> mesure des petits déplacements cycliques d'une étoile.</li><br>
-                <li><b>Microlentilles gravitationnelles:</b> mesure de la déviation de la lumière d'une étoile lointaine par une étoile plus proche et sa planète.</li><br>
-                <li><b>Imagerie directe:</b> photographie des exoplanètes par des télescopes très puissants et des techniques avancées comme l'optique adaptative et la coronographie.</li><br>
-                <li><b>Variation du moment de transit:</b> détecte des variations dans la périodicité du transit d'une planète connue.</li>
-            </ul>
-        
-            <h2>Valeur estimée de  <i>f<sub>p</sub></i></h2>
-            <p>Les estimations de  <i>f<sub>p</sub></i> ont évolué avec les avancées en astronomie et les découvertes d'exoplanètes. Les observations récentes suggèrent que
-               <i>f<sub>p</sub></i> pourrait être proche de 1, ce qui signifie que presque toutes les étoiles ont des planètes.</p>
-            <div class="sketchfab-embed-wrapper">
-                <iframe title="Système 51 Pegasi" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/8b48217b85584af99f2430bdf390d381/embed"> </iframe>
-                <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A4A;">
-                    <a href="https://sketchfab.com/3d-models/systeme-51-pegasi-8b48217b85584af99f2430bdf390d381?utm_medium=embed&utm_campaign=share-popup&utm_content=8b48217b85584af99f2430bdf390d381" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> Système 51 Pegasi </a> by <a href="https://sketchfab.com/pacorama?utm_medium=embed&utm_campaign=share-popup&utm_content=8b48217b85584af99f2430bdf390d381" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;"> ExplorNova Studio </a> on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=8b48217b85584af99f2430bdf390d381" target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a></p></div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar avec les termes -->
+            <div class="col-md-4 bg-light p-4">
+                <h2 class="text-center mb-4"><i class="fas fa-rocket"></i> Équation de Drake</h2>
                 
-        </div>
-        <div id="explication-ne" class="explication" style="display: none";>
-            <h2>Définition de <i>N<sub>e</sub></i></h2>
-            <p><i>N<sub>e</sub></i> représente le nombre moyen de planètes ou de satellites par système stellaire dont l'environnement pourrait permettre l'émergence de la vie. La zone habitable, également connue sous le nom de zone de Goldilocks, est la région autour d'une étoile où les conditions sont favorables à l'existence d'eau liquide à la surface d'une planète, ce qui est considéré comme essentiel pour la vie telle que nous la connaissons.</p>
-        
-            <h2>Mesure de <i>N<sub>e</sub></i></h2>
-            <ul>
-                <li><b>Limites technologiques:</b> Nos instruments actuels ne permettent pas de détecter toutes les planètes, en particulier les plus petites et les plus éloignées de leur étoile.</li>
-                <li><b>Biais de détection:</b> Les méthodes de détection actuelles favorisent la découverte de grandes planètes proches de leur étoile, ce qui peut fausser notre estimation de <i>N<sub>e</sub></i>.</li>
-                <li><b>Définition de l'habitabilité:</b> Il n'existe pas de consensus clair sur ce qui constitue une planète "potentiellement habitable", ce qui rend difficile la classification des exoplanètes découvertes.</li>
-                <li><b>Variabilité stellaire:</b> La diversité des types d'étoiles, notamment les naines rouges avec leur rayonnement X intense, complique l'évaluation de l'habitabilité des planètes en orbite.</li>
-                <li><b>Satellites habitables:</b> La possibilité de vie sur des lunes de planètes géantes gazeuses, comme Europe autour de Jupiter, ajoute une complexité supplémentaire à l'estimation de <i>N<sub>e</sub></i>.</li>
-                <li><b>Manque de données à long terme:</b> L'observation des exoplanètes est un domaine relativement récent, ce qui limite notre compréhension de leur stabilité et habitabilité à long terme.</li>
-            </ul>
-        
-            <h2>Valeur estimée de <i>N<sub>e</sub></i></h2>
-            <p>Les estimations de <i>N<sub>e</sub></i> varient en fonction des découvertes d'exoplanètes et des modèles de formation planétaire. Les observations récentes suggèrent que <i>N<sub>e</sub></i> pourrait être autour de 0,4 à 2, ce qui signifie qu'en moyenne, chaque étoile pourrait avoir entre 0,4 et 2 planètes dans la zone habitable. Cependant, ces estimations sont encore incertaines et peuvent évoluer avec de nouvelles découvertes.</p>                        
-        </div>
-        <div id="explication-fl" class="explication" style="display: none";>
-            <h2>Définition de <i>F<sub>l</sub></i></h2>
-            <p><i>F<sub>l</sub></i> représente la fraction des planètes situées dans la zone habitable autour de leurs étoiles où la vie apparaît effectivement. En d'autres termes, c'est la proportion de planètes habitables où les conditions sont suffisantes pour que la vie émerge.</p>
-                
-            <h2>Mesure de <i>F<sub>l</sub></i></h2>
-            <ul>
-                <li><b>Manque de données empiriques:</b> Nous n'avons qu'un seul exemple connu de planète abritant la vie (la Terre), ce qui limite considérablement notre capacité à généraliser.</li>
-                <li><b>Incertitude sur les conditions nécessaires:</b> Notre compréhension limitée des conditions exactes requises pour l'apparition de la vie rend difficile l'estimation de <i>F<sub>l</sub></i> sur d'autres planètes.</li>
-                <li><b>Biais de sélection:</b> La découverte rapide de la vie sur Terre pourrait suggérer que <i>F<sub>l</sub></i> est élevé, mais cela pourrait être un biais lié à notre unique exemple.</li>
-                <li><b>Controverse sur la vie martienne:</b> La présence potentielle de vie primitive sur Mars, si confirmée, aurait un impact majeur sur l'estimation de <i>F<sub>l</sub></i>, mais reste un sujet de débat.</li>
-                <li><b>Difficulté de détection:</b> Même si la vie existe ailleurs, sa détection à distance reste un défi technologique considérable, ce qui complique la vérification de toute estimation de <i>F<sub>l</sub></i>.</li>
-                <li><b>Variabilité des environnements:</b> La découverte d'organismes extrémophiles sur Terre élargit notre conception des environnements habitables, rendant l'estimation de <i>F<sub>l</sub></i> plus complexe.</li>
-            </ul>
-        
-            <h2>Valeur estimée de <i>F<sub>l</sub></i></h2>
-            <p>Les estimations de <i>F<sub>l</sub></i> sont très incertaines et varient considérablement en fonction des hypothèses et des modèles utilisés. Certaines estimations optimistes suggèrent que <i>F<sub>l</sub></i> pourrait être proche de 1, ce qui signifie que la vie apparaît sur presque toutes les planètes habitables. Cependant, des estimations plus conservatrices placent <i>F<sub>l</sub></i> autour de 0,1 ou même moins, reflétant l'incertitude quant aux conditions nécessaires pour l'émergence de la vie.</p>
-        </div>
-        <div id="explication-fi" class="explication" style="display: none";>
-            <h2>Définition de <i>F<sub>i</sub></i></h2>
-            <p><i>F<sub>i</sub></i> représente la fraction des planètes où la vie, après être apparue, évolue vers des formes intelligentes. En d'autres termes, c'est la proportion de planètes habitables où des organismes développent des capacités cognitives avancées, telles que la résolution de problèmes, la communication complexe et la création de technologies.</p>
-        
-            <h2>Mesure de <i>F<sub>i</sub></i></h2>
-            <ul>
-                <li><b>Manque de données empiriques:</b> Nous n'avons qu'un seul exemple connu de vie intelligente (la nôtre), ce qui rend toute généralisation hautement spéculative.</li>
-                <li><b>Définition de l'intelligence:</b> Il n'existe pas de consensus clair sur ce qui constitue une "vie intelligente", compliquant l'estimation de <i>F<sub>i</sub></i>.</li>
-                <li><b>Biais anthropique:</b> Notre compréhension de l'intelligence est fortement influencée par notre propre expérience, ce qui peut fausser nos estimations.</li>
-                <li><b>Variabilité des conditions planétaires:</b> Les conditions nécessaires au développement de l'intelligence peuvent varier considérablement d'une planète à l'autre.</li>
-                <li><b>Incertitude sur le temps nécessaire:</b> Le temps requis pour le développement de l'intelligence est inconnu, rendant difficile l'estimation de <i>F<sub>i</sub></i> sur des échelles de temps astronomiques.</li>
-            </ul>
-        
-            <h2>Valeur estimée de <i>F<sub>i</sub></i></h2>
-            <p>Les estimations de <i>F<sub>i</sub></i> sont très incertaines et varient considérablement en fonction des hypothèses et des modèles utilisés. Certaines estimations optimistes suggèrent que <i>F<sub>i</sub></i> pourrait être proche de 1, ce qui signifie que la vie intelligente émerge sur presque toutes les planètes où la vie apparaît. Cependant, des estimations plus conservatrices placent <i>F<sub>i</sub></i> autour de 0,01 ou même moins, reflétant l'incertitude quant aux conditions nécessaires pour l'émergence de l'intelligence.</p>
-        </div>
-        <div id="explication-fc" class="explication" style="display: none";>
-            <h2>Définition de <i>F<sub>c</sub></i></h2>
-            <p><i>F<sub>c</sub></i> représente la fraction des civilisations intelligentes qui développent une technologie capable d'émettre des signaux détectables à travers l'espace. En d'autres termes, c'est la proportion de civilisations qui atteignent un niveau technologique suffisant pour envoyer des signaux électromagnétiques que nous pourrions capter avec nos instruments.</p>
-        
-            <h2>Mesure de <i>F<sub>c</sub></i></h2>
-            <ul>
-                <li><b>Manque de données empiriques:</b> Nous n'avons qu'un seul exemple connu de civilisation technologique (la nôtre), ce qui rend toute généralisation hautement spéculative.</li>
-                <li><b>Définition ambiguë:</b> Il n'existe pas de consensus clair sur ce qui constitue une civilisation "capable et désireuse de communiquer".</li>
-                <li><b>Variabilité temporelle:</b> La capacité et le désir de communiquer d'une civilisation peuvent évoluer au fil du temps, rendant <i>F<sub>c</sub></i> difficile à quantifier sur de longues périodes.</li>
-                <li><b>Biais anthropique:</b> Notre compréhension de la communication interstellaire est fortement influencée par notre propre expérience et technologie.</li>
-                <li><b>Impossibilité d'observation directe:</b> Nous ne pouvons pas observer directement les capacités de communication d'autres civilisations potentielles.</li>
-            </ul>
-        
-            <h2>Valeur estimée de <i>F<sub>c</sub></i></h2>
-            <p>Les estimations de <i>F<sub>c</sub></i> sont très incertaines et varient considérablement en fonction des hypothèses et des modèles utilisés. Certaines estimations optimistes suggèrent que <i>F<sub>c</sub></i> pourrait être proche de 1, ce qui signifie que presque toutes les civilisations intelligentes développent des technologies de communication avancées. Cependant, des estimations plus conservatrices placent <i>F<sub>c</sub></i> autour de 0,1 à 0,2, reflétant l'incertitude quant aux conditions nécessaires pour atteindre ce niveau technologique.</p>
-        </div>
-        <div id="explication-l" class="explication" style="display: none";>
-            <h2>Définition de <i>L</i></h2>
-            <p><i>L</i> représente la durée moyenne pendant laquelle une civilisation technologiquement avancée émet des signaux détectables. En d'autres termes, c'est le temps pendant lequel une civilisation reste active et capable de communiquer avant de disparaître ou de cesser ses émissions.</p>
-        
-            <h2>Mesure de <i>L</i></h2>
-            <ul>
-                <li><b>Limite inférieure basée sur notre civilisation</b>
-                    <p>On peut estimer une valeur minimale de <i>L</i> en considérant la période depuis l'avènement de la radioastronomie en 1938 jusqu'à aujourd'hui. En 2017, cela donnait une valeur de L égale à 79 ans.</p>
-                </li>
-                <li><b>Estimations basées sur les civilisations historiques</b>
-                    <p>- Michael Shermer a estimé <i>L</i> à 420 ans en compilant les durées de six civilisations historiques.</p>
-                    <p>- En utilisant 28 civilisations plus récentes que l'Empire romain, Shermer a calculé <i>L</i> à environ 304 ans pour les civilisations "modernes".</p>
-                </li>
-                <li><b>Estimations spéculatives</b>
-                    <p>- Drake avait initialement estimé <i>L</i> à 10 000 ans en 1963.</p>
-                    <p>- Certaines estimations plus optimistes considèrent des durées allant jusqu'à 100 000 ans.</p>
-                </li>
-                <li><b>Défis majeurs</b>
-                    <p>- Manque de données empiriques:</b> Nous n'avons qu'un seul exemple de civilisation technologique.</p>
-                    <p>- Incertitude sur la longévité future:</b> Il est difficile de prédire combien de temps notre propre civilisation persistera.</p>
-                </li>
-                <li><b>Variabilité potentielle</b>
-                    <p>La durée de vie des civilisations extraterrestres pourrait être très différente de la nôtre.</p>
-                </li>
-            </ul>
-        
-            <h2>Valeur estimée de <i>L</i></h2>
-            <p>Les estimations de <i>L</i> sont très incertaines et varient considérablement en fonction des hypothèses et des modèles utilisés. Certaines estimations optimistes suggèrent que <i>L</i> pourrait être de l'ordre de plusieurs millions d'années, ce qui signifie que les civilisations technologiquement avancées pourraient exister pendant de très longues périodes. Cependant, des estimations plus conservatrices placent <i>L</i> autour de 100 à 1 000 ans, reflétant l'incertitude quant à la durabilité des civilisations technologiques.</p>
-        </div>
-    </div>
-    <div class="fr-modal" id="modal-besancon" role="dialog" aria-labelledby="modal-title-besancon">
-        <div class="fr-container fr-container--fluid fr-container-md">
-            <div class="fr-grid-row fr-grid-row-gutters">
-                <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
-                    <div class="fr-modal__body">
-                        <div class="fr-modal__header fr-p-3v fr-border-bottom">
-                            <h2 id="modal-title-besancon" class="fr-modal__title">
-                                <span class="fr-icon-arrow-right-line fr-icon--lg"></span>
-                                Modèle de la Galaxie de Besançon
-                            </h2>
-                            <button class="fr-btn fr-btn--close" aria-label="Fermer" title="Fermer">
-                                <span class="fr-icon-close-line"></span>
-                            </button>
-                        </div>
-                        <hr>
-                        <div class="fr-modal__content fr-p-3v">
-                            <img src="images/besancon.jpg" alt="Modèle de la Galaxie de Besançon" style="width: 500px; height: auto;">
-                            <p>Le modèle de la Galaxie de Besançon est un modèle numérique sophistiqué qui simule la structure et l'évolution de la Voie lactée. Il permet de prédire la distribution des étoiles, leur âge, leur composition chimique et leur mouvement dans notre galaxie.</p>
-                        </div>
-                        <hr>
-                        <div class="fr-modal__footer fr-p-3v fr-border-top">
-                            <div class="fr-grid-row">
-                                <div class="fr-col-12">
-                                    <p class="fr-text--sm fr-text--italic fr-text--alt">
-                                        <span>Sources : Observatoire de Besançon, CNRS - Institut UTINAM, Publications scientifiques sur la modélisation galactique</span>
-                                    </p>
-                                </div>
-                            </div>
+                <div class="equation-display text-center">
+                    <h4>N = R* × f<sub>p</sub> × n<sub>e</sub> × f<sub>l</sub> × f<sub>i</sub> × f<sub>c</sub> × L</h4>
+                    <small>Nombre de civilisations extraterrestres communicantes</small>
+                </div>
+
+                <div class="row" id="terms-grid">
+                    <!-- Les cartes des termes seront générées ici -->
+                </div>
+
+                <div class="result-display text-center">
+                    <h3><i class="fas fa-calculator"></i> Résultat</h3>
+                    <h2 id="result-value">?</h2>
+                    <p>civilisations communicantes estimées</p>
+                    <button class="btn btn-light btn-lg" onclick="calculateResult()">
+                        <i class="fas fa-play"></i> Calcul
+                    </button>
+                </div>
+            </div>
+
+            <!-- Zone de détail -->
+            <div class="col-md-8 p-4">
+                <div id="welcome-screen">
+                    <div class="text-center">
+                        <h1><i class="fas fa-satellite"></i> Bienvenue dans l'Équation de Drake</h1>
+                        <p class="lead">Explorez les paramètres qui déterminent le nombre de civilisations extraterrestres communicantes dans notre galaxie.</p>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> Cliquez sur un terme à gauche pour commencer votre exploration !
                         </div>
                     </div>
+                </div>
+
+                <div id="term-details">
+                    <!-- Les détails des termes apparaîtront ici -->
                 </div>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Données des termes de l'équation de Drake
+        const drakeTerms = {
+            'R_star': {
+                name: 'R*',
+                title: 'Taux de formation stellaire',
+                description: 'Le taux moyen de formation d\'étoiles dans notre galaxie',
+                details: `
+                    <h4><i class="fas fa-star"></i> Taux de formation stellaire (R*)</h4>
+                    <p>Ce paramètre représente le nombre d'étoiles qui se forment chaque année dans la Voie lactée.</p>
+                    
+                    <h5>État de l'art des connaissances :</h5>
+                    <ul>
+                        <li><strong>Observations actuelles :</strong> Les télescopes spatiaux comme Spitzer et Herschel ont permis d'estimer ce taux</li>
+                        <li><strong>Méthodes de mesure :</strong> Comptage des étoiles jeunes, analyse de la lumière infrarouge des régions de formation stellaire</li>
+                        <li><strong>Évolution temporelle :</strong> Le taux était plus élevé dans le passé de la galaxie</li>
+                        <li><strong>Variations régionales :</strong> Plus intense dans les bras spiraux et le centre galactique</li>
+                    </ul>
+                    
+                    <h5>Facteurs influençant ce paramètre :</h5>
+                    <p>La disponibilité du gaz interstellaire, les ondes de densité dans les bras spiraux, les interactions galactiques, et l'évolution chimique de la galaxie.</p>
+                `,
+                pessimistic: 1,
+                optimistic: 10,
+                unit: 'étoiles/an'
+            },
+            'f_p': {
+                name: 'fp',
+                title: 'Fraction d\'étoiles avec planètes',
+                description: 'La fraction d\'étoiles qui possèdent des systèmes planétaires',
+                details: `
+                    <h4><i class="fas fa-globe"></i> Fraction d'étoiles avec planètes (fp)</h4>
+                    <p>Quelle proportion d'étoiles possède des planètes en orbite ?</p>
+                    
+                    <h5>État de l'art des connaissances :</h5>
+                    <ul>
+                        <li><strong>Révolution Kepler :</strong> Le télescope spatial Kepler a révolutionné notre compréhension</li>
+                        <li><strong>Statistiques actuelles :</strong> Plus de 90% des étoiles semblables au Soleil ont des planètes</li>
+                        <li><strong>Diversité des systèmes :</strong> Jupiter chauds, super-Terres, systèmes compacts</li>
+                        <li><strong>Méthodes de détection :</strong> Transits, vitesses radiales, microlentilles gravitationnelles</li>
+                    </ul>
+                    
+                    <h5>Découvertes récentes :</h5>
+                    <p>Les planètes sont extrêmement communes. Presque toutes les étoiles ont au moins une planète, mais la question est de savoir combien ont des planètes habitables.</p>
+                `,
+                pessimistic: 0.2,
+                optimistic: 1.0,
+                unit: ''
+            },
+            'n_e': {
+                name: 'ne',
+                title: 'Planètes habitables par système',
+                description: 'Le nombre moyen de planètes par système stellaire qui pourraient abriter la vie',
+                details: `
+                    <h4><i class="fas fa-leaf"></i> Planètes habitables par système (ne)</h4>
+                    <p>Combien de planètes par système stellaire se trouvent dans la "zone habitable" ?</p>
+                    
+                    <h5>État de l'art des connaissances :</h5>
+                    <ul>
+                        <li><strong>Zone de Goldilocks :</strong> Distance optimale où l'eau liquide peut exister</li>
+                        <li><strong>Facteurs complexes :</strong> Atmosphère, effet de serre, activité tectonique</li>
+                        <li><strong>Exemples prometteurs :</strong> Kepler-452b, Proxima Centauri b, TRAPPIST-1</li>
+                        <li><strong>Habitabilité élargie :</strong> Lunes de géantes gazeuses, océans sous-glaciaires</li>
+                    </ul>
+                    
+                    <h5>Complexité de l'habitabilité :</h5>
+                    <p>L'habitabilité dépend de nombreux facteurs : type d'étoile, composition atmosphérique, présence d'un champ magnétique, stabilité orbitale, et interactions gravitationnelles.</p>
+                `,
+                pessimistic: 0.01,
+                optimistic: 2.0,
+                unit: 'planètes'
+            },
+            'f_l': {
+                name: 'fl',
+                title: 'Fraction avec vie',
+                description: 'La fraction de planètes habitables où la vie apparaît effectivement',
+                details: `
+                    <h4><i class="fas fa-dna"></i> Fraction avec vie (fl)</h4>
+                    <p>Sur les planètes habitables, quelle proportion développe réellement la vie ?</p>
+                    
+                    <h5>État de l'art des connaissances :</h5>
+                    <ul>
+                        <li><strong>Origine de la vie :</strong> Encore largement mystérieuse malgré les progrès</li>
+                        <li><strong>Expériences de laboratoire :</strong> Synthèse de molécules organiques complexes</li>
+                        <li><strong>Environnements extrêmes :</strong> Vie dans des conditions extrêmes sur Terre</li>
+                        <li><strong>Signatures biologiques :</strong> Recherche de biosignatures dans les atmosphères</li>
+                    </ul>
+                    
+                    <h5>Hypothèses scientifiques :</h5>
+                    <p>Certains pensent que la vie émerge facilement (principe de médiocrité), d'autres considèrent qu'elle est exceptionnellement rare (hypothèse de la Terre rare).</p>
+                `,
+                pessimistic: 0.001,
+                optimistic: 1.0,
+                unit: ''
+            },
+            'f_i': {
+                name: 'fi',
+                title: 'Fraction avec intelligence',
+                description: 'La fraction de planètes avec vie qui développent une vie intelligente',
+                details: `
+                    <h4><i class="fas fa-brain"></i> Fraction avec intelligence (fi)</h4>
+                    <p>Parmi les planètes avec vie, combien développent une intelligence complexe ?</p>
+                    
+                    <h5>État de l'art des connaissances :</h5>
+                    <ul>
+                        <li><strong>Évolution de l'intelligence :</strong> Processus long et complexe sur Terre</li>
+                        <li><strong>Convergence évolutive :</strong> L'intelligence a évolué plusieurs fois indépendamment</li>
+                        <li><strong>Facteurs environnementaux :</strong> Climat, géographie, extinctions de masse</li>
+                        <li><strong>Définition de l'intelligence :</strong> Capacité de manipulation d'outils, communication complexe</li>
+                    </ul>
+                    
+                    <h5>Débats scientifiques :</h5>
+                    <p>L'intelligence est-elle un aboutissement inévitable de l'évolution ou un accident statistique ? Les extinctions de masse favorisent-elles ou entravent-elles l'émergence de l'intelligence ?</p>
+                `,
+                pessimistic: 0.001,
+                optimistic: 0.5,
+                unit: ''
+            },
+            'f_c': {
+                name: 'fc',
+                title: 'Fraction communicante',
+                description: 'La fraction de civilisations intelligentes qui développent des technologies de communication',
+                details: `
+                    <h4><i class="fas fa-satellite-dish"></i> Fraction communicante (fc)</h4>
+                    <p>Quelle proportion de civilisations intelligentes développe des technologies radio ?</p>
+                    
+                    <h5>État de l'art des connaissances :</h5>
+                    <ul>
+                        <li><strong>Développement technologique :</strong> Sur Terre, rapide développement au 20ème siècle</li>
+                        <li><strong>Motivation à communiquer :</strong> Curiosité scientifique, désir de contact</li>
+                        <li><strong>Contraintes techniques :</strong> Ressources, stabilité sociale, priorités civilisationnelles</li>
+                        <li><strong>Fenêtre technologique :</strong> Durée pendant laquelle une civilisation émet des signaux détectables</li>
+                    </ul>
+                    
+                    <h5>Considérations modernes :</h5>
+                    <p>Les civilisations avancées pourraient utiliser des technologies de communication que nous ne pouvons pas détecter. L'évolution vers des communications plus efficaces pourrait les rendre "silencieuses" pour nous.</p>
+                `,
+                pessimistic: 0.01,
+                optimistic: 1.0,
+                unit: ''
+            },
+            'L': {
+                name: 'L',
+                title: 'Durée de vie communicante',
+                description: 'La durée pendant laquelle une civilisation émet des signaux détectables',
+                details: `
+                    <h4><i class="fas fa-hourglass-half"></i> Durée de vie communicante (L)</h4>
+                    <p>Combien de temps une civilisation reste-t-elle détectable par ses émissions ?</p>
+                    
+                    <h5>État de l'art des connaissances :</h5>
+                    <ul>
+                        <li><strong>Exemple terrestre :</strong> Environ 100 ans d'émissions radio intenses</li>
+                        <li><strong>Facteurs de survie :</strong> Guerres, catastrophes naturelles, changement climatique</li>
+                        <li><strong>Évolution technologique :</strong> Passage à des communications plus directionnelles</li>
+                        <li><strong>Filtre de survie :</strong> Capacité à surmonter les crises existentielles</li>
+                    </ul>
+                    
+                    <h5>Scénarios possibles :</h5>
+                    <p>Auto-destruction rapide, évolution vers des technologies indétectables, expansion interstellaire, ou survie très longue avec émissions continues. Ce paramètre est probablement le plus incertain de tous.</p>
+                `,
+                pessimistic: 100,
+                optimistic: 1000000,
+                unit: 'années'
+            }
+        };
+
+        let currentValues = {};
+
+        // Initialisation
+        $(document).ready(function() {
+            generateTermCards();
+            initializeValues();
+        });
+
+        function generateTermCards() {
+            const grid = $('#terms-grid');
+            
+            Object.keys(drakeTerms).forEach(termId => {
+                const term = drakeTerms[termId];
+                const card = `
+                    <div class="col-12 mb-3">
+                        <div class="card term-card h-100" onclick="showTermDetail('${termId}')">
+                            <div class="card-body text-center">
+                                <h6 class="card-title">${term.name}</h6>
+                                <small class="text-muted">${term.title}</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.append(card);
+            });
+        }
+
+        function initializeValues() {
+            Object.keys(drakeTerms).forEach(termId => {
+                currentValues[termId] = drakeTerms[termId].pessimistic;
+            });
+        }
+
+        function showTermDetail(termId) {
+            // Réinitialiser les cartes
+            $('.term-card').removeClass('active-term');
+            $(`[onclick="showTermDetail('${termId}')"]`).addClass('active-term');
+            
+            $('#welcome-screen').hide();
+            
+            const term = drakeTerms[termId];
+            const detailHtml = `
+                <div class="term-detail">
+                    ${term.details}
+                    
+                    <div class="value-selector">
+                        <h5><i class="fas fa-sliders-h"></i> Choisissez une valeur :</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card ${currentValues[termId] === term.pessimistic ? 'border-danger bg-light' : ''}" style="cursor: pointer;" onclick="setValue('${termId}', ${term.pessimistic})">
+                                    <div class="card-body text-center">
+                                        <h6 class="text-danger"><i class="fas fa-frown"></i> Pessimiste</h6>
+                                        <h4>${term.pessimistic} ${term.unit}</h4>
+                                        <button class="btn btn-danger" type="button">
+                                            ${currentValues[termId] === term.pessimistic ? 'Sélectionné' : 'Sélectionner'}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card ${currentValues[termId] === term.optimistic ? 'border-success bg-light' : ''}" style="cursor: pointer;" onclick="setValue('${termId}', ${term.optimistic})">
+                                    <div class="card-body text-center">
+                                        <h6 class="text-success"><i class="fas fa-smile"></i> Optimiste</h6>
+                                        <h4>${term.optimistic} ${term.unit}</h4>
+                                        <button class="btn btn-success" type="button">
+                                            ${currentValues[termId] === term.optimistic ? 'Sélectionné' : 'Sélectionner'}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <div class="alert alert-info">
+                                <strong><i class="fas fa-info-circle"></i> Valeur actuelle : ${currentValues[termId]} ${term.unit}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            $('#term-details').html(detailHtml);
+        }
+
+        function setValue(termId, value) {
+            currentValues[termId] = value;
+            showTermDetail(termId); // Rafraîchir l'affichage
+            
+            // Petit feedback visuel
+            $('#result-value').html('Appuyez sur Calcul');
+            $('.result-display').addClass('border border-warning');
+            setTimeout(() => {
+                $('.result-display').removeClass('border border-warning');
+            }, 1000);
+        }
+
+        function calculateResult() {
+            let result = 1;
+            Object.keys(currentValues).forEach(termId => {
+                result *= currentValues[termId];
+            });
+            
+            $('#result-value').html(result.toFixed(2));
+            
+            // Animation du résultat
+            $('.result-display').addClass('animate__animated animate__pulse');
+            setTimeout(() => {
+                $('.result-display').removeClass('animate__animated animate__pulse');
+            }, 1000);
+        }
+    </script>
 </body>
 </html>
