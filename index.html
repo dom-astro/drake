@@ -20,6 +20,11 @@
             border-radius: 15px;
             padding: 30px;
             margin: 20px 0;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .equation-display:hover {
+            transform: scale(1.02);
         }
         .result-display {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -40,6 +45,32 @@
             padding: 15px;
             margin: 10px 0;
         }
+        .current-value-display {
+            color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+		
+		.current-value-optimistic {
+			background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+		}
+		
+		.current-value-pessimistic {
+			background: #dc3545;
+		}
+		
+        .term-card-value {
+            font-size: 0.8em;
+            color: #007bff;
+            font-weight: bold;
+        }
+		
+		.display-term {
+		    display: inline-block;
+			padding-left: 12px;
+		}
     </style>
 </head>
 <body>
@@ -49,9 +80,19 @@
             <div class="col-md-4 bg-light p-4">
                 <h2 class="text-center mb-4"><i class="fas fa-rocket"></i> Équation de Drake</h2>
                 
-                <div class="equation-display text-center">
-                    <h4>N = R* × f<sub>p</sub> × n<sub>e</sub> × f<sub>l</sub> × f<sub>i</sub> × f<sub>c</sub> × L</h4>
-                    <small>Nombre de civilisations extraterrestres communicantes</small>
+                <div class="equation-display text-center" onclick="showIntroduction()">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/svg/1f468-200d-1f680.svg" 
+                                 alt="Frank Drake" class="img-fluid rounded-circle" 
+                                 style="max-width: 80px; background: white; padding: 10px;">
+                            <small class="d-block mt-2">Frank Drake</small>
+                        </div>
+                        <div class="col-md-9">
+                            <h4>N = R* × f<sub>p</sub> × n<sub>e</sub> × f<sub>l</sub> × f<sub>i</sub> × f<sub>c</sub> × L</h4>
+                            <small>Nombre de civilisations extraterrestres communicantes</small>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row" id="terms-grid">
@@ -72,9 +113,42 @@
             <div class="col-md-8 p-4">
                 <div id="welcome-screen">
                     <div class="text-center">
-                        <h1><i class="fas fa-satellite"></i> Bienvenue dans l'Équation de Drake</h1>
+                        <h1><i class="fas fa-satellite"></i> L'Équation de Drake</h1>
                         <p class="lead">Explorez les paramètres qui déterminent le nombre de civilisations extraterrestres communicantes dans notre galaxie.</p>
-                        <div class="alert alert-info">
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-8 mx-auto">
+                                <div class="card">
+                                    <div class="card-header bg-primary text-white">
+                                        <h5><i class="fas fa-history"></i> Histoire et Création</h5>
+                                    </div>
+                                    <div class="card-body text-start">
+                                        <p>L'équation fut formulée en 1961 par l'astronome Frank Drake, non pas dans le but de quantifier précisément le nombre de civilisations, mais comme un moyen de stimuler le dialogue scientifique lors de la première réunion scientifique sur la recherche d'intelligence extraterrestre (SETI) à l'Observatoire National de Radioastronomie de Green Bank, Virginie-Occidentale.</p>
+                                        
+                                        <p>Drake créa cette équation pour faire partie de l'ordre du jour d'une réunion d'experts et elle sert de feuille de route pour l'astrobiologie encore aujourd'hui. En 1961, l'astrophysicien Frank Drake développa cette équation pour estimer le nombre de civilisations avancées susceptibles d'exister dans la galaxie de la Voie lactée.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="card mt-3">
+                                    <div class="card-header bg-success text-white">
+                                        <h5><i class="fas fa-lightbulb"></i> Explication et Utilisation</h5>
+                                    </div>
+                                    <div class="card-body text-start">
+                                        <p>L'équation de Drake n'est pas destinée à fournir une réponse définitive, mais plutôt à :</p>
+                                        <ul>
+                                            <li><strong>Structurer la réflexion</strong> sur les facteurs qui influencent l'existence de la vie intelligente</li>
+                                            <li><strong>Identifier les domaines de recherche</strong> prioritaires en astrobiologie</li>
+                                            <li><strong>Stimuler le débat scientifique</strong> sur la probabilité de contact extraterrestre</li>
+                                            <li><strong>Guider les missions spatiales</strong> dans la recherche de signes de vie</li>
+                                        </ul>
+                                        
+                                        <p>Bien que les valeurs des paramètres soient hautement incertaines, l'équation reste un outil conceptuel fondamental pour comprendre notre place dans l'univers et orienter la recherche SETI.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info mt-4">
                             <i class="fas fa-info-circle"></i> Cliquez sur un terme à gauche pour commencer votre exploration !
                         </div>
                     </div>
@@ -102,7 +176,8 @@
                     
                     <h5>État de l'art des connaissances :</h5>
                     <ul>
-                        <li><strong>Observations actuelles :</strong> Les télescopes spatiaux comme Spitzer et Herschel ont permis d'estimer ce taux</li>
+                        <li><strong>Observations actuelles :</strong> Les télescopes spatiaux comme Hipparcos et Gaïa ont permis d'estimer ce taux</li>
+                        <li><strong>Modèle mis en oeuvre :</strong> Le modèle de Besançon fait référence quand à la formation et l'évolution d'une galaxie</li>
                         <li><strong>Méthodes de mesure :</strong> Comptage des étoiles jeunes, analyse de la lumière infrarouge des régions de formation stellaire</li>
                         <li><strong>Évolution temporelle :</strong> Le taux était plus élevé dans le passé de la galaxie</li>
                         <li><strong>Variations régionales :</strong> Plus intense dans les bras spiraux et le centre galactique</li>
@@ -125,7 +200,7 @@
                     
                     <h5>État de l'art des connaissances :</h5>
                     <ul>
-                        <li><strong>Révolution Kepler :</strong> Le télescope spatial Kepler a révolutionné notre compréhension</li>
+                        <li><strong>Télescopes spatiaux :</strong> Les télescopes spatiaux tels que Corot, Kepler et bientôt l'observatoire des mondes habitables ont révolutionné la chasse aux exoplanètes</li>
                         <li><strong>Statistiques actuelles :</strong> Plus de 90% des étoiles semblables au Soleil ont des planètes</li>
                         <li><strong>Diversité des systèmes :</strong> Jupiter chauds, super-Terres, systèmes compacts</li>
                         <li><strong>Méthodes de détection :</strong> Transits, vitesses radiales, microlentilles gravitationnelles</li>
@@ -136,7 +211,7 @@
                 `,
                 pessimistic: 0.2,
                 optimistic: 1.0,
-                unit: ''
+                unit: 'étoile'
             },
             'n_e': {
                 name: 'ne',
@@ -148,7 +223,7 @@
                     
                     <h5>État de l'art des connaissances :</h5>
                     <ul>
-                        <li><strong>Zone de Goldilocks :</strong> Distance optimale où l'eau liquide peut exister</li>
+                        <li><strong>Zone Boucles d'or :</strong> Distance optimale où l'eau liquide peut exister</li>
                         <li><strong>Facteurs complexes :</strong> Atmosphère, effet de serre, activité tectonique</li>
                         <li><strong>Exemples prometteurs :</strong> Kepler-452b, Proxima Centauri b, TRAPPIST-1</li>
                         <li><strong>Habitabilité élargie :</strong> Lunes de géantes gazeuses, océans sous-glaciaires</li>
@@ -172,9 +247,10 @@
                     <h5>État de l'art des connaissances :</h5>
                     <ul>
                         <li><strong>Origine de la vie :</strong> Encore largement mystérieuse malgré les progrès</li>
-                        <li><strong>Expériences de laboratoire :</strong> Synthèse de molécules organiques complexes</li>
+                        <li><strong>Expériences de laboratoire :</strong> Synthèse de molécules organiques complexes (expérience de Mildred)</li>
                         <li><strong>Environnements extrêmes :</strong> Vie dans des conditions extrêmes sur Terre</li>
                         <li><strong>Signatures biologiques :</strong> Recherche de biosignatures dans les atmosphères</li>
+                        <li><strong>Premiers indices :</strong> En utilisant la méthode des transits, on arrive à ectraire la signature de l'atmosphère de certaines exoplanètes</li>
                     </ul>
                     
                     <h5>Hypothèses scientifiques :</h5>
@@ -259,12 +335,13 @@
 
         // Initialisation
         $(document).ready(function() {
-            generateTermCards();
             initializeValues();
+            generateTermCards();
         });
 
         function generateTermCards() {
             const grid = $('#terms-grid');
+            grid.empty();
             
             Object.keys(drakeTerms).forEach(termId => {
                 const term = drakeTerms[termId];
@@ -274,6 +351,14 @@
                             <div class="card-body text-center">
                                 <h6 class="card-title">${term.name}</h6>
                                 <small class="text-muted">${term.title}</small>
+                                <div class="term-card-value mt-2">
+                                    <div class="text-danger small display-term">
+                                        <i class="fas fa-frown"></i> ${term.pessimistic} ${term.unit}
+                                    </div>
+                                    <div class="text-success small display-term">
+                                        <i class="fas fa-smile"></i> ${term.optimistic} ${term.unit}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -288,47 +373,78 @@
             });
         }
 
-        function showTermDetail(termId) {
+        function updateTermCards() {
+            generateTermCards();
+        }
+
+        function showIntroduction() {
+            // Réinitialiser les cartes
+            $('.term-card').removeClass('active-term');
+            
+            $('#term-details').hide();
+            $('#welcome-screen').show();
+        }
+
+        function showTermDetail(termId, type='pessimistic') {
             // Réinitialiser les cartes
             $('.term-card').removeClass('active-term');
             $(`[onclick="showTermDetail('${termId}')"]`).addClass('active-term');
             
             $('#welcome-screen').hide();
+            $('#term-details').show();
             
             const term = drakeTerms[termId];
             const detailHtml = `
                 <div class="term-detail">
                     ${term.details}
                     
+                    <div class="current-value-display current-value-${type}">
+                        <h5><i class="fas fa-check-circle"></i> Valeur actuelle sélectionnée</h5>
+                        <h3>${currentValues[termId]} ${term.unit}</h3>
+                    </div>
+                    
                     <div class="value-selector">
                         <h5><i class="fas fa-sliders-h"></i> Choisissez une valeur :</h5>
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="card ${currentValues[termId] === term.pessimistic ? 'border-danger bg-light' : ''}" style="cursor: pointer;" onclick="setValue('${termId}', ${term.pessimistic})">
+                                <div class="card ${currentValues[termId] === term.pessimistic ? 'border-danger bg-light' : ''}" style="cursor: pointer;" onclick="setValue('${termId}', ${term.pessimistic}, 'pessimistic')">
                                     <div class="card-body text-center">
                                         <h6 class="text-danger"><i class="fas fa-frown"></i> Pessimiste</h6>
                                         <h4>${term.pessimistic} ${term.unit}</h4>
-                                        <button class="btn btn-danger" type="button">
-                                            ${currentValues[termId] === term.pessimistic ? 'Sélectionné' : 'Sélectionner'}
+                                        <div class="btn-group mb-2" role="group">
+                                            <button class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation(); adjustValue('${termId}', 'pessimistic', -1)">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <button class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation(); adjustValue('${termId}', 'pessimistic', 1)">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <br>
+                                        <button class="btn ${currentValues[termId] === term.pessimistic ? 'btn-danger' : 'btn-outline-danger'}" type="button">
+                                            ${currentValues[termId] === term.pessimistic ? 'Sélectionner' : 'Sélectionner'}
                                         </button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="card ${currentValues[termId] === term.optimistic ? 'border-success bg-light' : ''}" style="cursor: pointer;" onclick="setValue('${termId}', ${term.optimistic})">
+                                <div class="card ${currentValues[termId] === term.optimistic ? 'border-success bg-light' : ''}" style="cursor: pointer;" onclick="setValue('${termId}', ${term.optimistic}, 'optimistic')">
                                     <div class="card-body text-center">
                                         <h6 class="text-success"><i class="fas fa-smile"></i> Optimiste</h6>
                                         <h4>${term.optimistic} ${term.unit}</h4>
-                                        <button class="btn btn-success" type="button">
-                                            ${currentValues[termId] === term.optimistic ? 'Sélectionné' : 'Sélectionner'}
+                                        <div class="btn-group mb-2" role="group">
+                                            <button class="btn btn-outline-success btn-sm" onclick="event.stopPropagation(); adjustValue('${termId}', 'optimistic', -1)">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                            <button class="btn btn-outline-success btn-sm" onclick="event.stopPropagation(); adjustValue('${termId}', 'optimistic', 1)">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <br>
+                                        <button class="btn ${currentValues[termId] === term.optimistic ? 'btn-success' : 'btn-outline-success'}" type="button">
+                                            ${currentValues[termId] === term.optimistic ? 'Sélectionner' : 'Sélectionner'}
                                         </button>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="text-center mt-3">
-                            <div class="alert alert-info">
-                                <strong><i class="fas fa-info-circle"></i> Valeur actuelle : ${currentValues[termId]} ${term.unit}</strong>
                             </div>
                         </div>
                     </div>
@@ -338,12 +454,67 @@
             $('#term-details').html(detailHtml);
         }
 
-        function setValue(termId, value) {
-            currentValues[termId] = value;
-            showTermDetail(termId); // Rafraîchir l'affichage
+        function adjustValue(termId, type, direction) {
+            const term = drakeTerms[termId];
             
-            // Petit feedback visuel
-            $('#result-value').html('Appuyez sur Calcul');
+            // Définir les incréments selon le terme
+            let increment;
+            if (termId === 'R_star') {
+                increment = 1; // étoiles/an
+            } else if (termId === 'L') {
+                increment = direction > 0 ? term[type] * 0.1 : term[type] * 0.1; // 10% d'ajustement
+            } else if (term[type] >= 1) {
+                increment = 0.1; // Pour les valeurs >= 1
+            } else if (term[type] >= 0.1) {
+                increment = 0.01; // Pour les valeurs décimales
+            } else {
+                increment = 0.001; // Pour les très petites valeurs
+            }
+            
+            // Calculer la nouvelle valeur
+            let newValue = term[type] + (direction * increment);
+            
+            // S'assurer que la valeur reste positive
+            if (newValue <= 0) {
+                newValue = increment;
+            }
+            
+            // Arrondir pour éviter les problèmes de précision JavaScript
+            if (increment >= 1) {
+                newValue = Math.round(newValue);
+            } else if (increment >= 0.1) {
+                newValue = Math.round(newValue * 10) / 10;
+            } else if (increment >= 0.01) {
+                newValue = Math.round(newValue * 100) / 100;
+            } else {
+                newValue = Math.round(newValue * 1000) / 1000;
+            }
+            
+            // Sauvegarder l'ancienne valeur pour comparaison
+            const oldValue = term[type];
+            
+            // Mettre à jour la valeur dans l'objet
+            drakeTerms[termId][type] = newValue;
+            
+            // Si cette valeur est actuellement sélectionnée, mettre à jour aussi currentValues
+            if (currentValues[termId] === oldValue) {
+                currentValues[termId] = newValue;
+            }
+            
+            // Mettre à jour l'affichage des cartes avec les nouvelles valeurs
+            updateTermCards();
+            
+            // Rafraîchir l'affichage du détail
+            showTermDetail(termId, type);
+        }
+
+        function setValue(termId, value, type) {
+            currentValues[termId] = value;
+            updateTermCards(); // Mettre à jour l'affichage des cartes
+            showTermDetail(termId, type); // Rafraîchir l'affichage du détail
+            
+            // Petit feedback visuel pour le résultat
+            $('#result-value').html('Cliquez sur Calcul');
             $('.result-display').addClass('border border-warning');
             setTimeout(() => {
                 $('.result-display').removeClass('border border-warning');
@@ -356,7 +527,21 @@
                 result *= currentValues[termId];
             });
             
-            $('#result-value').html(result.toFixed(2));
+            // Formater le résultat selon sa taille
+            let formattedResult;
+            if (result >= 1000000) {
+                formattedResult = (result / 1000000).toFixed(2) + 'M';
+            } else if (result >= 1000) {
+                formattedResult = (result / 1000).toFixed(2) + 'K';
+            } else if (result >= 1) {
+                formattedResult = result.toFixed(2);
+            } else if (result >= 0.01) {
+                formattedResult = result.toFixed(3);
+            } else {
+                formattedResult = result.toExponential(2);
+            }
+            
+            $('#result-value').html(formattedResult);
             
             // Animation du résultat
             $('.result-display').addClass('animate__animated animate__pulse');
