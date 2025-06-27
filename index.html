@@ -112,11 +112,13 @@
 
                 <div class="result-display text-center">
                     <h3><i class="fas fa-calculator"></i> Résultat</h3>
-                    <p>civilisations communicantes estimées</p>
+                    <p>Civilisations communicantes estimées</p>
                     <button class="btn btn-light btn-lg" onclick="calculateResult()">
                         <i class="fas fa-play"></i> Calcul
                     </button>
+					<br><br>
                     <h2 id="result-value-pessimistic" style="display: flex"></h2>
+					<br>
                     <h2 id="result-value-optimistic" style="display: flex"></h2>
                 </div>
             </div>
@@ -259,6 +261,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
+		let formatter = new Intl.NumberFormat('fr-FR', {
+			style: 'decimal',
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 2
+		});
         // Données des termes de l'équation de Drake
         const drakeTerms = {
             'R_star': {
@@ -351,7 +358,7 @@
                     <h5>Hypothèses scientifiques :</h5>
                     <p>Certains pensent que la vie émerge facilement (principe de médiocrité), d'autres considèrent qu'elle est exceptionnellement rare (hypothèse de la Terre rare).</p>
                 `,
-                pessimistic: 0.001,
+                pessimistic: 0.01,
                 optimistic: 1.0,
                 unit: ''
             },
@@ -374,7 +381,7 @@
                     <h5>Débats scientifiques :</h5>
                     <p>L'intelligence est-elle un aboutissement inévitable de l'évolution ou un accident statistique ? Les extinctions de masse favorisent-elles ou entravent-elles l'émergence de l'intelligence ?</p>
                 `,
-                pessimistic: 0.001,
+                pessimistic: 0.01,
                 optimistic: 0.5,
                 unit: ''
             },
@@ -421,7 +428,7 @@
                     <p>Auto-destruction rapide, évolution vers des technologies indétectables, expansion interstellaire, ou survie très longue avec émissions continues. Ce paramètre est probablement le plus incertain de tous.</p>
                 `,
                 pessimistic: 100,
-                optimistic: 1000000,
+                optimistic: 10000,
                 unit: 'années'
             }
         };
@@ -563,7 +570,7 @@
             } else if (term[type] >= 0.1) {
                 increment = 0.01; // Pour les valeurs décimales
             } else {
-                increment = 0.001; // Pour les très petites valeurs
+                increment = 0.01; // Pour les très petites valeurs
             }
             
             // Calculer la nouvelle valeur
@@ -621,30 +628,36 @@
 			  , resultOptimistic = 1;
 			Object.keys(drakeTerms).forEach(termId => {
                 resultPessimistic *= drakeTerms[termId].pessimistic;
-                resultOptimistic *= drakeTerms[termId].pessimistic;
+                resultOptimistic *= drakeTerms[termId].optimistic;
             });
 
             // Formater le résultat selon sa taille
             let formattedResultP, formattedResultO;
             if (resultPessimistic >= 1000000) {
-                formattedResultP = (resultPessimistic / 1000000).toFixed(2) + 'M';
-                formattedResultO = (resultOptimistic / 1000000).toFixed(2) + 'M';
+                formattedResultP = (resultPessimistic / 1000000).toFixed(0) + 'M';
             } else if (resultPessimistic >= 1000) {
-                formattedResultP = (resultPessimistic / 1000).toFixed(2) + 'K';
-                formattedResultO = (resultOptimistic / 1000).toFixed(2) + 'K';
+                formattedResultP = (resultPessimistic / 1000).toFixed(0) + 'K';
             } else if (resultPessimistic >= 1) {
-                formattedResultP = resultPessimistic.toFixed(2);
-                formattedResultO = resultOptimistic.toFixed(2);
+                formattedResultP = resultPessimistic.toFixed(0);
             } else if (resultPessimistic >= 0.01) {
                 formattedResultP = resultPessimistic.toFixed(3);
+            } else {
+                formattedResultP = resultPessimistic.toFixed(0);
+            }
+            if (resultOptimistic >= 1000000) {
+                formattedResultO = (resultOptimistic / 1000000).toFixed(0) + 'M';
+            } else if (resultOptimistic >= 1000) {
+                formattedResultO = (resultOptimistic / 1000).toFixed(0) + 'K';
+            } else if (resultOptimistic >= 1) {
+                formattedResultO = resultOptimistic.toFixed(0);
+            } else if (resultOptimistic >= 0.01) {
                 formattedResultO = resultOptimistic.toFixed(3);
             } else {
-                formattedResultP = resultPessimistic.toExponential(2);
-                formattedResultO = resultOptimistic.toExponential(2);
+                formattedResultO = resultOptimistic.toFixed(0);
             }
             
-            $('#result-value-pessimistic').html("Valeur pessimiste: "+formattedResultP);
-            $('#result-value-optimistic').html("Valeur optimiste: "+formattedResultO);
+            $('#result-value-pessimistic').html("Valeur pessimiste: "+ formatter.format(resultPessimistic.toFixed(0)));
+            $('#result-value-optimistic').html("Valeur optimiste: "+ formatter.format(resultOptimistic.toFixed(0)));
             
             // Animation du résultat
             $('.result-display').addClass('animate__animated animate__pulse');
