@@ -71,6 +71,17 @@
 		    display: inline-block;
 			padding-left: 12px;
 		}
+		
+		.besancon-link {
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .besancon-link:hover {
+            color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -101,11 +112,12 @@
 
                 <div class="result-display text-center">
                     <h3><i class="fas fa-calculator"></i> Résultat</h3>
-                    <h2 id="result-value">?</h2>
                     <p>civilisations communicantes estimées</p>
                     <button class="btn btn-light btn-lg" onclick="calculateResult()">
                         <i class="fas fa-play"></i> Calcul
                     </button>
+                    <h2 id="result-value-pessimistic" style="display: flex"></h2>
+                    <h2 id="result-value-optimistic" style="display: flex"></h2>
                 </div>
             </div>
 
@@ -160,6 +172,89 @@
             </div>
         </div>
     </div>
+	
+	<!-- Modal pour le modèle de la galaxie de Besançon -->
+    <div class="modal fade" id="besanconModal" tabindex="-1" aria-labelledby="besanconModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="besanconModalLabel">
+                        <i class="fas fa-university"></i> Le Modèle de la Galaxie de Besançon
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <img src="./besancon.jpg" style="width: 250px;" />
+                            <h6>Observatoire de Besançon</h6>
+                        </div>
+                        <div class="col-md-8">
+                            <h5><i class="fas fa-info-circle text-primary"></i> Qu'est-ce que le modèle de la galaxie de Besançon ?</h5>
+                            <p>
+                                Le <strong>modèle de la galaxie de Besançon</strong> est un modèle de synthèse stellaire développé à l'Observatoire de Besançon 
+                                depuis les années 1980. Il simule la structure, la formation et l'évolution de notre galaxie, la Voie lactée.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h5><i class="fas fa-cogs text-success"></i> Caractéristiques principales</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li><strong>Composantes galactiques :</strong> Disque mince, disque épais, halo, bulbe</li>
+                                <li><strong>Formation stellaire :</strong> Taux historique et spatial</li>
+                                <li><strong>Évolution chimique :</strong> Enrichissement en métaux</li>
+                                <li><strong>Cinématique :</strong> Mouvements des étoiles</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li><strong>Fonction de masse initiale :</strong> Distribution des masses stellaires</li>
+                                <li><strong>Extinction interstellaire :</strong> Poussière galactique</li>
+                                <li><strong>Populations stellaires :</strong> Âges et métallicités</li>
+                                <li><strong>Prédictions observationnelles :</strong> Comptages d'étoiles</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb"></i> 
+                        <strong>Utilité pour l'équation de Drake :</strong> 
+                        Le modèle permet d'estimer précisément le taux de formation stellaire (R*) en tenant compte 
+                        de l'évolution temporelle et spatiale de la galaxie.
+                    </div>
+                    
+                    <h5><i class="fas fa-telescope text-warning"></i> Applications modernes</h5>
+                    <p>
+                        Le modèle est constamment mis à jour avec les données des missions spatiales comme 
+                        <strong>Hipparcos</strong>, <strong>Gaia</strong>, et les grands relevés au sol. Il aide à :
+                    </p>
+                    <ul>
+                        <li>Interpréter les observations astrométriques et photométriques</li>
+                        <li>Comprendre la structure 3D de la Voie lactée</li>
+                        <li>Estimer les populations d'exoplanètes potentiellement habitables</li>
+                        <li>Prédire les découvertes des futurs télescopes</li>
+                    </ul>
+                    
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            <i class="fas fa-link"></i> 
+                            Développé à l'Institut UTINAM (Univers, Transport, Interfaces, Nanostructures, Atmosphère et environnement, Molécules)
+                        </small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        <i class="fas fa-check"></i> Compris !
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -177,7 +272,7 @@
                     <h5>État de l'art des connaissances :</h5>
                     <ul>
                         <li><strong>Observations actuelles :</strong> Les télescopes spatiaux comme Hipparcos et Gaïa ont permis d'estimer ce taux</li>
-                        <li><strong>Modèle mis en oeuvre :</strong> Le modèle de Besançon fait référence quand à la formation et l'évolution d'une galaxie</li>
+                        <li><strong>Modèle mis en oeuvre :</strong> Le <span class="besancon-link" onclick="showBesanconModal()">modèle da la galaxie de Besançon</span> fait référence quand à la formation et l'évolution d'une galaxie</li>
                         <li><strong>Méthodes de mesure :</strong> Comptage des étoiles jeunes, analyse de la lumière infrarouge des régions de formation stellaire</li>
                         <li><strong>Évolution temporelle :</strong> Le taux était plus élevé dans le passé de la galaxie</li>
                         <li><strong>Variations régionales :</strong> Plus intense dans les bras spiraux et le centre galactique</li>
@@ -522,26 +617,34 @@
         }
 
         function calculateResult() {
-            let result = 1;
-            Object.keys(currentValues).forEach(termId => {
-                result *= currentValues[termId];
+            let resultPessimistic = 1
+			  , resultOptimistic = 1;
+			Object.keys(drakeTerms).forEach(termId => {
+                resultPessimistic *= drakeTerms[termId].pessimistic;
+                resultOptimistic *= drakeTerms[termId].pessimistic;
             });
-            
+
             // Formater le résultat selon sa taille
-            let formattedResult;
-            if (result >= 1000000) {
-                formattedResult = (result / 1000000).toFixed(2) + 'M';
-            } else if (result >= 1000) {
-                formattedResult = (result / 1000).toFixed(2) + 'K';
-            } else if (result >= 1) {
-                formattedResult = result.toFixed(2);
-            } else if (result >= 0.01) {
-                formattedResult = result.toFixed(3);
+            let formattedResultP, formattedResultO;
+            if (resultPessimistic >= 1000000) {
+                formattedResultP = (resultPessimistic / 1000000).toFixed(2) + 'M';
+                formattedResultO = (resultOptimistic / 1000000).toFixed(2) + 'M';
+            } else if (resultPessimistic >= 1000) {
+                formattedResultP = (resultPessimistic / 1000).toFixed(2) + 'K';
+                formattedResultO = (resultOptimistic / 1000).toFixed(2) + 'K';
+            } else if (resultPessimistic >= 1) {
+                formattedResultP = resultPessimistic.toFixed(2);
+                formattedResultO = resultOptimistic.toFixed(2);
+            } else if (resultPessimistic >= 0.01) {
+                formattedResultP = resultPessimistic.toFixed(3);
+                formattedResultO = resultOptimistic.toFixed(3);
             } else {
-                formattedResult = result.toExponential(2);
+                formattedResultP = resultPessimistic.toExponential(2);
+                formattedResultO = resultOptimistic.toExponential(2);
             }
             
-            $('#result-value').html(formattedResult);
+            $('#result-value-pessimistic').html("Valeur pessimiste: "+formattedResultP);
+            $('#result-value-optimistic').html("Valeur optimiste: "+formattedResultO);
             
             // Animation du résultat
             $('.result-display').addClass('animate__animated animate__pulse');
@@ -549,6 +652,10 @@
                 $('.result-display').removeClass('animate__animated animate__pulse');
             }, 1000);
         }
+		
+		function showBesanconModal() {
+			$("#besanconModal").modal("show");
+		};
     </script>
 </body>
 </html>
