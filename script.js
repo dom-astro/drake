@@ -243,9 +243,9 @@ myChart.setOption(option);
 	$("#explication-n2").show(500);
 });
 
-// Gestion de la popup DSFR
+// Gestion de la popup
 document.addEventListener('DOMContentLoaded', function() {
-    const modal = document.getElementById('modal-besancon');
+    const modal = document.getElementById('modal-ncon');
     const link = document.querySelector('a[aria-controls="modal-besancon"]');
     const closeButton = document.querySelector('.fr-btn--close');
     
