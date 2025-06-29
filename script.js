@@ -3,6 +3,7 @@ let formatter = new Intl.NumberFormat('fr-FR', {
     minimumFractionDigits: 0,
     maximumFractionDigits: 2
 });
+
 // Données des termes de l'équation de Drake
 const drakeTerms = {
     'R_star': {
@@ -39,7 +40,7 @@ const drakeTerms = {
             
             <h5>État de l'art des connaissances :</h5>
             <ul>
-                <li><strong>Télescopes spatiaux :</strong> Les télescopes spatiaux tels que Corot, Kepler et bientôt l'observatoire des mondes habitables ont révolutionné la chasse aux exoplanètes</li>
+                <li><strong>Télescopes spatiaux :</strong> Les télescopes spatiaux tels que <span class="besancon-link" onclick="showCorotModal()">Corot</span>, <span class="besancon-link" onclick="showKeplerModal()">Kepler</span> et bientôt l'<span class="besancon-link" onclick="showHabitableWorldsModal()">observatoire des mondes habitables</span> ont révolutionné la chasse aux exoplanètes</li>
                 <li><strong>Statistiques actuelles :</strong> Plus de 90% des étoiles semblables au Soleil ont des planètes</li>
                 <li><strong>Diversité des systèmes :</strong> Jupiter chauds, super-Terres, systèmes compacts</li>
                 <li><strong>Méthodes de détection :</strong> Transits, vitesses radiales, microlentilles gravitationnelles</li>
@@ -62,7 +63,7 @@ const drakeTerms = {
             
             <h5>État de l'art des connaissances :</h5>
             <ul>
-                <li><strong>Zone Boucles d'or :</strong> Distance optimale où l'eau liquide peut exister</li>
+                <li><strong>Zone Boucle d'or :</strong> Distance optimale où l'eau liquide peut exister</li>
                 <li><strong>Facteurs complexes :</strong> Atmosphère, effet de serre, activité tectonique</li>
                 <li><strong>Exemples prometteurs :</strong> Kepler-452b, Proxima Centauri b, TRAPPIST-1</li>
                 <li><strong>Habitabilité élargie :</strong> Lunes de géantes gazeuses, océans sous-glaciaires</li>
@@ -189,6 +190,13 @@ $(document).ready(function() {
             element.innerHTML = '';
             element.onclick = null;
             typewriterIntro();
+        });
+    });
+
+    $("#titre-equation-drake").css("cursor", "pointer");
+    $("#titre-equation-drake").on("click", function() {
+        $("#intro-overlay").fadeOut(400, function() {
+            $('#main-content').fadeIn(400);
         });
     });
 });
@@ -428,6 +436,18 @@ function showGaiaModal() {
 
 function showHipparcosModal() {
     $("#hipparcosModal").modal("show");
+};
+
+function showKeplerModal() {
+    $("#keplerModal").modal("show");
+};
+
+function showCorotModal() {
+    $("#corotModal").modal("show");
+};
+
+function showHabitableWorldsModal() {
+    $("#habitableWorldsModal").modal("show");
 };
 
 function typewriterIntro() {

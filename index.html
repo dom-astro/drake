@@ -20,7 +20,7 @@
         <!-- Étoiles filantes -->
         <div class="shooting-stars"></div>
         
-        <h1 style="font-size:3rem;font-weight:bold;position:relative;z-index:10;">Équation de Drake</h1>
+        <h1 id="titre-equation-drake" style="cursor: pointer;font-size:3rem;font-weight:bold;position:relative;z-index:10;">Équation de Drake</h1>
         <p style="opacity: 0.8;font-size:1.3rem;max-width:1000px;text-align:center;margin-top:1.2rem;margin-bottom:0.5rem;font-style:italic;letter-spacing:0.01em;line-height:1.5;background:rgba(255,255,255,0.10);padding:18px 28px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:10;backdrop-filter:blur(10px);">
             <span style="display:inline-flex;align-items:center;flex-shrink:0;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" style="display:block;" viewBox="0 0 64 64" fill="#ffd700">
@@ -366,6 +366,258 @@
                         <small class="text-muted">
                             <i class="fas fa-link"></i> 
                             Mission de l'Agence Spatiale Européenne (ESA) - 1989-1993
+                        </small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        <i class="fas fa-check"></i> Compris !
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour le satellite Kepler -->
+    <div class="modal fade" id="keplerModal" tabindex="-1" aria-labelledby="keplerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="keplerModalLabel">
+                        <i class="fas fa-satellite"></i> Le Satellite Kepler
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <img src="images/Kepler.jpg" 
+                                 style="width: 250px; border-radius: 10px;" alt="Satellite Kepler" />
+                            <h6>Satellite Kepler (NASA)</h6>
+                        </div>
+                        <div class="col-md-8">
+                            <h5><i class="fas fa-info-circle text-primary"></i> Qu'est-ce que Kepler ?</h5>
+                            <p>
+                                <strong>Kepler</strong> était un télescope spatial de la NASA lancé en 2009, conçu pour découvrir des planètes extrasolaires 
+                                en utilisant la méthode du transit. Sa mission a révolutionné notre compréhension des exoplanètes 
+                                et de leur distribution dans la galaxie.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h5><i class="fas fa-cogs text-success"></i> Caractéristiques principales</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li><strong>Méthode de détection :</strong> Transit photométrique</li>
+                                <li><strong>Champ d'observation :</strong> 115 degrés carrés</li>
+                                <li><strong>Étoiles surveillées :</strong> Plus de 150 000 étoiles</li>
+                                <li><strong>Précision photométrique :</strong> 20 ppm</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li><strong>Durée :</strong> Mission de 9.5 ans (2009-2018)</li>
+                                <li><strong>Découvertes :</strong> Plus de 2 600 exoplanètes confirmées</li>
+                                <li><strong>Planètes habitables :</strong> Plus de 30 candidates</li>
+                                <li><strong>Héritage :</strong> Base de données K2</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb"></i> 
+                        <strong>Utilité pour l'équation de Drake :</strong> 
+                        Kepler a fourni des données cruciales pour estimer les paramètres fp (fraction d'étoiles avec planètes) 
+                        et ne (nombre de planètes habitables par étoile), révélant que les planètes sont extrêmement communes 
+                        dans notre galaxie.
+                    </div>
+                    
+                    <h5><i class="fas fa-telescope text-warning"></i> Découvertes révolutionnaires</h5>
+                    <p>
+                        Kepler a transformé notre vision de l'univers en révélant :
+                    </p>
+                    <ul>
+                        <li>La diversité incroyable des systèmes planétaires</li>
+                        <li>L'existence de "super-Terres" et "mini-Neptunes"</li>
+                        <li>Des planètes dans des systèmes binaires</li>
+                        <li>La fréquence élevée des planètes dans la zone habitable</li>
+                    </ul>
+                    
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            <i class="fas fa-link"></i> 
+                            Mission de la NASA - 2009-2018
+                        </small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        <i class="fas fa-check"></i> Compris !
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour le satellite Corot -->
+    <div class="modal fade" id="corotModal" tabindex="-1" aria-labelledby="corotModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="corotModalLabel">
+                        <i class="fas fa-satellite"></i> Le Satellite Corot
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <img src="images/Corot.jpg" 
+                                 style="width: 250px; border-radius: 10px;" alt="Satellite Corot" />
+                            <h6>Satellite Corot (CNES/ESA)</h6>
+                        </div>
+                        <div class="col-md-8">
+                            <h5><i class="fas fa-info-circle text-primary"></i> Qu'est-ce que Corot ?</h5>
+                            <p>
+                                <strong>Corot</strong> (Convection, Rotation et Transits planétaires) était le premier satellite dédié 
+                                à la recherche d'exoplanètes par la méthode du transit. Lancé en 2006 par le CNES et l'ESA, 
+                                il a ouvert la voie aux missions d'étude des exoplanètes.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h5><i class="fas fa-cogs text-success"></i> Caractéristiques principales</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li><strong>Méthode de détection :</strong> Transit photométrique</li>
+                                <li><strong>Champ d'observation :</strong> 2.8 x 2.8 degrés</li>
+                                <li><strong>Étoiles surveillées :</strong> 12 000 étoiles</li>
+                                <li><strong>Précision photométrique :</strong> 50 ppm</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li><strong>Durée :</strong> Mission de 6 ans (2006-2012)</li>
+                                <li><strong>Découvertes :</strong> 37 exoplanètes confirmées</li>
+                                <li><strong>Première :</strong> Première détection de transit d'une super-Terre</li>
+                                <li><strong>Héritage :</strong> Validation de la méthode du transit</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb"></i> 
+                        <strong>Utilité pour l'équation de Drake :</strong> 
+                        Corot a démontré la faisabilité de la détection d'exoplanètes par transit, 
+                        contribuant à l'estimation du paramètre fp et validant les techniques 
+                        utilisées par les missions suivantes comme Kepler.
+                    </div>
+                    
+                    <h5><i class="fas fa-telescope text-warning"></i> Découvertes pionnières</h5>
+                    <p>
+                        Corot a marqué l'histoire de l'exoplanétologie en :
+                    </p>
+                    <ul>
+                        <li>Démontrant la viabilité de la méthode du transit depuis l'espace</li>
+                        <li>Découvrant la première super-Terre par transit (Corot-7b)</li>
+                        <li>Établissant les standards pour les missions futures</li>
+                        <li>Contribuant à l'astérosismologie stellaire</li>
+                    </ul>
+                    
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            <i class="fas fa-link"></i> 
+                            Mission CNES/ESA - 2006-2012
+                        </small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        <i class="fas fa-check"></i> Compris !
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour l'Observatoire des Mondes Habitables -->
+    <div class="modal fade" id="habitableWorldsModal" tabindex="-1" aria-labelledby="habitableWorldsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="habitableWorldsModalLabel">
+                        <i class="fas fa-telescope"></i> L'Observatoire des Mondes Habitables
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <img src="images/HabitableWorlds.jpg" 
+                                 style="width: 250px; border-radius: 10px;" alt="Observatoire des Mondes Habitables" />
+                            <h6>Observatoire des Mondes Habitables (NASA)</h6>
+                        </div>
+                        <div class="col-md-8">
+                            <h5><i class="fas fa-info-circle text-primary"></i> Qu'est-ce que l'Observatoire des Mondes Habitables ?</h5>
+                            <p>
+                                L'<strong>Observatoire des Mondes Habitables</strong> (Habitable Worlds Observatory) est une mission spatiale 
+                                de la NASA en cours de développement, conçue pour détecter et caractériser des planètes terrestres 
+                                dans les zones habitables autour d'étoiles proches.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h5><i class="fas fa-cogs text-success"></i> Caractéristiques prévues</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li><strong>Méthode de détection :</strong> Imagerie directe et spectroscopie</li>
+                                <li><strong>Miroir principal :</strong> 6 mètres de diamètre</li>
+                                <li><strong>Coronographe :</strong> Suppression de la lumière stellaire</li>
+                                <li><strong>Spectroscopie :</strong> Analyse des atmosphères</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li><strong>Lancement prévu :</strong> Années 2040</li>
+                                <li><strong>Objectif :</strong> 25 planètes terrestres habitables</li>
+                                <li><strong>Biosignatures :</strong> Détection de signes de vie</li>
+                                <li><strong>Héritage :</strong> Successeur de JWST et Roman</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb"></i> 
+                        <strong>Utilité pour l'équation de Drake :</strong> 
+                        Cet observatoire révolutionnaire permettra d'estimer directement les paramètres fl (fraction avec vie) 
+                        et fi (fraction avec intelligence) en analysant les atmosphères d'exoplanètes terrestres 
+                        et en recherchant des biosignatures.
+                    </div>
+                    
+                    <h5><i class="fas fa-telescope text-warning"></i> Objectifs scientifiques</h5>
+                    <p>
+                        L'observatoire vise à répondre aux questions fondamentales :
+                    </p>
+                    <ul>
+                        <li>Combien de planètes terrestres existent dans les zones habitables ?</li>
+                        <li>Quelles sont les conditions atmosphériques de ces mondes ?</li>
+                        <li>Y a-t-il des signes de vie sur ces planètes ?</li>
+                        <li>Comment la vie évolue-t-elle sur différents mondes ?</li>
+                    </ul>
+                    
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            <i class="fas fa-link"></i> 
+                            Mission de la NASA - Développement en cours (lancement prévu années 2040)
                         </small>
                     </div>
                 </div>
