@@ -40,7 +40,7 @@ const drakeTerms = {
             
             <h5>État de l'art des connaissances :</h5>
             <ul>
-                <li><strong>Télescopes spatiaux :</strong> Les télescopes spatiaux tels que <span class="besancon-link" onclick="showCorotModal()">Corot</span>, <span class="besancon-link" onclick="showKeplerModal()">Kepler</span> et bientôt l'<span class="besancon-link" onclick="showHabitableWorldsModal()">observatoire des mondes habitables</span> ont révolutionné la chasse aux exoplanètes</li>
+                <li><strong>Télescopes spatiaux :</strong> Les télescopes spatiaux tels que <span class="besancon-link" onclick="showCorotModal()">Corot</span>, <span class="besancon-link" onclick="showKeplerModal()">Kepler</span> et bientôt l'<span class="besancon-link" onclick="showHabitableWorldsModal()">Observatoire des mondes habitables</span> ont révolutionné la chasse aux exoplanètes</li>
                 <li><strong>Statistiques actuelles :</strong> Plus de 90% des étoiles semblables au Soleil ont des planètes</li>
                 <li><strong>Diversité des systèmes :</strong> Jupiter chauds, super-Terres, systèmes compacts</li>
                 <li><strong>Méthodes de détection :</strong> Transits, vitesses radiales, microlentilles gravitationnelles</li>
