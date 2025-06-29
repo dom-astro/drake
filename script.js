@@ -15,8 +15,8 @@ const drakeTerms = {
             
             <h5>État de l'art des connaissances :</h5>
             <ul>
-                <li><strong>Observations actuelles :</strong> Les télescopes spatiaux comme Hipparcos et Gaïa ont permis d'estimer ce taux</li>
-                <li><strong>Modèle mis en oeuvre :</strong> Le <span class="besancon-link" onclick="showBesanconModal()">modèle da la galaxie de Besançon</span> fait référence quand à la formation et l'évolution d'une galaxie</li>
+                <li><strong>Observations actuelles :</strong> Les télescopes spatiaux comme <span class="besancon-link" onclick="showHipparcosModal()">Hipparcos</span> et <span class="besancon-link" onclick="showGaiaModal()">Gaia</span> ont permis d'estimer ce taux</li>
+                <li><strong>Modèle mis en oeuvre :</strong> Le <span class="besancon-link" onclick="showBesanconModal()">modèle de la galaxie de Besançon</span> fait référence quand à la formation et l'évolution d'une galaxie</li>
                 <li><strong>Méthodes de mesure :</strong> Comptage des étoiles jeunes, analyse de la lumière infrarouge des régions de formation stellaire</li>
                 <li><strong>Évolution temporelle :</strong> Le taux était plus élevé dans le passé de la galaxie</li>
                 <li><strong>Variations régionales :</strong> Plus intense dans les bras spiraux et le centre galactique</li>
@@ -420,6 +420,14 @@ function calculateResult() {
 
 function showBesanconModal() {
     $("#besanconModal").modal("show");
+};
+
+function showGaiaModal() {
+    $("#gaiaModal").modal("show");
+};
+
+function showHipparcosModal() {
+    $("#hipparcosModal").modal("show");
 };
 
 function typewriterIntro() {
