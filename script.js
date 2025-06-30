@@ -42,8 +42,8 @@ const drakeTerms = {
             <ul>
                 <li><strong>Télescopes spatiaux :</strong> Les télescopes spatiaux tels que <span class="besancon-link" onclick="showCorotModal()">Corot</span>, <span class="besancon-link" onclick="showKeplerModal()">Kepler</span> et bientôt l'<span class="besancon-link" onclick="showHabitableWorldsModal()">Observatoire des mondes habitables</span> ont révolutionné la chasse aux exoplanètes</li>
                 <li><strong>Statistiques actuelles :</strong> Plus de 90% des étoiles semblables au Soleil ont des planètes</li>
-                <li><strong>Diversité des systèmes :</strong> Jupiter chauds, super-Terres, systèmes compacts</li>
-                <li><strong>Méthodes de détection :</strong> Transits, vitesses radiales, microlentilles gravitationnelles</li>
+                <li><strong>Diversité des systèmes :</strong> Jupiter chauds, super-Terre, mini-Neptune</li>
+                <li><strong>Méthodes de détection :</strong> <span class="besancon-link" onclick="showTransitModal()">Transits</span>, <span class="besancon-link" onclick="showRadialVelocityModal()">vitesses radiales</span>, <span class="besancon-link" onclick="showMicrolensingModal()">microlentilles gravitationnelles</span>, <span class="besancon-link" onclick="showDirectImagingModal()">imagerie directe</span></li>
             </ul>
             
             <h5>Découvertes récentes :</h5>
@@ -448,6 +448,22 @@ function showCorotModal() {
 
 function showHabitableWorldsModal() {
     $("#habitableWorldsModal").modal("show");
+};
+
+function showTransitModal() {
+    $("#transitModal").modal("show");
+};
+
+function showRadialVelocityModal() {
+    $("#radialVelocityModal").modal("show");
+};
+
+function showMicrolensingModal() {
+    $("#microlensingModal").modal("show");
+};
+
+function showDirectImagingModal() {
+    $("#directImagingModal").modal("show");
 };
 
 function typewriterIntro() {

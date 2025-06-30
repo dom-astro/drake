@@ -47,7 +47,7 @@
                 <div class="equation-display text-center" onclick="showIntroduction()">
                     <div class="row align-items-center">
                         <div class="col-md-3">
-                            <img src="images/Drake.jpg" 
+                            <img src="img/Drake.jpg" 
                                  alt="Frank Drake" class="img-fluid rounded-circle" 
                                  style="width: 72px; height: 72px; background: white; padding: 1px;">
                             <small class="d-block mt-2">Frank Drake</small>
@@ -223,7 +223,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4 text-center">
-                            <img src="images/Gaia.jpg" 
+                            <img src="img/Gaia.jpg" 
                                  style="width: 250px; border-radius: 10px;" alt="Satellite Gaia" />
                             <h6>Satellite Gaia (ESA)</h6>
                         </div>
@@ -307,7 +307,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4 text-center">
-                            <img src="images/Hipparcos.jpg" 
+                            <img src="img/Hipparcos.jpg" 
                                  style="width: 250px; border-radius: 10px;" alt="Satellite Hipparcos" />
                             <h6>Satellite Hipparcos (ESA)</h6>
                         </div>
@@ -391,7 +391,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4 text-center">
-                            <img src="images/Kepler.jpg" 
+                            <img src="img/Kepler.png" 
                                  style="width: 250px; border-radius: 10px;" alt="Satellite Kepler" />
                             <h6>Satellite Kepler (NASA)</h6>
                         </div>
@@ -475,7 +475,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4 text-center">
-                            <img src="images/Corot.jpg" 
+                            <img src="img/Corot.jpg" 
                                  style="width: 250px; border-radius: 10px;" alt="Satellite Corot" />
                             <h6>Satellite Corot (CNES/ESA)</h6>
                         </div>
@@ -559,7 +559,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4 text-center">
-                            <img src="images/HabitableWorlds.jpg" 
+                            <img src="img/HabitableWorlds.png" 
                                  style="width: 250px; border-radius: 10px;" alt="Observatoire des Mondes Habitables" />
                             <h6>Observatoire des Mondes Habitables (NASA)</h6>
                         </div>
@@ -620,6 +620,138 @@
                             Mission de la NASA - Développement en cours (lancement prévu années 2040)
                         </small>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        <i class="fas fa-check"></i> Compris !
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour la méthode des Transits -->
+    <div class="modal fade" id="transitModal" tabindex="-1" aria-labelledby="transitModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="transitModalLabel">
+                        <i class="fas fa-arrows-alt-h"></i> Méthode des Transits
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <img src="img/Transit.jpg" alt="Schéma méthode des transits" style="width:320px;max-width:100%;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:10px;" />
+                    </div>
+                    <h5>Principe</h5>
+                    <p>La méthode des transits consiste à détecter la baisse de luminosité d'une étoile lorsqu'une planète passe devant elle (transite), vue depuis la Terre. Cette baisse périodique permet de déduire la taille, la période orbitale et parfois l'atmosphère de la planète.</p>
+                    <h5>Exemples</h5>
+                    <ul>
+                        <li>Kepler, Corot, TESS</li>
+                    </ul>
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-lightbulb"></i> C'est la méthode qui a permis de découvrir le plus grand nombre d'exoplanètes à ce jour.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        <i class="fas fa-check"></i> Compris !
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour la méthode des Vitesses radiales -->
+    <div class="modal fade" id="radialVelocityModal" tabindex="-1" aria-labelledby="radialVelocityModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="radialVelocityModalLabel">
+                        <i class="fas fa-wave-square"></i> Méthode des Vitesses radiales
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <img src="img/radial_velocity.png" alt="Schéma méthode des vitesses radiales" style="width:320px;max-width:100%;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:10px;" />
+                    </div>
+                    <h5>Principe</h5>
+                    <p>Cette méthode mesure les variations de la vitesse d'une étoile causées par la présence d'une planète en orbite. L'étoile oscille légèrement sous l'effet gravitationnel de la planète, ce qui provoque un décalage Doppler de sa lumière.</p>
+                    <h5>Exemples</h5>
+                    <ul>
+                        <li>51 Pegasi b (première exoplanète autour d'une étoile de type solaire)</li>
+                        <li>Instruments HARPS, SOPHIE</li>
+                    </ul>
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-lightbulb"></i> Permet de mesurer la masse minimale des exoplanètes.</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        <i class="fas fa-check"></i> Compris !
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour la méthode des Microlentilles gravitationnelles -->
+    <div class="modal fade" id="microlensingModal" tabindex="-1" aria-labelledby="microlensingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="microlensingModalLabel">
+                        <i class="fas fa-circle-notch"></i> Méthode des Microlentilles gravitationnelles
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <img src="img/microlensing.jpg" alt="Schéma microlentilles gravitationnelles" style="width:320px;max-width:100%;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:10px;" />
+                    </div>
+                    <h5>Principe</h5>
+                    <p>Quand une étoile passe devant une autre, sa gravité agit comme une lentille et amplifie la lumière de l'étoile de fond. Si une planète accompagne l'étoile au premier plan, elle provoque une anomalie caractéristique dans la courbe de lumière.</p>
+                    <h5>Exemples</h5>
+                    <ul>
+                        <li>Découvertes par les collaborations OGLE, MOA</li>
+                    </ul>
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-lightbulb"></i> Permet de détecter des planètes très éloignées de leur étoile ou même des planètes « orphelines ».</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                        <i class="fas fa-check"></i> Compris !
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour la méthode de l'Imagerie directe -->
+    <div class="modal fade" id="directImagingModal" tabindex="-1" aria-labelledby="directImagingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="directImagingModalLabel">
+                        <i class="fas fa-camera"></i> Méthode de l'Imagerie directe
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <img src="img/direct_imaging.gif" alt="Schéma imagerie directe" style="width:320px;max-width:100%;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:10px;" />
+                        <div style="font-size:0.95em;color:#555;margin-top:0.5em;">Interpolation de mouvement de sept images du système HR 8799 prises à l'observatoire W. M. Keck sur sept ans, montrant quatre exoplanètes.</div>
+                    </div>
+                    <h5>Principe</h5>
+                    <p>Cette méthode consiste à obtenir une image réelle d'une exoplanète en bloquant la lumière de l'étoile hôte à l'aide d'un coronographe ou d'une optique adaptative, permettant ainsi de voir la planète directement.</p>
+                    <h5>Exemples</h5>
+                    <ul>
+                        <li>HR 8799 (système multi-planétaire imagé directement)</li>
+                        <li>Instruments SPHERE (VLT), GPI (Gemini)</li>
+                    </ul>
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-lightbulb"></i> Permet d'étudier l'atmosphère et la composition des exoplanètes géantes jeunes.</div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
