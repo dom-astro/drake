@@ -12,23 +12,37 @@ const drakeTerms = {
         description: 'Le taux moyen de formation d\'étoiles dans notre galaxie',
         details: `
             <h4><i class="fas fa-star"></i> Taux de formation stellaire (R*)</h4>
-            <p>Ce paramètre représente le nombre d'étoiles qui se forment chaque année dans la Voie lactée.</p>
-            
+            <p>
+                Ce paramètre est une simplification qui représente le nombre d'étoiles qui se forment en moyenne chaque année.
+                Pour mieux le conceptualiser, on peut l'estimer comme le <strong>nombre total d'étoiles dans la galaxie (N*)</strong> divisé par son <strong>âge (Ag)</strong>.
+            </p>
+            <p>
+                <strong>R* = N* / Ag</strong>
+            </p>
+
             <h5>État de l'art des connaissances :</h5>
             <ul>
-                <li><strong>Observations actuelles :</strong> Les télescopes spatiaux comme <span class="besancon-link" onclick="showHipparcosModal()">Hipparcos</span> et <span class="besancon-link" onclick="showGaiaModal()">Gaia</span> ont permis d'estimer ce taux</li>
-                <li><strong>Modèle mis en oeuvre :</strong> Le <span class="besancon-link" onclick="showBesanconModal()">modèle de la galaxie de Besançon</span> fait référence quand à la formation et l'évolution d'une galaxie</li>
-                <li><strong>Méthodes de mesure :</strong> Comptage des étoiles jeunes, analyse de la lumière infrarouge des régions de formation stellaire</li>
-                <li><strong>Évolution temporelle :</strong> Le taux était plus élevé dans le passé de la galaxie</li>
-                <li><strong>Variations régionales :</strong> Plus intense dans les bras spiraux et le centre galactique</li>
+                <li><strong>Nombre d'étoiles (N*) :</strong> Les estimations, basées sur des missions comme <span class="besancon-link" onclick="showHipparcosModal()">Hipparcos</span> et <span class="besancon-link" onclick="showGaiaModal()">Gaia</span>, varient de 100 à 400 milliards d'étoiles.</li>
+                <li><strong>Âge de la galaxie (Ag) :</strong> L'âge de la Voie lactée est estimé principalement grâce à la datation des plus vieilles étoiles et des <span class="besancon-link" onclick="showGlobularClustersModal()">amas globulaires</span> qui la composent. Les plus vieux amas globulaires connus ont un âge d'environ 13,2 milliards d'années, ce qui donne une estimation minimale pour l'âge de la galaxie.</li>
+                <li><strong>Modèle de référence :</strong> Le <span class="besancon-link" onclick="showBesanconModal()">modèle de la galaxie de Besançon</span> aide à affiner ces estimations en simulant l'évolution de la galaxie.</li>
             </ul>
-            
-            <h5>Facteurs influençant ce paramètre :</h5>
-            <p>La disponibilité du gaz interstellaire, les ondes de densité dans les bras spiraux, les interactions galactiques, et l'évolution chimique de la galaxie.</p>
         `,
-        pessimistic: 1,
-        optimistic: 10,
-        unit: 'étoiles/an'
+        type: 'computed', // Indique un calcul spécial
+        unit: 'étoiles/an',
+        sub_params: {
+            'N_star': {
+                title: 'N*: Nombre d\'étoiles',
+                pessimistic: 1e11, // 100 milliards
+                optimistic: 4e11,  // 400 milliards
+                unit: 'milliards d\'étoiles'
+            },
+            'Ag': {
+                title: 'Ag: Âge de la galaxie',
+                pessimistic: 14e9, // 14 milliards d'années
+                optimistic: 13e9,   // 13 milliards d'années
+                unit: 'milliards d\'années'
+            }
+        }
     },
     'f_p': {
         name: 'fp',
@@ -207,18 +221,41 @@ function generateTermCards() {
     
     Object.keys(drakeTerms).forEach(termId => {
         const term = drakeTerms[termId];
+
+        // Calcul de R* si nécessaire
+        if (term.type === 'computed') {
+            term.pessimistic = term.sub_params.N_star.pessimistic / term.sub_params.Ag.pessimistic;
+            term.optimistic = term.sub_params.N_star.optimistic / term.sub_params.Ag.optimistic;
+        }
+
+        // Affichage en pourcentage si l'unité est vide
+        let pessValue = term.pessimistic;
+        let optiValue = term.optimistic;
+        let pessUnit = term.unit;
+        let optiUnit = term.unit;
+        if (!term.unit) {
+            pessValue = (term.pessimistic * 100).toFixed(1).replace(/\.0$/, '');
+            optiValue = (term.optimistic * 100).toFixed(1).replace(/\.0$/, '');
+            pessUnit = optiUnit = '%';
+        } else {
+             // Affichage formaté pour les grands nombres R*
+            if (termId === 'R_star') {
+                pessValue = formatter.format(pessValue);
+                optiValue = formatter.format(optiValue);
+            }
+        }
         const card = `
             <div class="col-12 mb-3">
-                <div class="card term-card h-100" onclick="showTermDetail('${termId}')">
+                <div class="card term-card h-100" onclick="${term.type === 'computed' ? 'showRStarDetail' : 'showTermDetail'}('${termId}')">
                     <div class="card-body text-center">
                         <h6 class="card-title">${term.name}</h6>
                         <small class="text-muted">${term.title}</small>
                         <div class="term-card-value mt-2">
                             <div class="text-danger small display-term">
-                                <i class="fas fa-frown"></i> ${term.pessimistic} ${term.unit}
+                                <i class="fas fa-frown"></i> ${pessValue} ${pessUnit}
                             </div>
                             <div class="text-success small display-term">
-                                <i class="fas fa-smile"></i> ${term.optimistic} ${term.unit}
+                                <i class="fas fa-smile"></i> ${optiValue} ${optiUnit}
                             </div>
                         </div>
                     </div>
@@ -256,32 +293,51 @@ function showTermDetail(termId, type='pessimistic') {
     $('#term-details').show();
     
     const term = drakeTerms[termId];
+    // Affichage en pourcentage si l'unité est vide
+    const isPercent = !term.unit;
+    let currentValueFormatted, pessValueFormatted, optiValueFormatted;
+    let unitFormatted = term.unit || ' %';
+
+    if (isPercent) {
+        const formatPercent = (val) => (val * 100).toFixed(1).replace(/\.0$/, '');
+        currentValueFormatted = formatPercent(currentValues[termId]);
+        pessValueFormatted = formatPercent(term.pessimistic);
+        optiValueFormatted = formatPercent(term.optimistic);
+    } else {
+        currentValueFormatted = currentValues[termId];
+        pessValueFormatted = term.pessimistic;
+        optiValueFormatted = term.optimistic;
+    }
+
+    // Définir l'incrément selon le paramètre
+    let increment = 0.01;
+    if (term.unit === 'étoiles/an' || term.unit === 'années') increment = 1;
+    else if (term.unit === 'planètes') increment = 0.01;
+    else if (term.unit === 'étoile') increment = 0.01;
+    else if (term.unit === '' || isPercent) increment = 0.01;
+    else if (term.unit === 'milliards d\'étoiles' || term.unit === 'milliards d\'années') increment = 1e9;
+
     const detailHtml = `
         <div class="term-detail">
             ${term.details}
             
             <div class="current-value-display current-value-${type}">
                 <h5><i class="fas fa-check-circle"></i> Valeur actuelle sélectionnée</h5>
-                <h3>${currentValues[termId]} ${term.unit}</h3>
+                <h3>${currentValueFormatted}${unitFormatted}</h3>
             </div>
             
             <div class="value-selector">
-                <h5><i class="fas fa-sliders-h"></i> Choisissez une valeur :</h5>
+                <h5><i class="fas fa-sliders-h"></i> Ajustez les bornes pessimiste et optimiste :</h5>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card ${currentValues[termId] === term.pessimistic ? 'border-danger bg-light' : ''}" style="cursor: pointer;" onclick="setValue('${termId}', ${term.pessimistic}, 'pessimistic')">
                             <div class="card-body text-center">
                                 <h6 class="text-danger"><i class="fas fa-frown"></i> Pessimiste</h6>
-                                <h4>${term.pessimistic} ${term.unit}</h4>
-                                <div class="btn-group mb-2" role="group">
-                                    <button class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation(); adjustValue('${termId}', 'pessimistic', -1)">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <button class="btn btn-outline-danger btn-sm" onclick="event.stopPropagation(); adjustValue('${termId}', 'pessimistic', 1)">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
+                                <div class="d-flex align-items-center justify-content-center mb-2">
+                                    <button class="btn btn-outline-danger btn-sm me-2" onclick="event.stopPropagation(); adjustParamBound('${termId}', 'pessimistic', -${increment})"><i class="fas fa-minus"></i></button>
+                                    <span style="font-size:1.2em;font-weight:bold;min-width:70px;display:inline-block;text-align:center;">${pessValueFormatted}${unitFormatted}</span>
+                                    <button class="btn btn-outline-danger btn-sm ms-2" onclick="event.stopPropagation(); adjustParamBound('${termId}', 'pessimistic', ${increment})"><i class="fas fa-plus"></i></button>
                                 </div>
-                                <br>
                                 <button class="btn ${currentValues[termId] === term.pessimistic ? 'btn-danger' : 'btn-outline-danger'}" type="button">
                                     ${currentValues[termId] === term.pessimistic ? 'Sélectionner' : 'Sélectionner'}
                                 </button>
@@ -292,16 +348,11 @@ function showTermDetail(termId, type='pessimistic') {
                         <div class="card ${currentValues[termId] === term.optimistic ? 'border-success bg-light' : ''}" style="cursor: pointer;" onclick="setValue('${termId}', ${term.optimistic}, 'optimistic')">
                             <div class="card-body text-center">
                                 <h6 class="text-success"><i class="fas fa-smile"></i> Optimiste</h6>
-                                <h4>${term.optimistic} ${term.unit}</h4>
-                                <div class="btn-group mb-2" role="group">
-                                    <button class="btn btn-outline-success btn-sm" onclick="event.stopPropagation(); adjustValue('${termId}', 'optimistic', -1)">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <button class="btn btn-outline-success btn-sm" onclick="event.stopPropagation(); adjustValue('${termId}', 'optimistic', 1)">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
+                                <div class="d-flex align-items-center justify-content-center mb-2">
+                                    <button class="btn btn-outline-success btn-sm me-2" onclick="event.stopPropagation(); adjustParamBound('${termId}', 'optimistic', -${increment})"><i class="fas fa-minus"></i></button>
+                                    <span style="font-size:1.2em;font-weight:bold;min-width:70px;display:inline-block;text-align:center;">${optiValueFormatted}${unitFormatted}</span>
+                                    <button class="btn btn-outline-success btn-sm ms-2" onclick="event.stopPropagation(); adjustParamBound('${termId}', 'optimistic', ${increment})"><i class="fas fa-plus"></i></button>
                                 </div>
-                                <br>
                                 <button class="btn ${currentValues[termId] === term.optimistic ? 'btn-success' : 'btn-outline-success'}" type="button">
                                     ${currentValues[termId] === term.optimistic ? 'Sélectionner' : 'Sélectionner'}
                                 </button>
@@ -316,58 +367,25 @@ function showTermDetail(termId, type='pessimistic') {
     $('#term-details').html(detailHtml);
 }
 
-function adjustValue(termId, type, direction) {
+function adjustParamBound(termId, bound, step) {
     const term = drakeTerms[termId];
-    
-    // Définir les incréments selon le terme
-    let increment;
-    if (termId === 'R_star') {
-        increment = 1; // étoiles/an
-    } else if (termId === 'L') {
-        increment = direction > 0 ? term[type] * 0.1 : term[type] * 0.1; // 10% d'ajustement
-    } else if (term[type] >= 1) {
-        increment = 0.1; // Pour les valeurs >= 1
-    } else if (term[type] >= 0.1) {
-        increment = 0.01; // Pour les valeurs décimales
-    } else {
-        increment = 0.01; // Pour les très petites valeurs
-    }
-    
-    // Calculer la nouvelle valeur
-    let newValue = term[type] + (direction * increment);
-    
-    // S'assurer que la valeur reste positive
-    if (newValue <= 0) {
-        newValue = increment;
-    }
-    
-    // Arrondir pour éviter les problèmes de précision JavaScript
-    if (increment >= 1) {
-        newValue = Math.round(newValue);
-    } else if (increment >= 0.1) {
-        newValue = Math.round(newValue * 10) / 10;
-    } else if (increment >= 0.01) {
-        newValue = Math.round(newValue * 100) / 100;
-    } else {
-        newValue = Math.round(newValue * 1000) / 1000;
-    }
-    
-    // Sauvegarder l'ancienne valeur pour comparaison
-    const oldValue = term[type];
-    
-    // Mettre à jour la valeur dans l'objet
-    drakeTerms[termId][type] = newValue;
-    
-    // Si cette valeur est actuellement sélectionnée, mettre à jour aussi currentValues
-    if (currentValues[termId] === oldValue) {
-        currentValues[termId] = newValue;
-    }
-    
-    // Mettre à jour l'affichage des cartes avec les nouvelles valeurs
+    let value = term[bound];
+    value += step;
+    // Pour les pourcentages, ne pas dépasser 0-1
+    if (!term.unit && (value < 0)) value = 0;
+    // Ne pas croiser l'autre borne
+    if (bound === 'pessimistic' && value > term.optimistic) value = term.optimistic;
+    if (bound === 'optimistic' && value < term.pessimistic) value = term.pessimistic;
+    // Arrondir selon le pas
+    if (Math.abs(step) >= 1) value = Math.round(value);
+    else if (Math.abs(step) >= 0.1) value = Math.round(value * 10) / 10;
+    else if (Math.abs(step) >= 0.01) value = Math.round(value * 100) / 100;
+    else value = Math.round(value * 1000) / 1000;
+    term[bound] = value;
+    // Si la valeur courante était sur la borne, la mettre à jour aussi
+    if (currentValues[termId] === value - step) currentValues[termId] = value;
     updateTermCards();
-    
-    // Rafraîchir l'affichage du détail
-    showTermDetail(termId, type);
+    showTermDetail(termId, bound);
 }
 
 function setValue(termId, value, type) {
@@ -384,6 +402,12 @@ function setValue(termId, value, type) {
 }
 
 function calculateResult() {
+    // S'assurer que R* est calculé avant le reste
+    if (drakeTerms['R_star'].type === 'computed') {
+        currentValues['R_star'] = (currentValues.N_star || drakeTerms.R_star.sub_params.N_star.pessimistic) / 
+                                  (currentValues.Ag || drakeTerms.R_star.sub_params.Ag.pessimistic);
+    }
+
     let resultPessimistic = 1
       , resultOptimistic = 1;
     Object.keys(drakeTerms).forEach(termId => {
@@ -466,6 +490,10 @@ function showDirectImagingModal() {
     $("#directImagingModal").modal("show");
 };
 
+function showGlobularClustersModal() {
+    $("#globularClustersModal").modal("show");
+}
+
 function typewriterIntro() {
     const equation = "N = R* × f<sub>p</sub> × n<sub>e</sub> × f<sub>l</sub> × f<sub>i</sub> × f<sub>c</sub> × L";
     const terms = [
@@ -546,4 +574,124 @@ if (typeof window !== 'undefined') {
     const style = document.createElement('style');
     style.innerHTML = `@keyframes fadein { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: none;} }`;
     document.head.appendChild(style);
+}
+
+function showRStarDetail(termId) {
+    // Activer la carte
+    $('.term-card').removeClass('active-term');
+    $(`[onclick="showRStarDetail('${termId}')"]`).addClass('active-term');
+    
+    $('#welcome-screen').hide();
+    $('#term-details').show();
+
+    const term = drakeTerms[termId];
+    const N_star = term.sub_params.N_star;
+    const Ag = term.sub_params.Ag;
+
+    // Récupérer les valeurs sélectionnées ou les valeurs par défaut (pessimistes)
+    currentValues.N_star = currentValues.N_star || N_star.pessimistic;
+    currentValues.Ag = currentValues.Ag || Ag.pessimistic;
+
+    // Calculer R* actuel
+    currentValues['R_star'] = currentValues.N_star / currentValues.Ag;
+
+    // Incréments
+    const nstarStep = 1e10;
+    const agStep = 1e8;
+
+    const detailHtml = `
+        <div class="term-detail">
+            ${term.details}
+            
+            <div class="current-value-display current-value-pessimistic">
+                <h5><i class="fas fa-check-circle"></i> Valeur actuelle calculée pour R*</h5>
+                <h3>${formatter.format(currentValues['R_star'])} ${term.unit}</h3>
+            </div>
+            
+            <div class="value-selector">
+                <h5><i class="fas fa-sliders-h"></i> Ajustez les bornes pessimiste et optimiste pour N* et Ag :</h5>
+                
+                <!-- Sélecteur pour N* -->
+                <div class="mt-3">
+                    <h6>${N_star.title}</h6>
+                    <div class="row align-items-center mb-2">
+                        <div class="col-md-6">
+                            <div class="card ${currentValues.N_star === N_star.pessimistic ? 'border-danger bg-light' : ''}" style="cursor: pointer;" onclick="setSubParamValue('R_star', 'N_star', ${N_star.pessimistic})">
+                                <div class="card-body text-center">
+                                    <h6 class="text-danger"><i class="fas fa-frown"></i> Pessimiste</h6>
+                                    <div class="d-flex align-items-center justify-content-center mb-2">
+                                        <button class="btn btn-outline-danger btn-sm me-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'N_star', 'pessimistic', -${nstarStep})"><i class="fas fa-minus"></i></button>
+                                        <span style="font-size:1.1em;font-weight:bold;min-width:90px;display:inline-block;text-align:center;">${(N_star.pessimistic / 1e9).toLocaleString('fr-FR', {maximumFractionDigits:2})} ${N_star.unit}</span>
+                                        <button class="btn btn-outline-danger btn-sm ms-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'N_star', 'pessimistic', ${nstarStep})"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card ${currentValues.N_star === N_star.optimistic ? 'border-success bg-light' : ''}" style="cursor: pointer;" onclick="setSubParamValue('R_star', 'N_star', ${N_star.optimistic})">
+                                <div class="card-body text-center">
+                                    <h6 class="text-success"><i class="fas fa-smile"></i> Optimiste</h6>
+                                    <div class="d-flex align-items-center justify-content-center mb-2">
+                                        <button class="btn btn-outline-success btn-sm me-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'N_star', 'optimistic', -${nstarStep})"><i class="fas fa-minus"></i></button>
+                                        <span style="font-size:1.1em;font-weight:bold;min-width:90px;display:inline-block;text-align:center;">${(N_star.optimistic / 1e9).toLocaleString('fr-FR', {maximumFractionDigits:2})} ${N_star.unit}</span>
+                                        <button class="btn btn-outline-success btn-sm ms-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'N_star', 'optimistic', ${nstarStep})"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sélecteur pour Ag -->
+                <div class="mt-4">
+                    <h6>${Ag.title}</h6>
+                    <div class="row align-items-center mb-2">
+                        <div class="col-md-6">
+                             <div class="card ${currentValues.Ag === Ag.pessimistic ? 'border-danger bg-light' : ''}" style="cursor: pointer;" onclick="setSubParamValue('R_star', 'Ag', ${Ag.pessimistic})">
+                                <div class="card-body text-center">
+                                    <h6 class="text-danger"><i class="fas fa-frown"></i> Pessimiste (âge élevé)</h6>
+                                    <div class="d-flex align-items-center justify-content-center mb-2">
+                                        <button class="btn btn-outline-danger btn-sm me-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'Ag', 'pessimistic', -${agStep})"><i class="fas fa-minus"></i></button>
+                                        <span style="font-size:1.1em;font-weight:bold;min-width:90px;display:inline-block;text-align:center;">${(Ag.pessimistic / 1e9).toLocaleString('fr-FR', {maximumFractionDigits:2})} ${Ag.unit}</span>
+                                        <button class="btn btn-outline-danger btn-sm ms-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'Ag', 'pessimistic', ${agStep})"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card ${currentValues.Ag === Ag.optimistic ? 'border-success bg-light' : ''}" style="cursor: pointer;" onclick="setSubParamValue('R_star', 'Ag', ${Ag.optimistic})">
+                                <div class="card-body text-center">
+                                    <h6 class="text-success"><i class="fas fa-smile"></i> Optimiste (âge plus faible)</h6>
+                                    <div class="d-flex align-items-center justify-content-center mb-2">
+                                        <button class="btn btn-outline-success btn-sm me-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'Ag', 'optimistic', -${agStep})"><i class="fas fa-minus"></i></button>
+                                        <span style="font-size:1.1em;font-weight:bold;min-width:90px;display:inline-block;text-align:center;">${(Ag.optimistic / 1e9).toLocaleString('fr-FR', {maximumFractionDigits:2})} ${Ag.unit}</span>
+                                        <button class="btn btn-outline-success btn-sm ms-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'Ag', 'optimistic', ${agStep})"><i class="fas fa-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    $('#term-details').html(detailHtml);
+}
+
+function adjustSubParamBound(termId, subParamId, bound, step) {
+    const term = drakeTerms[termId];
+    let value = term.sub_params[subParamId][bound];
+    value += step;
+    // Ne pas croiser l'autre borne
+    if (bound === 'pessimistic' && value > term.sub_params[subParamId].optimistic) value = term.sub_params[subParamId].optimistic;
+    if (bound === 'optimistic' && value < term.sub_params[subParamId].pessimistic) value = term.sub_params[subParamId].pessimistic;
+    // Arrondir
+    if (Math.abs(step) >= 1e9) value = Math.round(value / 1e9) * 1e9;
+    else if (Math.abs(step) >= 1e8) value = Math.round(value / 1e8) * 1e8;
+    else value = Math.round(value);
+    term.sub_params[subParamId][bound] = value;
+    // Si la valeur courante était sur la borne, la mettre à jour aussi
+    if (currentValues[subParamId] === value - step) currentValues[subParamId] = value;
+    showRStarDetail(termId);
 }
