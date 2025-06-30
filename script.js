@@ -31,13 +31,13 @@ const drakeTerms = {
         unit: 'étoiles/an',
         sub_params: {
             'N_star': {
-                title: 'N*: Nombre d\'étoiles',
+                title: 'Nombre d\'étoiles',
                 pessimistic: 1e11, // 100 milliards
-                optimistic: 4e11,  // 400 milliards
+                optimistic: 2e11,  // 200 milliards
                 unit: 'milliards d\'étoiles'
             },
             'Ag': {
-                title: 'Ag: Âge de la galaxie',
+                title: 'Âge de la galaxie',
                 pessimistic: 14e9, // 14 milliards d'années
                 optimistic: 13e9,   // 13 milliards d'années
                 unit: 'milliards d\'années'
@@ -296,7 +296,7 @@ function showTermDetail(termId, type='pessimistic') {
     // Affichage en pourcentage si l'unité est vide
     const isPercent = !term.unit;
     let currentValueFormatted, pessValueFormatted, optiValueFormatted;
-    let unitFormatted = term.unit || ' %';
+    let unitFormatted = term.unit || '%';
 
     if (isPercent) {
         const formatPercent = (val) => (val * 100).toFixed(1).replace(/\.0$/, '');
@@ -311,11 +311,13 @@ function showTermDetail(termId, type='pessimistic') {
 
     // Définir l'incrément selon le paramètre
     let increment = 0.01;
-    if (term.unit === 'étoiles/an' || term.unit === 'années') increment = 1;
-    else if (term.unit === 'planètes') increment = 0.01;
-    else if (term.unit === 'étoile') increment = 0.01;
-    else if (term.unit === '' || isPercent) increment = 0.01;
-    else if (term.unit === 'milliards d\'étoiles' || term.unit === 'milliards d\'années') increment = 1e9;
+    let inputStep = 0.01;
+    let inputType = 'number';
+    if (term.unit === 'étoiles/an' || term.unit === 'années') increment = inputStep = 1;
+    else if (term.unit === 'planètes') increment = inputStep = 0.01;
+    else if (term.unit === 'étoile') increment = inputStep = 0.01;
+    else if (term.unit === '' || isPercent) increment = inputStep = 0.01;
+    else if (term.unit === 'milliards d\'étoiles' || term.unit === 'milliards d\'années') { increment = inputStep = 1e9; inputType = 'text'; }
 
     const detailHtml = `
         <div class="term-detail">
@@ -323,7 +325,7 @@ function showTermDetail(termId, type='pessimistic') {
             
             <div class="current-value-display current-value-${type}">
                 <h5><i class="fas fa-check-circle"></i> Valeur actuelle sélectionnée</h5>
-                <h3>${currentValueFormatted}${unitFormatted}</h3>
+                <h3>${currentValueFormatted} ${unitFormatted}</h3>
             </div>
             
             <div class="value-selector">
@@ -335,7 +337,7 @@ function showTermDetail(termId, type='pessimistic') {
                                 <h6 class="text-danger"><i class="fas fa-frown"></i> Pessimiste</h6>
                                 <div class="d-flex align-items-center justify-content-center mb-2">
                                     <button class="btn btn-outline-danger btn-sm me-2" onclick="event.stopPropagation(); adjustParamBound('${termId}', 'pessimistic', -${increment})"><i class="fas fa-minus"></i></button>
-                                    <span style="font-size:1.2em;font-weight:bold;min-width:70px;display:inline-block;text-align:center;">${pessValueFormatted}${unitFormatted}</span>
+                                    <input type="${inputType}" min="0" style="width:80px;text-align:center;font-weight:bold;margin: 0px 6px;" value="${term.pessimistic}" onchange="updateParamBoundFromInput('${termId}', 'pessimistic', this.value)" onclick="event.stopPropagation();" /> ${unitFormatted}
                                     <button class="btn btn-outline-danger btn-sm ms-2" onclick="event.stopPropagation(); adjustParamBound('${termId}', 'pessimistic', ${increment})"><i class="fas fa-plus"></i></button>
                                 </div>
                                 <button class="btn ${currentValues[termId] === term.pessimistic ? 'btn-danger' : 'btn-outline-danger'}" type="button">
@@ -350,7 +352,7 @@ function showTermDetail(termId, type='pessimistic') {
                                 <h6 class="text-success"><i class="fas fa-smile"></i> Optimiste</h6>
                                 <div class="d-flex align-items-center justify-content-center mb-2">
                                     <button class="btn btn-outline-success btn-sm me-2" onclick="event.stopPropagation(); adjustParamBound('${termId}', 'optimistic', -${increment})"><i class="fas fa-minus"></i></button>
-                                    <span style="font-size:1.2em;font-weight:bold;min-width:70px;display:inline-block;text-align:center;">${optiValueFormatted}${unitFormatted}</span>
+                                    <input type="${inputType}" min="0" style="width:80px;text-align:center;font-weight:bold;margin: 0px 6px;" value="${term.optimistic}" onchange="updateParamBoundFromInput('${termId}', 'optimistic', this.value)" onclick="event.stopPropagation();" /> ${unitFormatted}
                                     <button class="btn btn-outline-success btn-sm ms-2" onclick="event.stopPropagation(); adjustParamBound('${termId}', 'optimistic', ${increment})"><i class="fas fa-plus"></i></button>
                                 </div>
                                 <button class="btn ${currentValues[termId] === term.optimistic ? 'btn-success' : 'btn-outline-success'}" type="button">
@@ -365,6 +367,22 @@ function showTermDetail(termId, type='pessimistic') {
     `;
     
     $('#term-details').html(detailHtml);
+}
+
+function updateParamBoundFromInput(termId, bound, value) {
+    let v = parseFloat(value.replace(/\s/g, '').replace(',', '.'));
+    if (isNaN(v)) return;
+    const term = drakeTerms[termId];
+    // Pour les pourcentages, ne pas dépasser 0-1
+    if (!term.unit && v < 0) v = 0;
+    // Ne pas croiser l'autre borne
+    if (bound === 'pessimistic' && v > term.optimistic) v = term.optimistic;
+    if (bound === 'optimistic' && v < term.pessimistic) v = term.pessimistic;
+    term[bound] = v;
+    // Si la valeur courante était sur la borne, la mettre à jour aussi
+    if (currentValues[termId] === v) currentValues[termId] = v;
+    updateTermCards();
+    showTermDetail(termId, bound);
 }
 
 function adjustParamBound(termId, bound, step) {
@@ -596,8 +614,8 @@ function showRStarDetail(termId) {
     currentValues['R_star'] = currentValues.N_star / currentValues.Ag;
 
     // Incréments
-    const nstarStep = 1e10;
-    const agStep = 1e8;
+    const nstarStep = 1;
+    const agStep = 0.1;
 
     const detailHtml = `
         <div class="term-detail">
@@ -620,9 +638,9 @@ function showRStarDetail(termId) {
                                 <div class="card-body text-center">
                                     <h6 class="text-danger"><i class="fas fa-frown"></i> Pessimiste</h6>
                                     <div class="d-flex align-items-center justify-content-center mb-2">
-                                        <button class="btn btn-outline-danger btn-sm me-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'N_star', 'pessimistic', -${nstarStep})"><i class="fas fa-minus"></i></button>
-                                        <span style="font-size:1.1em;font-weight:bold;min-width:90px;display:inline-block;text-align:center;">${(N_star.pessimistic / 1e9).toLocaleString('fr-FR', {maximumFractionDigits:2})} ${N_star.unit}</span>
-                                        <button class="btn btn-outline-danger btn-sm ms-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'N_star', 'pessimistic', ${nstarStep})"><i class="fas fa-plus"></i></button>
+                                        <button class="btn btn-outline-danger btn-sm me-2" onclick="event.stopPropagation(); updateSubParamBoundFromInput('R_star', 'N_star', 'pessimistic', (${N_star.pessimistic/1e9}-${nstarStep}))"><i class="fas fa-minus"></i></button>
+                                        <input type="float" step="${nstarStep}" min="0" style="width:90px;text-align:center;font-weight:bold;margin: 0px 6px" value="${(N_star.pessimistic/1e9).toLocaleString('fr-FR', {maximumFractionDigits:2})}" onchange="updateSubParamBoundFromInput('R_star', 'N_star', 'pessimistic', this.value)" onclick="event.stopPropagation();" /> milliards d'étoiles
+                                        <button class="btn btn-outline-danger btn-sm ms-2" onclick="event.stopPropagation(); updateSubParamBoundFromInput('R_star', 'N_star', 'pessimistic', (${N_star.pessimistic/1e9}+${nstarStep}))"><i class="fas fa-plus"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -632,9 +650,9 @@ function showRStarDetail(termId) {
                                 <div class="card-body text-center">
                                     <h6 class="text-success"><i class="fas fa-smile"></i> Optimiste</h6>
                                     <div class="d-flex align-items-center justify-content-center mb-2">
-                                        <button class="btn btn-outline-success btn-sm me-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'N_star', 'optimistic', -${nstarStep})"><i class="fas fa-minus"></i></button>
-                                        <span style="font-size:1.1em;font-weight:bold;min-width:90px;display:inline-block;text-align:center;">${(N_star.optimistic / 1e9).toLocaleString('fr-FR', {maximumFractionDigits:2})} ${N_star.unit}</span>
-                                        <button class="btn btn-outline-success btn-sm ms-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'N_star', 'optimistic', ${nstarStep})"><i class="fas fa-plus"></i></button>
+                                        <button class="btn btn-outline-success btn-sm me-2" onclick="event.stopPropagation(); updateSubParamBoundFromInput('R_star', 'N_star', 'optimistic', (${N_star.optimistic/1e9}-${nstarStep}))"><i class="fas fa-minus"></i></button>
+                                        <input type="float" step="${nstarStep}" min="0" style="width:90px;text-align:center;font-weight:bold;margin: 0px 6px" value="${(N_star.optimistic/1e9).toLocaleString('fr-FR', {maximumFractionDigits:2})}" onchange="updateSubParamBoundFromInput('R_star', 'N_star', 'optimistic', this.value)" onclick="event.stopPropagation();" /> milliards d'étoiles
+                                        <button class="btn btn-outline-success btn-sm ms-2" onclick="event.stopPropagation(); updateSubParamBoundFromInput('R_star', 'N_star', 'optimistic', (${N_star.optimistic/1e9}+${nstarStep}))"><i class="fas fa-plus"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -651,9 +669,9 @@ function showRStarDetail(termId) {
                                 <div class="card-body text-center">
                                     <h6 class="text-danger"><i class="fas fa-frown"></i> Pessimiste (âge élevé)</h6>
                                     <div class="d-flex align-items-center justify-content-center mb-2">
-                                        <button class="btn btn-outline-danger btn-sm me-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'Ag', 'pessimistic', -${agStep})"><i class="fas fa-minus"></i></button>
-                                        <span style="font-size:1.1em;font-weight:bold;min-width:90px;display:inline-block;text-align:center;">${(Ag.pessimistic / 1e9).toLocaleString('fr-FR', {maximumFractionDigits:2})} ${Ag.unit}</span>
-                                        <button class="btn btn-outline-danger btn-sm ms-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'Ag', 'pessimistic', ${agStep})"><i class="fas fa-plus"></i></button>
+                                        <button class="btn btn-outline-danger btn-sm me-2" onclick="event.stopPropagation(); updateSubParamBoundFromInput('R_star', 'Ag', 'pessimistic', (${Ag.pessimistic/1e9}-${agStep}))"><i class="fas fa-minus"></i></button>
+                                        <input type="float" step="${agStep}" min="0" style="width:90px;text-align:center;font-weight:bold;margin: 0px 6px" value="${(Ag.pessimistic/1e9).toLocaleString('fr-FR', {maximumFractionDigits:2})}" onchange="updateSubParamBoundFromInput('R_star', 'Ag', 'pessimistic', this.value)" onclick="event.stopPropagation();" /> milliards d'années
+                                        <button class="btn btn-outline-danger btn-sm ms-2" onclick="event.stopPropagation(); updateSubParamBoundFromInput('R_star', 'Ag', 'pessimistic', (${Ag.pessimistic/1e9}+${agStep}))"><i class="fas fa-plus"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -663,9 +681,9 @@ function showRStarDetail(termId) {
                                 <div class="card-body text-center">
                                     <h6 class="text-success"><i class="fas fa-smile"></i> Optimiste (âge plus faible)</h6>
                                     <div class="d-flex align-items-center justify-content-center mb-2">
-                                        <button class="btn btn-outline-success btn-sm me-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'Ag', 'optimistic', -${agStep})"><i class="fas fa-minus"></i></button>
-                                        <span style="font-size:1.1em;font-weight:bold;min-width:90px;display:inline-block;text-align:center;">${(Ag.optimistic / 1e9).toLocaleString('fr-FR', {maximumFractionDigits:2})} ${Ag.unit}</span>
-                                        <button class="btn btn-outline-success btn-sm ms-2" onclick="event.stopPropagation(); adjustSubParamBound('R_star', 'Ag', 'optimistic', ${agStep})"><i class="fas fa-plus"></i></button>
+                                        <button class="btn btn-outline-success btn-sm me-2" onclick="event.stopPropagation(); updateSubParamBoundFromInput('R_star', 'Ag', 'optimistic', (${Ag.optimistic/1e9}-${agStep}))"><i class="fas fa-minus"></i></button>
+                                        <input type="float" step="${agStep}" min="0" style="width:90px;text-align:center;font-weight:bold;margin: 0px 6px" value="${(Ag.optimistic/1e9).toLocaleString('fr-FR', {maximumFractionDigits:2})}" onchange="updateSubParamBoundFromInput('R_star', 'Ag', 'optimistic', this.value)" onclick="event.stopPropagation();" /> milliards d'années
+                                        <button class="btn btn-outline-success btn-sm ms-2" onclick="event.stopPropagation(); updateSubParamBoundFromInput('R_star', 'Ag', 'optimistic', (${Ag.optimistic/1e9}+${agStep}))"><i class="fas fa-plus"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -679,19 +697,24 @@ function showRStarDetail(termId) {
     $('#term-details').html(detailHtml);
 }
 
-function adjustSubParamBound(termId, subParamId, bound, step) {
+function updateSubParamBoundFromInput(termId, subParamId, bound, value) {
+    // Vérification préalable : la fonction ne s'exécute que si value est défini et non vide
+    let v ;
+    if (typeof value === 'number') {    
+        v = value;
+    } else {
+        v = parseFloat(value.replace(/\s/g, '').replace(',', '.'));
+    }
+    if (isNaN(v)) return;
+    if (v < 0) v = 0;
     const term = drakeTerms[termId];
-    let value = term.sub_params[subParamId][bound];
-    value += step;
+    // Conversion en milliards
+    v = v * 1e9;
     // Ne pas croiser l'autre borne
-    if (bound === 'pessimistic' && value > term.sub_params[subParamId].optimistic) value = term.sub_params[subParamId].optimistic;
-    if (bound === 'optimistic' && value < term.sub_params[subParamId].pessimistic) value = term.sub_params[subParamId].pessimistic;
-    // Arrondir
-    if (Math.abs(step) >= 1e9) value = Math.round(value / 1e9) * 1e9;
-    else if (Math.abs(step) >= 1e8) value = Math.round(value / 1e8) * 1e8;
-    else value = Math.round(value);
-    term.sub_params[subParamId][bound] = value;
+    if (bound === 'pessimistic' && v > term.sub_params[subParamId].optimistic) v = term.sub_params[subParamId].optimistic;
+    if (bound === 'optimistic' && v < term.sub_params[subParamId].pessimistic) v = term.sub_params[subParamId].pessimistic;
+    term.sub_params[subParamId][bound] = v;
     // Si la valeur courante était sur la borne, la mettre à jour aussi
-    if (currentValues[subParamId] === value - step) currentValues[subParamId] = value;
+    if (currentValues[subParamId] === v) currentValues[subParamId] = v;
     showRStarDetail(termId);
 }
