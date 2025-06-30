@@ -28,7 +28,7 @@ const drakeTerms = {
             </ul>
         `,
         type: 'computed', // Indique un calcul spécial
-        unit: 'étoiles/an',
+        unit: 'étoiles / an',
         sub_params: {
             'N_star': {
                 title: 'Nombre d\'étoiles',
@@ -79,7 +79,7 @@ const drakeTerms = {
             <ul>
                 <li><strong>Zone Boucle d'or :</strong> Distance optimale où l'eau liquide peut exister</li>
                 <li><strong>Facteurs complexes :</strong> Atmosphère, effet de serre, activité tectonique</li>
-                <li><strong>Exemples prometteurs :</strong> Kepler-452b, Proxima Centauri b, TRAPPIST-1</li>
+                <li><strong>Exemples prometteurs :</strong> <span class="besancon-link" onclick="showKepler452bModal()">Kepler-452b</span>, <span class="besancon-link" onclick="showProximaBModal()">Proxima b</span>, <span class="besancon-link" onclick="showTrappist1Modal()">TRAPPIST-1</span></li>
                 <li><strong>Habitabilité élargie :</strong> Lunes de géantes gazeuses, océans sous-glaciaires</li>
             </ul>
             
@@ -88,7 +88,7 @@ const drakeTerms = {
         `,
         pessimistic: 0.01,
         optimistic: 2.0,
-        unit: 'planètes'
+        unit: 'planète(s)'
     },
     'f_l': {
         name: 'fl',
@@ -101,9 +101,9 @@ const drakeTerms = {
             <h5>État de l'art des connaissances :</h5>
             <ul>
                 <li><strong>Origine de la vie :</strong> Encore largement mystérieuse malgré les progrès</li>
-                <li><strong>Expériences de laboratoire :</strong> Synthèse de molécules organiques complexes (expérience de Mildred)</li>
+                <li><strong>Expériences de laboratoire :</strong> Synthèse de molécules organiques complexes (<span class="besancon-link" onclick="showMillerModal()">expérience de Miller</span>)</li>
                 <li><strong>Environnements extrêmes :</strong> Vie dans des conditions extrêmes sur Terre</li>
-                <li><strong>Signatures biologiques :</strong> Recherche de biosignatures dans les atmosphères</li>
+                <li><strong>Signatures biologiques :</strong> Recherche de <span class="besancon-link" onclick="$('#biosignatureModal').modal('show')">biosignatures</span> dans les atmosphères</li>
                 <li><strong>Premiers indices :</strong> En utilisant la méthode des transits, on arrive à ectraire la signature de l'atmosphère de certaines exoplanètes</li>
             </ul>
             
@@ -510,6 +510,22 @@ function showDirectImagingModal() {
 
 function showGlobularClustersModal() {
     $("#globularClustersModal").modal("show");
+}
+
+function showKepler452bModal() {
+    $("#kepler452bModal").modal("show");
+}
+
+function showProximaBModal() {
+    $("#proximabModal").modal("show");
+}
+
+function showTrappist1Modal() {
+    $("#trappist1Modal").modal("show");
+}
+
+function showMillerModal() {
+    $("#millerModal").modal("show");
 }
 
 function typewriterIntro() {
