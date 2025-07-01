@@ -172,3 +172,113 @@
         opacity: 0;
     }
 }
+
+#intro-overlay {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+}
+#titre-equation-drake {
+    cursor: pointer;
+    font-size: 3rem;
+    font-weight: bold;
+    position: relative;
+    z-index: 10;
+}
+.intro-desc {
+    opacity: 0.8;
+    font-size: 1.3rem;
+    max-width: 1000px;
+    text-align: center;
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+    background: rgba(255,255,255,0.10);
+    padding: 18px 28px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+.intro-desc-icon {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.intro-desc-highlight {
+    color: #ffd700;
+    font-weight: bold;
+}
+.intro-svg-block {
+    display: block;
+}
+#intro-equation {
+    margin-top: 2rem;
+    position: relative;
+    z-index: 10;
+}
+#intro-defs {
+    margin-top: 2.5rem;
+    max-width: 600px;
+    text-align: left;
+    position: relative;
+    z-index: 10;
+    left: 96px;
+}
+#main-content {
+    display: none;
+}
+#back-to-intro {
+    cursor: pointer;
+}
+.img-drake {
+    width: 72px;
+    height: 72px;
+    background: white;
+    padding: 1px;
+}
+#result-value-pessimistic, #result-value-optimistic {
+    display: flex;
+}
+.modal-img-250 {
+    width: 250px;
+}
+.modal-img-rounded {
+    border-radius: 10px;
+}
+.img-modal {
+    width: 320px;
+    max-width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 10px;
+}
+.img-modal-caption {
+    font-size: 0.95em;
+    color: #555;
+    margin-top: 0.5em;
+}
+.alert-info-custom {
+    font-size: 0.98em;
+}
+
+@media (max-width: 600px) {
+    #intro-defs { min-height: 200px; }
+}

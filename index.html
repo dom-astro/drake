@@ -9,76 +9,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
+    <script src="js/popup-rstar.js"></script>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        #intro-overlay {
-            min-height: 100vh;
-            min-width: 100vw;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        #intro-overlay > * {
-            max-width: 100vw;
-        }
-        #intro-defs {
-            min-height: 300px;
-            max-width: 600px;
-            width: 100%;
-            margin: 0 auto;
-            overflow: hidden;
-            display: block;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        #intro-equation {
-            min-height: 48px;
-            display: block;
-        }
-        @media (max-width: 600px) {
-            #intro-defs { min-height: 200px; }
-        }
-    </style>
 </head>
 <body>
     <!-- Écran d'intro -->
-    <div id="intro-overlay" style="position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:radial-gradient(ellipse at center, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:white;overflow:hidden;">
+    <div id="intro-overlay">
         <!-- Étoiles scintillantes -->
         <div class="stars"></div>
         <div class="twinkling"></div>
         <!-- Étoiles filantes -->
         <div class="shooting-stars"></div>
         
-        <h1 id="titre-equation-drake" style="cursor: pointer;font-size:3rem;font-weight:bold;position:relative;z-index:10;">Équation de Drake</h1>
-        <p style="opacity: 0.8;font-size:1.3rem;max-width:1000px;text-align:center;margin-top:1.2rem;margin-bottom:0.5rem;font-style:italic;letter-spacing:0.01em;line-height:1.5;background:rgba(255,255,255,0.10);padding:18px 28px;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;gap:8px;position:relative;z-index:10;backdrop-filter:blur(10px);">
-            <span style="display:inline-flex;align-items:center;flex-shrink:0;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" style="display:block;" viewBox="0 0 64 64" fill="#ffd700">
+        <h1 id="titre-equation-drake">Équation de Drake</h1>
+        <p class="intro-desc">
+            <span class="intro-desc-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" class="intro-svg-block" viewBox="0 0 64 64" fill="#ffd700">
                     <g id="SVGRepo_bgCarrier" stroke-width="0"/>
                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>               
                     <g id="SVGRepo_iconCarrier"> <path d="m30.59 35.25s-6.33.33-9.71-3-3.45-5.79-3.45-5.79-2.67.08-3.75-.84-1.3-3.25.33-4.79 2.42-1.41 2.42-1.41a19 19 0 0 1 .87-3.71 9 9 0 0 1 1.08-2.09l-4.54-2.5a2.29 2.29 0 0 1 -2.75.46 2.9 2.9 0 0 1 -.75-4.71 3.92 3.92 0 0 1 4.54-.33c1 .71.5 2.13.5 2.13l5.13 2.33a14.38 14.38 0 0 1 9.33-4 18.45 18.45 0 0 1 11.16 3 14.47 14.47 0 0 1 2.08 2.45l5.54-3.7a2.56 2.56 0 0 1 2-3.05 3 3 0 1 1 .75 5.75 3.52 3.52 0 0 1 -1-.41l-5.33 4.37a9.67 9.67 0 0 1 .75 1.88c.08.58.12 1.21.12 1.21s3.71-.21 3.58 3.29-4.12 4-4.12 4a9.44 9.44 0 0 1 -4.46 6.29 19.35 19.35 0 0 1 -7.71 2.83l.34 3.63a4.35 4.35 0 0 1 2.58 2c.83 1.54 1.87 3.33 2.29 3.33s2-1.37 2.58-1.83a3.17 3.17 0 0 0 .88-.92s-1.83-2.71.67-3.87 3.97.75 3.26 2.75-3.33 1.75-3.33 1.75-3.29 3.25-3.88 3.25a2.36 2.36 0 0 1 -1.71-.71 34.75 34.75 0 0 0 -2.41-4.12c-.46-.38-.79-.25-.84-.13s1.88 9.21 1.63 11.17a5.68 5.68 0 0 1 -1.75 3.25l.08 1s2.38-.34 2.84.91-1.21 2.21-2.38 2-1.37-.58-1.37-.75-.17-2.83-.17-2.83l-1-.17s.46 3.21 0 3.5-2.46.67-3.05.09a1.49 1.49 0 0 1 .75-2.42c1.3-.29 1.55-.13 1.55-.13v-1.25a4.43 4.43 0 0 1 -1.96-3.91c0-2.79 1.67-11.21 1.67-11.21s-.5-.54-1.59.79a14.82 14.82 0 0 0 -2.16 5.58c-.17 1.21-.21 1.63-.21 1.63a2.43 2.43 0 0 1 1.33 2.37 2.21 2.21 0 0 1 -3.33 1.63c-1.25-.79-1.08-2.71-.54-3.5a2.9 2.9 0 0 1 1.5-1s.91-5.09 2-6.54a4.88 4.88 0 0 1 2.5-2c.29-.09.62-.17.62-.17z" fill="#1d1d1b"/> <g fill="#c8db89"> <path d="m11.88 7.16a1.71 1.71 0 0 1 2.38 1.3 1.88 1.88 0 1 1 -2.38-1.3z"/> <path d="m51 6.58a1.7 1.7 0 0 1 2.37 1.29 1.88 1.88 0 1 1 -2.37-1.29z"/> <path d="m16.22 21c.22-.07.12 1.42.33 2.46s.38 1.66.17 1.66-1.71.17-2-1.2a2.44 2.44 0 0 1 1.5-2.92z"/> <path d="m46.13 20a1.55 1.55 0 0 1 1.92 1.37c.29 1.63-2.25 2.92-2.37 2.75s.37-1.42.41-2.21a8.88 8.88 0 0 1 .04-1.91z"/> </g> <path d="m15.43 9.83c.2 0 4.12 1.75 3.95 2.08s-.5.88-.62.8-3.58-1.71-3.67-1.92.34-.96.34-.96z" fill="#fab900"/> <path d="m44 13c.17-.08 4.42-3.46 4.67-3.21s.7.63.5.83-4.46 3.84-4.59 3.63-.58-1.25-.58-1.25z" fill="#fab900"/> <path d="m27 8.83c3-1.08 8.5-.67 12.87 2.25s4 11.5 3.92 12.46a8.83 8.83 0 0 1 -.62 2.08 14.89 14.89 0 0 0 -1.63-2.21c-.21 0-.75.38-.54.59a13.41 13.41 0 0 1 1.83 2.75c-.08.25-.79 1.41-.79 1.41a22.52 22.52 0 0 0 -1.83-2.66c-.17 0-.71.41-.63.54a20 20 0 0 1 1.88 3.12c-.13.21-1 1.09-1.09.92a20.22 20.22 0 0 0 -1.37-2.33c-.13 0-.59.21-.5.41s1.54 2.46 1.37 2.67a7 7 0 0 1 -1 .75s-.83-2-1-2-.92.38-.83.5 1.08 1.79.91 2a2.77 2.77 0 0 1 -.58.38l-1.15-1.46-.59.37s.92 1.42.75 1.46l-.83.25s-.5-1.12-.67-1.17-.83 0-.7.13a9.58 9.58 0 0 1 .54 1.21 19.33 19.33 0 0 1 -7.79 0 10.78 10.78 0 0 1 -8.34-8.8 15.83 15.83 0 0 1 1.84-11.33c1.45-2.37 4.04-3.37 6.57-4.29z" fill="#8ec480"/> <path d="m22.59 12.12c.24-.17.63.17.5.38a6.26 6.26 0 0 0 -1.87 2.83c-.5 1.79-.29 2.21-.5 2.25s-.75 0-.79-.08a10.51 10.51 0 0 1 .75-2.88 7.57 7.57 0 0 1 1.91-2.5z" fill="#1d1d1b"/> <path d="m30.68 10.33a6.64 6.64 0 0 1 8 7.46c-.68 6.21-9.63 8.62-12.63 4.46s-2.58-10.04 4.63-11.92z" fill="#1d1d1b"/> <path d="m30.89 12.11a4.94 4.94 0 0 1 6 5.54c-.5 4.65-7.16 6.41-9.39 3.32s-1.97-7.47 3.39-8.86z" fill="#e6e4da"/> <path d="m31.21 14.72a2.43 2.43 0 0 1 2.93 2.73c-.25 2.29-3.53 3.16-4.63 1.63s-.95-3.67 1.7-4.36z" fill="#1d1d1b"/> <path d="m25.72 26.5a5.79 5.79 0 0 0 5.16 2.5 7.6 7.6 0 0 0 5.25-2.17c.34 0 1 .92.92 1.33s-2.21 2.75-6.29 2.5-6-2.87-6-3.08.62-1.08.96-1.08z" fill="#1d1d1b"/> <path d="m32 37c.17 0 2 14 1.58 14.83s-2.58 1.42-3 0 .97-14.83 1.42-14.83z" fill="#8ec480"/> <path d="m25.47 48.12c.7-.14 1.37.63 1.37 1.38a1.26 1.26 0 0 1 -1.71 1c-.62-.38-.87-2.13.34-2.38z" fill="#c8db89"/> <path d="m43.55 38a1.46 1.46 0 0 1 1.45 1.29c0 .75-1.5 1.5-2 1.25s-.7-2.29.55-2.54z" fill="#c8db89"/> </g>
                 </svg>
             </span>
             <span>
-                Ou comment estimer le <span style="color:#ffd700;font-weight:bold;">nombre potentiel de civilisations extraterrestres</span> dans notre galaxie avec qui nous pourrions entrer en contact
+                Ou comment estimer le <span class="intro-desc-highlight">nombre potentiel de civilisations extraterrestres</span> dans notre galaxie avec qui nous pourrions entrer en contact
             </span>
         </p>
-        <h2 id="intro-equation" style="margin-top:2rem;position:relative;z-index:10;"></h2>
-        <div id="intro-defs" style="margin-top:2.5rem;max-width:600px;text-align:left;position:relative;z-index:10;left: 96px;"></div>
+        <h2 id="intro-equation"></h2>
+        <div id="intro-defs"></div>
     </div>
 
-    <div class="container-fluid" id="main-content" style="display:none;">
+    <div class="container-fluid" id="main-content">
         <div class="row">
             <!-- Sidebar avec les termes -->
             <div class="col-md-4 bg-light p-4">
-                <h2 class="text-center mb-4"><i class="fas fa-rocket" id="back-to-intro" style="cursor:pointer;"></i> Équation de Drake</h2>
+                <h2 class="text-center mb-4"><i class="fas fa-rocket" id="back-to-intro"></i> Équation de Drake</h2>
                 
                 <div class="equation-display text-center" onclick="showIntroduction()">
                     <div class="row align-items-center">
                         <div class="col-md-3">
                             <img src="img/Drake.jpg" 
-                                 alt="Frank Drake" class="img-fluid rounded-circle" 
-                                 style="width: 72px; height: 72px; background: white; padding: 1px;">
+                                 alt="Frank Drake" class="img-fluid rounded-circle img-drake" >
                             <small class="d-block mt-2">Frank Drake</small>
                         </div>
                         <div class="col-md-9">
@@ -152,267 +122,6 @@
 
                 <div id="term-details">
                     <!-- Les détails des termes apparaîtront ici -->
-                </div>
-            </div>
-        </div>
-    </div>
-	
-	<!-- Modal pour le modèle de la galaxie de Besançon -->
-    <div class="modal fade" id="besanconModal" tabindex="-1" aria-labelledby="besanconModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="besanconModalLabel">
-                        <i class="fas fa-university"></i> Le Modèle de la Galaxie de Besançon
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4 text-center">
-                            <img src="./besancon.jpg" style="width: 250px;" />
-                            <h6>Observatoire de Besançon</h6>
-                        </div>
-                        <div class="col-md-8">
-                            <h5><i class="fas fa-info-circle text-primary"></i> Qu'est-ce que le modèle de la galaxie de Besançon ?</h5>
-                            <p>
-                                Le <strong>modèle de la galaxie de Besançon</strong> est un modèle de synthèse stellaire développé à l'Observatoire de Besançon 
-                                depuis les années 1980. Il simule la structure, la formation et l'évolution de notre galaxie, la Voie lactée.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <hr>
-                    
-                    <h5><i class="fas fa-cogs text-success"></i> Caractéristiques principales</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <ul>
-                                <li><strong>Composantes galactiques :</strong> Disque mince, disque épais, halo, bulbe</li>
-                                <li><strong>Formation stellaire :</strong> Taux historique et spatial</li>
-                                <li><strong>Évolution chimique :</strong> Enrichissement en métaux</li>
-                                <li><strong>Cinématique :</strong> Mouvements des étoiles</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <ul>
-                                <li><strong>Fonction de masse initiale :</strong> Distribution des masses stellaires</li>
-                                <li><strong>Extinction interstellaire :</strong> Poussière galactique</li>
-                                <li><strong>Populations stellaires :</strong> Âges et métallicités</li>
-                                <li><strong>Prédictions observationnelles :</strong> Comptages d'étoiles</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="alert alert-info">
-                        <i class="fas fa-lightbulb"></i> 
-                        <strong>Utilité pour l'équation de Drake :</strong> 
-                        Le modèle permet d'estimer précisément le taux de formation stellaire (R*) en tenant compte 
-                        de l'évolution temporelle et spatiale de la galaxie.
-                    </div>
-                    
-                    <h5><i class="fas fa-telescope text-warning"></i> Applications modernes</h5>
-                    <p>
-                        Le modèle est constamment mis à jour avec les données des missions spatiales comme 
-                        <strong>Hipparcos</strong>, <strong>Gaia</strong>, et les grands relevés au sol. Il aide à :
-                    </p>
-                    <ul>
-                        <li>Interpréter les observations astrométriques et photométriques</li>
-                        <li>Comprendre la structure 3D de la Voie lactée</li>
-                        <li>Estimer les populations d'exoplanètes potentiellement habitables</li>
-                        <li>Prédire les découvertes des futurs télescopes</li>
-                    </ul>
-                    
-                    <div class="text-center mt-3">
-                        <small class="text-muted">
-                            <i class="fas fa-link"></i> 
-                            Développé à l'Institut UTINAM (Univers, Transport, Interfaces, Nanostructures, Atmosphère et environnement, Molécules)
-                        </small>
-                    </div>
-                </div>
-                <div class="modal-footer d-flex flex-column align-items-center">
-                    <small class="text-muted mb-2">
-                        <i class="fas fa-link"></i> <a href="https://model.obs-besancon.fr/" target="_blank">En savoir plus sur l'observatoire de Besançon</a>
-                    </small>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                        <i class="fas fa-check"></i> Compris !
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal pour le satellite Gaia -->
-    <div class="modal fade" id="gaiaModal" tabindex="-1" aria-labelledby="gaiaModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="gaiaModalLabel">
-                        <i class="fas fa-satellite"></i> Le Satellite Gaia
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4 text-center">
-                            <img src="img/Gaia.jpg" 
-                                 style="width: 250px; border-radius: 10px;" alt="Satellite Gaia" />
-                            <h6>Satellite Gaia</h6>
-                        </div>
-                        <div class="col-md-8">
-                            <h5><i class="fas fa-info-circle text-primary"></i> Qu'est-ce que Gaia ?</h5>
-                            <p>
-                                <strong>Gaia</strong> est un satellite astrométrique de l'Agence Spatiale Européenne (ESA) lancé en 2013. 
-                                Sa mission principale est de créer le catalogue stellaire le plus précis jamais réalisé, 
-                                en mesurant la position, la distance et le mouvement de plus d'un milliard d'étoiles.
-                            </p>
-                            <p style="font-size: 14px; font-style: italic;"">(By Spacecraft: ESA/ATG medialab; Milky Way: ESA/Gaia/DPAC. Acknowledgement: A. Moitinho., CC BY-SA IGO 3.0, CC BY-SA 3.0 igo, https://commons.wikimedia.org/w/index.php?curid=119243221)</p>
-                        </div>
-                    </div>
-                    
-                    <hr>
-                    
-                    <h5><i class="fas fa-cogs text-success"></i> Caractéristiques principales</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <ul>
-                                <li><strong>Précision astrométrique :</strong> Jusqu'à 20 microsecondes d'arc</li>
-                                <li><strong>Couverture :</strong> Plus d'un milliard d'étoiles</li>
-                                <li><strong>Distance :</strong> Mesures jusqu'à 30 000 années-lumière</li>
-                                <li><strong>Vitesses radiales :</strong> Pour les étoiles les plus brillantes</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <ul>
-                                <li><strong>Photométrie :</strong> Mesures de luminosité précises</li>
-                                <li><strong>Spectroscopie :</strong> Composition chimique des étoiles</li>
-                                <li><strong>Détection :</strong> Planètes extrasolaires, astéroïdes</li>
-                                <li><strong>Durée :</strong> Mission prévue de 10 ans</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="alert alert-info">
-                        <i class="fas fa-lightbulb"></i> 
-                        <strong>Utilité pour l'équation de Drake :</strong> 
-                        Gaia fournit des données précises sur le taux de formation stellaire (R*) 
-                        et la distribution des étoiles dans la Voie lactée, améliorant considérablement 
-                        nos estimations pour le premier paramètre de l'équation.
-                    </div>
-                    
-                    <h5><i class="fas fa-telescope text-warning"></i> Découvertes majeures</h5>
-                    <p>
-                        Gaia a révolutionné notre compréhension de la Voie lactée en révélant :
-                    </p>
-                    <ul>
-                        <li>La structure 3D détaillée de notre galaxie</li>
-                        <li>L'histoire de formation et d'évolution de la Voie lactée</li>
-                        <li>Des milliers d'exoplanètes potentielles</li>
-                        <li>Des étoiles hypervéloces et des systèmes binaires</li>
-                    </ul>
-                    
-                    <div class="text-center mt-3">
-                        <small class="text-muted">
-                            <i class="fas fa-link"></i> 
-                            Mission de l'Agence Spatiale Européenne (ESA) - 2013-2025
-                        </small>
-                    </div>
-                </div>
-                <div class="modal-footer d-flex flex-column align-items-center">
-                    <small class="text-muted mb-2">
-                        <i class="fas fa-link"></i> <a href="https://fr.wikipedia.org/wiki/Gaia_(sonde_spatiale)" target="_blank">En savoir plus sur Wikipédia</a>
-                    </small>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                        <i class="fas fa-check"></i> Compris !
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal pour le satellite Hipparcos -->
-    <div class="modal fade" id="hipparcosModal" tabindex="-1" aria-labelledby="hipparcosModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="hipparcosModalLabel">
-                        <i class="fas fa-satellite"></i> Le Satellite Hipparcos
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4 text-center">
-                            <img src="img/Hipparcos.jpg" 
-                                 style="width: 250px; border-radius: 10px;" alt="Satellite Hipparcos" />
-                            <h6>Satellite Hipparcos</h6>
-                        </div>
-                        <div class="col-md-8">
-                            <h5><i class="fas fa-info-circle text-primary"></i> Qu'est-ce qu'Hipparcos ?</h5>
-                            <p>
-                                <strong>Hipparcos</strong> (High Precision Parallax Collecting Satellite) était le précurseur de Gaia. 
-                                Lancé en 1989 par l'ESA, il fut le premier satellite dédié à l'astrométrie de précision, 
-                                mesurant les positions de plus de 118 000 étoiles avec une précision inégalée pour l'époque.
-                            </p>
-                            <p style="font-size: 14px; font-style: italic; padding-top: 18px;">(By Spacecraft: ESA/ATG medialab; Milky Way: ESA/Gaia/DPAC. Acknowledgement: A. Moitinho., CC BY-SA IGO 3.0, CC BY-SA 3.0 igo, https://commons.wikimedia.org/w/index.php?curid=119243221)</p>
-                        </div>
-                    </div>
-                    
-                    <hr>
-                    
-                    <h5><i class="fas fa-cogs text-success"></i> Caractéristiques principales</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <ul>
-                                <li><strong>Précision astrométrique :</strong> 1 milliseconde d'arc</li>
-                                <li><strong>Couverture :</strong> 118 218 étoiles cataloguées</li>
-                                <li><strong>Distance :</strong> Mesures jusqu'à 1 000 années-lumière</li>
-                                <li><strong>Photométrie :</strong> Mesures de luminosité</li>
-                            </ul>
-                        </div>
-                        <div class="col-md-6">
-                            <ul>
-                                <li><strong>Durée :</strong> Mission de 3.5 ans (1989-1993)</li>
-                                <li><strong>Révolutions :</strong> Catalogue Hipparcos et Tycho</li>
-                                <li><strong>Héritage :</strong> Base pour les missions futures</li>
-                                <li><strong>Impact :</strong> Révolution en astronomie stellaire</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="alert alert-info">
-                        <i class="fas fa-lightbulb"></i> 
-                        <strong>Utilité pour l'équation de Drake :</strong> 
-                        Hipparcos a fourni les premières mesures précises du taux de formation stellaire (R*) 
-                        et de la distribution stellaire, établissant les bases pour les estimations 
-                        modernes utilisées dans l'équation de Drake.
-                    </div>
-                    
-                    <h5><i class="fas fa-telescope text-warning"></i> Héritage scientifique</h5>
-                    <p>
-                        Hipparcos a ouvert la voie à l'astrométrie moderne en permettant :
-                    </p>
-                    <ul>
-                        <li>Les premières mesures précises de parallaxes stellaires</li>
-                        <li>L'amélioration des modèles de formation stellaire</li>
-                        <li>La calibration des échelles de distance cosmiques</li>
-                        <li>Le développement des missions astrométriques futures</li>
-                    </ul>
-                    
-                    <div class="text-center mt-3">
-                        <small class="text-muted">
-                            <i class="fas fa-link"></i> 
-                            Mission de l'Agence Spatiale Européenne (ESA) - 1989-1993
-                        </small>
-                    </div>
-                </div>
-                <div class="modal-footer d-flex flex-column align-items-center">
-                    <small class="text-muted mb-2">
-                        <i class="fas fa-link"></i> <a href="https://fr.wikipedia.org/wiki/Hipparcos" target="_blank">En savoir plus sur Wikipédia</a>
-                    </small>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                        <i class="fas fa-check"></i> Compris !
-                    </button>
                 </div>
             </div>
         </div>
@@ -811,46 +520,6 @@
                 <div class="modal-footer d-flex flex-column align-items-center">
                     <small class="text-muted mb-2">
                         <i class="fas fa-link"></i> <a href="https://fr.wikipedia.org/wiki/Imagerie_d%27exoplan%C3%A8tes" target="_blank">En savoir plus sur Wikipédia</a>
-                    </small>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                        <i class="fas fa-check"></i> Compris !
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal pour les amas globulaires -->
-    <div class="modal fade" id="globularClustersModal" tabindex="-1" aria-labelledby="globularClustersModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="globularClustersModalLabel">
-                        <i class="fas fa-circle"></i> Les amas globulaires
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="text-center mb-3">
-                        <img src="img/m13-hercule.jpg" alt="Amas globulaire" style="width:320px;max-width:100%;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:10px;" />
-                        <div style="font-size:0.95em;color:#555;margin-top:0.5em;">Amas globulaire M13 (Par Donald Pelletier — Travail personnel, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=116229890)</div>
-                    </div>
-                    <h5>Qu'est-ce qu'un amas globulaire ?</h5>
-                    <p>
-                        Un <strong>amas globulaire</strong> est un ensemble très dense de centaines de milliers à plusieurs millions d'étoiles, liées gravitationnellement et formant une sphère compacte. Ces amas orbitent autour du centre de la galaxie, principalement dans son halo.
-                    </p>
-                    <h5>Pourquoi sont-ils importants pour la datation de la galaxie ?</h5>
-                    <p>
-                        Les amas globulaires comptent parmi les objets les plus anciens de la Voie lactée. En étudiant les étoiles qu'ils contiennent, les astronomes peuvent estimer leur âge grâce aux modèles d'évolution stellaire. L'âge des plus vieux amas globulaires (environ 13,2 milliards d'années) fournit une estimation minimale de l'âge de la galaxie elle-même.
-                    </p>
-                    <ul>
-                        <li>Ils servent de "fossiles cosmiques" pour comprendre les premières étapes de la formation galactique.</li>
-                        <li>Leur composition chimique (faible métallicité) indique qu'ils se sont formés très tôt dans l'histoire de l'univers.</li>
-                    </ul>
-                </div>
-                <div class="modal-footer d-flex flex-column align-items-center">
-                    <small class="text-muted mb-2">
-                        <i class="fas fa-link"></i> <a href="https://fr.wikipedia.org/wiki/Amas_globulaire" target="_blank">En savoir plus sur Wikipédia</a>
                     </small>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
                         <i class="fas fa-check"></i> Compris !
