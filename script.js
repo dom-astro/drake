@@ -102,9 +102,9 @@ const drakeTerms = {
             <ul>
                 <li><strong>Origine de la vie :</strong> Encore largement mystérieuse malgré les progrès</li>
                 <li><strong>Expériences de laboratoire :</strong> Synthèse de molécules organiques complexes (<span class="besancon-link" onclick="showMillerModal()">expérience de Miller</span>)</li>
-                <li><strong>Environnements extrêmes :</strong> Vie dans des conditions extrêmes sur Terre</li>
+                <li><strong>Environnements extrêmes :</strong> Vie dans des <span class="besancon-link" onclick="showExtremophileModal()">conditions extrêmes</span> sur Terre</li>
                 <li><strong>Signatures biologiques :</strong> Recherche de <span class="besancon-link" onclick="$('#biosignatureModal').modal('show')">biosignatures</span> dans les atmosphères</li>
-                <li><strong>Premiers indices :</strong> En utilisant la méthode des transits, on arrive à ectraire la signature de l'atmosphère de certaines exoplanètes</li>
+                <li><strong>Premiers indices :</strong> En utilisant la méthode des <span class="besancon-link" onclick="showTransitModal()">transits</span>, on arrive à extraire la signature de l'atmosphère de certaines exoplanètes</li>
             </ul>
             
             <h5>Hypothèses scientifiques :</h5>
@@ -526,6 +526,10 @@ function showTrappist1Modal() {
 
 function showMillerModal() {
     $("#millerModal").modal("show");
+}
+
+function showExtremophileModal() {
+    $("#extremophileModal").modal("show");
 }
 
 function typewriterIntro() {

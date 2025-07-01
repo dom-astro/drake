@@ -322,6 +322,64 @@ function ensureGlobularClustersModal() {
     }
 }
 
+function ensureExtremophileModal() {
+    if (!document.getElementById('extremophileModal')) {
+        const html = `
+        <!-- Modal pour la vie extrêmophile -->
+        <div class="modal fade" id="extremophileModal" tabindex="-1" aria-labelledby="extremophileModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title" id="extremophileModalLabel">
+                            <i class="fas fa-biohazard"></i> Vie extrêmophile et conditions extrêmes
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-center mb-3">
+                            <div style="display: flex; align-items: flex-end; justify-content: center; gap: 18px;">
+                                <img src="img/extremophile.jpg" alt="Vie extrêmophile" style="width:320px;max-width:100%;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:0;" />
+                                <div style="flex:1; display: flex; align-items: flex-end; justify-content: flex-start;">
+                                    <small style="font-size:0.9em;color:#555;margin-bottom:4px; text-align: left;">
+                                        Microphotographie de l'archéon  <a href='https://fr.wikipedia.org/wiki/Thermococcus_gammatolerans' target='_blank'>Thermococcus gammatolerans</a> par Angels Tapias.<br>
+                                        (Microscopist: Jeril — D9143-ASWCYSt-PU-.tif à l’Archivo Angels Tapias et Fabrice Confalonieri, CC BY 3.0, <a href='https://commons.wikimedia.org/w/index.php?curid=7381702' target='_blank'>source</a>)
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <h5>Qu'est-ce qu'une vie extrêmophile ?</h5>
+                        <p>
+                            Les <strong>extrêmophiles</strong> sont des organismes capables de survivre et de prospérer dans des conditions considérées comme hostiles pour la plupart des formes de vie : températures extrêmes, acidité, salinité, pression, absence d'oxygène, radiation, etc.<br>
+                            Sur Terre, on trouve des bactéries, archées et même certains eucaryotes dans des milieux comme les sources hydrothermales, les déserts glacés, les lacs hypersalés ou les fonds océaniques.
+                        </p>
+                        <h5>Pourquoi est-ce important pour les exoplanètes ?</h5>
+                        <ul>
+                            <li>La découverte d'extrêmophiles sur Terre élargit la notion d'habitabilité planétaire.</li>
+                            <li>Des mondes auparavant jugés inhospitaliers pourraient abriter la vie sous des formes adaptées.</li>
+                            <li>Les biosignatures recherchées sur les exoplanètes doivent tenir compte de cette diversité d'adaptations.</li>
+                        </ul>
+                        <div class="alert alert-info">
+                            <i class="fas fa-lightbulb"></i> 
+                            L'étude des extrêmophiles inspire la recherche de vie sur Mars, Europe, Encelade et de nombreuses exoplanètes, en élargissant les critères de détection de la vie.
+                        </div>
+                        <div class="text-center mt-3">
+                            <small class="text-muted">
+                                <i class="fas fa-link"></i> <a href="https://fr.wikipedia.org/wiki/Extr%C3%AAmophile" target="_blank">En savoir plus sur Wikipédia</a>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex flex-column align-items-center">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                            <i class="fas fa-check"></i> Compris !
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        document.body.insertAdjacentHTML('beforeend', html);
+    }
+}
+
 function showBesanconModal() {
     ensureBesanconModal();
     $("#besanconModal").modal("show");
@@ -340,6 +398,11 @@ function showHipparcosModal() {
 function showGlobularClustersModal() {
     ensureGlobularClustersModal();
     $("#globularClustersModal").modal("show");
+}
+
+function showExtremophileModal() {
+    ensureExtremophileModal();
+    $("#extremophileModal").modal("show");
 }
 
 // Optionnel : initialisation automatique des liens si besoin
