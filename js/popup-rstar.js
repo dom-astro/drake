@@ -72,14 +72,11 @@ function ensureBesanconModal() {
                     <div class="text-center mt-3">
                         <small class="text-muted">
                             <i class="fas fa-link"></i> 
-                            Développé à l'Institut UTINAM (Univers, Transport, Interfaces, Nanostructures, Atmosphère et environnement, Molécules)
+                            Développé à l'<a href="https://model.obs-besancon.fr/" target="_blank">Institut UTINAM</a> (Univers, Transport, Interfaces, Nanostructures, Atmosphère et environnement, Molécules)
                         </small>
                     </div>
                 </div>
                 <div class="modal-footer d-flex flex-column align-items-center">
-                    <small class="text-muted mb-2">
-                        <i class="fas fa-link"></i> <a href="https://model.obs-besancon.fr/" target="_blank">En savoir plus sur l'observatoire de Besançon</a>
-                    </small>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
                         <i class="fas fa-check"></i> Compris !
                     </button>
