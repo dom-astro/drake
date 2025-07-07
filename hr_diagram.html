@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagramme de Hertzsprung-Russell</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #0a0a0a;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #4a90e2;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #cccccc;
+            font-size: 14px;
+        }
+        #chart {
+            width: 100%;
+            height: 600px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+        .spectral-filter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .spectral-filter h4 {
+            margin: 0 0 10px 0;
+            color: #4a90e2;
+            font-size: 14px;
+        }
+        .spectral-types {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .spectral-type {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            border: 1px solid #444;
+            transition: all 0.3s ease;
+        }
+        .spectral-type:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #666;
+        }
+        .spectral-type input[type="checkbox"] {
+            margin: 0;
+            width: 16px;
+            height: 16px;
+            accent-color: #4a90e2;
+        }
+        .spectral-type label {
+            margin: 0;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .spectral-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid #666;
+        }
+        .type-filter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .type-filter h4 {
+            margin: 0 0 10px 0;
+            color: #4a90e2;
+            font-size: 14px;
+        }
+        .stellar-types {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .stellar-type {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            border: 1px solid #444;
+            transition: all 0.3s ease;
+        }
+        .stellar-type:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #666;
+        }
+        .stellar-type input[type="checkbox"] {
+            margin: 0;
+            width: 16px;
+            height: 16px;
+            accent-color: #4a90e2;
+        }
+        .stellar-type label {
+            margin: 0;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+        .info h3 {
+            color: #4a90e2;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Diagramme de Hertzsprung-Russell</h1>
+            <p>Relation entre la température de surface et la luminosité des étoiles</p>
+        </div>
+        
+        <div class="controls">
+            <div class="spectral-filter">
+                <h4>Types spectraux</h4>
+                <div class="spectral-types">
+                    <div class="spectral-type">
+                        <input type="checkbox" id="type-O" checked>
+                        <label for="type-O">
+                            <div class="spectral-color" style="background-color: #9bb0ff;"></div>
+                            Type O
+                        </label>
+                    </div>
+                    <div class="spectral-type">
+                        <input type="checkbox" id="type-B" checked>
+                        <label for="type-B">
+                            <div class="spectral-color" style="background-color: #aabfff;"></div>
+                            Type B
+                        </label>
+                    </div>
+                    <div class="spectral-type">
+                        <input type="checkbox" id="type-A" checked>
+                        <label for="type-A">
+                            <div class="spectral-color" style="background-color: #cad7ff;"></div>
+                            Type A
+                        </label>
+                    </div>
+                    <div class="spectral-type">
+                        <input type="checkbox" id="type-F" checked>
+                        <label for="type-F">
+                            <div class="spectral-color" style="background-color: #f8f7ff;"></div>
+                            Type F
+                        </label>
+                    </div>
+                    <div class="spectral-type">
+                        <input type="checkbox" id="type-G" checked>
+                        <label for="type-G">
+                            <div class="spectral-color" style="background-color: #fff4ea;"></div>
+                            Type G
+                        </label>
+                    </div>
+                    <div class="spectral-type">
+                        <input type="checkbox" id="type-K" checked>
+                        <label for="type-K">
+                            <div class="spectral-color" style="background-color: #ffd2a1;"></div>
+                            Type K
+                        </label>
+                    </div>
+                    <div class="spectral-type">
+                        <input type="checkbox" id="type-M" checked>
+                        <label for="type-M">
+                            <div class="spectral-color" style="background-color: #ffad51;"></div>
+                            Type M
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="type-filter">
+                <h4>Classes stellaires</h4>
+                <div class="stellar-types">
+                    <div class="stellar-type">
+                        <input type="checkbox" id="main-sequence" checked>
+                        <label for="main-sequence">Séquence principale</label>
+                    </div>
+                    <div class="stellar-type">
+                        <input type="checkbox" id="red-giants" checked>
+                        <label for="red-giants">Géantes rouges</label>
+                    </div>
+                    <div class="stellar-type">
+                        <input type="checkbox" id="white-dwarfs" checked>
+                        <label for="white-dwarfs">Naines blanches</label>
+                    </div>
+                    <div class="stellar-type">
+                        <input type="checkbox" id="supergiants" checked>
+                        <label for="supergiants">Supergéantes</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="chart"></div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-dot" style="background: linear-gradient(45deg, #9bb0ff, #aabfff, #cad7ff, #f8f7ff, #fff4ea, #ffd2a1, #ffad51);"></div>
+                <span>Séquence principale (couleurs réalistes)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background-color: #ff6b6b;"></div>
+                <span>Géantes rouges</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background-color: #ffe66d;"></div>
+                <span>Naines blanches</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background-color: #ff8b94;"></div>
+                <span>Supergéantes</span>
+            </div>
+        </div>
+        
+        <div class="info">
+            <h3>À propos du diagramme</h3>
+            <p><strong>Axe horizontal :</strong> Température de surface (K) - Les étoiles chaudes sont à gauche, les froides à droite</p>
+            <p><strong>Axe vertical :</strong> Luminosité relative au Soleil (échelle logarithmique)</p>
+            <p><strong>Taille des bulles :</strong> Représente la masse stellaire</p>
+            <p><strong>Couleur des points :</strong> Les étoiles de la séquence principale ont des couleurs réalistes (bleu pour les chaudes, rouge pour les froides)</p>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour obtenir la couleur d'une étoile selon sa température
+        function getStarColor(temp) {
+            if (temp > 30000) return '#9bb0ff'; // Bleu très clair (O)
+            if (temp > 10000) return '#aabfff'; // Bleu clair (B)
+            if (temp > 7500) return '#cad7ff';  // Bleu-blanc (A)
+            if (temp > 6000) return '#f8f7ff';  // Blanc (F)
+            if (temp > 5200) return '#fff4ea';  // Jaune-blanc (G)
+            if (temp > 3700) return '#ffd2a1';  // Orange (K)
+            return '#ffad51';                   // Rouge-orange (M)
+        }
+
+        // Fonction pour obtenir le type spectral selon la température
+        function getSpectralType(temp) {
+            if (temp > 30000) return 'O';
+            if (temp > 10000) return 'B';
+            if (temp > 7500) return 'A';
+            if (temp > 6000) return 'F';
+            if (temp > 5200) return 'G';
+            if (temp > 3700) return 'K';
+            return 'M';
+        }
+
+        // Données d'étoiles réelles avec leurs propriétés
+        const stellarData = [
+            // Séquence principale - Étoiles de type O et B (très chaudes)
+            {name: 'Alnitak', temp: 29500, luminosity: 100000, mass: 33, type: 'Séquence principale'},
+            {name: 'Mintaka', temp: 29500, luminosity: 90000, mass: 24, type: 'Séquence principale'},
+            {name: 'Alnilam', temp: 27000, luminosity: 375000, mass: 40, type: 'Séquence principale'},
+            {name: 'Spica', temp: 22400, luminosity: 20500, mass: 11, type: 'Séquence principale'},
+            {name: 'Regulus', temp: 12460, luminosity: 288, mass: 3.8, type: 'Séquence principale'},
+            {name: 'Bellatrix', temp: 21800, luminosity: 9211, mass: 8.6, type: 'Séquence principale'},
+            
+            // Séquence principale - Étoiles de type A (chaudes)
+            {name: 'Sirius A', temp: 9940, luminosity: 25.4, mass: 2.1, type: 'Séquence principale'},
+            {name: 'Vega', temp: 9602, luminosity: 40.12, mass: 2.1, type: 'Séquence principale'},
+            {name: 'Altair', temp: 7550, luminosity: 10.6, mass: 1.8, type: 'Séquence principale'},
+            {name: 'Fomalhaut', temp: 8590, luminosity: 16.6, mass: 1.92, type: 'Séquence principale'},
+            {name: 'Castor A', temp: 10286, luminosity: 49.85, mass: 2.76, type: 'Séquence principale'},
+            {name: 'Denebola', temp: 8500, luminosity: 15, mass: 1.78, type: 'Séquence principale'},
+            
+            // Séquence principale - Étoiles de type F (blanc-jaune)
+            {name: 'Procyon A', temp: 6530, luminosity: 7.73, mass: 1.5, type: 'Séquence principale'},
+            {name: 'Canopus', temp: 7280, luminosity: 10700, mass: 8, type: 'Séquence principale'},
+            {name: 'Polaris', temp: 6015, luminosity: 2440, mass: 5.4, type: 'Séquence principale'},
+            {name: 'Gamma Virginis', temp: 6900, luminosity: 2.74, mass: 1.4, type: 'Séquence principale'},
+            
+            // Séquence principale - Étoiles de type G (jaune comme le Soleil)
+            {name: 'Soleil', temp: 5778, luminosity: 1, mass: 1, type: 'Séquence principale'},
+            {name: 'Alpha Centauri A', temp: 5790, luminosity: 1.519, mass: 1.1, type: 'Séquence principale'},
+            {name: 'Tau Ceti', temp: 5344, luminosity: 0.52, mass: 0.78, type: 'Séquence principale'},
+            {name: '51 Eridani', temp: 5600, luminosity: 0.3, mass: 1.04, type: 'Séquence principale'},
+            {name: 'Beta Hydri', temp: 5872, luminosity: 3.5, mass: 1.07, type: 'Séquence principale'},
+            {name: 'HD 10307', temp: 5900, luminosity: 1.04, mass: 1.02, type: 'Séquence principale'},
+            
+            // Séquence principale - Étoiles de type K (orange)
+            {name: 'Epsilon Eridani', temp: 5084, luminosity: 0.34, mass: 0.82, type: 'Séquence principale'},
+            {name: 'Alpha Centauri B', temp: 5260, luminosity: 0.5, mass: 0.91, type: 'Séquence principale'},
+            {name: '61 Cygni A', temp: 4830, luminosity: 0.153, mass: 0.7, type: 'Séquence principale'},
+            {name: 'Epsilon Indi', temp: 4630, luminosity: 0.22, mass: 0.76, type: 'Séquence principale'},
+            {name: 'Groombridge 1618', temp: 4900, luminosity: 0.31, mass: 0.67, type: 'Séquence principale'},
+            {name: 'HD 69830', temp: 5410, luminosity: 0.6, mass: 0.86, type: 'Séquence principale'},
+            
+            // Séquence principale - Étoiles de type M (rouge)
+            {name: 'Proxima Centauri', temp: 3042, luminosity: 0.0017, mass: 0.12, type: 'Séquence principale'},
+            {name: 'Wolf 359', temp: 2800, luminosity: 0.00001, mass: 0.09, type: 'Séquence principale'},
+            {name: 'Barnard\'s Star', temp: 3134, luminosity: 0.0035, mass: 0.14, type: 'Séquence principale'},
+            {name: 'Lacaille 9352', temp: 3626, luminosity: 0.011, mass: 0.5, type: 'Séquence principale'},
+            {name: 'Ross 154', temp: 3340, luminosity: 0.0038, mass: 0.17, type: 'Séquence principale'},
+            {name: 'Gliese 581', temp: 3480, luminosity: 0.013, mass: 0.31, type: 'Séquence principale'},
+            {name: 'Kepler-452', temp: 5757, luminosity: 1.2, mass: 1.04, type: 'Séquence principale'},
+            {name: 'TRAPPIST-1', temp: 2550, luminosity: 0.00055, mass: 0.089, type: 'Séquence principale'},
+            
+            // Géantes rouges
+            {name: 'Arcturus', temp: 4286, luminosity: 170, mass: 1.1, type: 'Géantes rouges'},
+            {name: 'Aldébaran', temp: 3910, luminosity: 518, mass: 1.16, type: 'Géantes rouges'},
+            {name: 'Capella', temp: 4970, luminosity: 79, mass: 2.5, type: 'Géantes rouges'},
+            {name: 'Pollux', temp: 4666, luminosity: 43, mass: 1.9, type: 'Géantes rouges'},
+            {name: 'Dubhe', temp: 4660, luminosity: 316, mass: 4.25, type: 'Géantes rouges'},
+            
+            // Supergéantes
+            {name: 'Bételgeuse', temp: 3590, luminosity: 126000, mass: 20, type: 'Supergéantes'},
+            {name: 'Rigel', temp: 12100, luminosity: 120000, mass: 21, type: 'Supergéantes'},
+            {name: 'Antarès', temp: 3570, luminosity: 75900, mass: 12, type: 'Supergéantes'},
+            {name: 'Deneb', temp: 8525, luminosity: 200000, mass: 19, type: 'Supergéantes'},
+            {name: 'Canopus', temp: 7280, luminosity: 10700, mass: 8, type: 'Supergéantes'},
+            
+            // Naines blanches
+            {name: 'Sirius B', temp: 25200, luminosity: 0.056, mass: 0.98, type: 'Naines blanches'},
+            {name: 'Procyon B', temp: 7740, luminosity: 0.00049, mass: 0.6, type: 'Naines blanches'},
+            {name: '40 Eridani B', temp: 16500, luminosity: 0.013, mass: 0.48, type: 'Naines blanches'},
+            {name: 'Van Maanen 2', temp: 5800, luminosity: 0.00017, mass: 0.68, type: 'Naines blanches'},
+        ];
+
+        // État des filtres
+        let spectralFilters = {
+            'O': true, 'B': true, 'A': true, 'F': true, 
+            'G': true, 'K': true, 'M': true
+        };
+        let stellarFilters = {
+            'Séquence principale': true,
+            'Géantes rouges': true,
+            'Naines blanches': true,
+            'Supergéantes': true
+        };
+
+        // Fonction pour filtrer les données
+        function filterData() {
+            return stellarData.filter(star => {
+                const spectralType = getSpectralType(star.temp);
+                return spectralFilters[spectralType] && stellarFilters[star.type];
+            });
+        }
+
+        // Fonction pour mettre à jour le graphique
+        function updateChart() {
+            const filteredData = filterData();
+            
+            const newSeries = [];
+            
+            // Série pour la séquence principale
+            const mainSequenceData = filteredData
+                .filter(star => star.type === 'Séquence principale')
+                .map(star => [star.temp, star.luminosity, star.mass, star.name]);
+            
+            if (mainSequenceData.length > 0) {
+                newSeries.push({
+                    name: 'Séquence principale',
+                    type: 'scatter',
+                    symbolSize: function(data) {
+                        return Math.sqrt(data[2]) * 8 + 5;
+                    },
+                    data: mainSequenceData,
+                    itemStyle: {
+                        color: function(params) {
+                            const temp = params.data[0];
+                            return getStarColor(temp);
+                        },
+                        opacity: 0.9
+                    },
+                    emphasis: {
+                        itemStyle: {
+                            opacity: 1,
+                            borderColor: '#fff',
+                            borderWidth: 2
+                        }
+                    }
+                });
+            }
+            
+            // Autres séries
+            Object.keys(colorMap).forEach(type => {
+                const typeData = filteredData
+                    .filter(star => star.type === type)
+                    .map(star => [star.temp, star.luminosity, star.mass, star.name]);
+                
+                if (typeData.length > 0) {
+                    newSeries.push({
+                        name: type,
+                        type: 'scatter',
+                        symbolSize: function(data) {
+                            return Math.sqrt(data[2]) * 8 + 5;
+                        },
+                        data: typeData,
+                        itemStyle: {
+                            color: colorMap[type],
+                            opacity: 0.8
+                        },
+                        emphasis: {
+                            itemStyle: {
+                                opacity: 1,
+                                borderColor: '#fff',
+                                borderWidth: 2
+                            }
+                        }
+                    });
+                }
+            });
+            
+            chart.setOption({
+                series: newSeries
+            });
+        }
+
+        // Gestionnaires d'événements pour les filtres spectraux
+        Object.keys(spectralFilters).forEach(type => {
+            const checkbox = document.getElementById(`type-${type}`);
+            checkbox.addEventListener('change', function() {
+                spectralFilters[type] = this.checked;
+                updateChart();
+            });
+        });
+
+        // Gestionnaires d'événements pour les filtres stellaires
+        const stellarCheckboxes = {
+            'main-sequence': 'Séquence principale',
+            'red-giants': 'Géantes rouges',
+            'white-dwarfs': 'Naines blanches',
+            'supergiants': 'Supergéantes'
+        };
+        
+        Object.keys(stellarCheckboxes).forEach(id => {
+            const checkbox = document.getElementById(id);
+            checkbox.addEventListener('change', function() {
+                stellarFilters[stellarCheckboxes[id]] = this.checked;
+                updateChart();
+            });
+        });
+
+        // Configuration des couleurs par type (conservé pour les autres types)
+        const colorMap = {
+            'Géantes rouges': '#ff6b6b',
+            'Supergéantes': '#ff8b94',
+            'Naines blanches': '#ffe66d'
+        };
+
+        // Préparation initiale des données pour ECharts
+        const series = [];
+        
+        // Série spéciale pour la séquence principale avec couleurs réalistes
+        series.push({
+            name: 'Séquence principale',
+            type: 'scatter',
+            symbolSize: function(data) {
+                return Math.sqrt(data[2]) * 8 + 5; // Taille basée sur la masse
+            },
+            data: stellarData
+                .filter(star => star.type === 'Séquence principale')
+                .map(star => [star.temp, star.luminosity, star.mass, star.name]),
+            itemStyle: {
+                color: function(params) {
+                    const temp = params.data[0];
+                    return getStarColor(temp);
+                },
+                opacity: 0.9
+            },
+            emphasis: {
+                itemStyle: {
+                    opacity: 1,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }
+            }
+        });
+        
+        // Autres séries avec couleurs fixes
+        Object.keys(colorMap).forEach(type => {
+            series.push({
+                name: type,
+                type: 'scatter',
+                symbolSize: function(data) {
+                    return Math.sqrt(data[2]) * 8 + 5;
+                },
+                data: stellarData
+                    .filter(star => star.type === type)
+                    .map(star => [star.temp, star.luminosity, star.mass, star.name]),
+                itemStyle: {
+                    color: colorMap[type],
+                    opacity: 0.8
+                },
+                emphasis: {
+                    itemStyle: {
+                        opacity: 1,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    }
+                }
+            });
+        });
+
+        // Configuration du graphique
+        const option = {
+            backgroundColor: 'transparent',
+            title: {
+                text: 'Diagramme de Hertzsprung-Russell',
+                left: 'center',
+                top: 20,
+                textStyle: {
+                    color: '#ffffff',
+                    fontSize: 18
+                }
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: function(params) {
+                    const [temp, luminosity, mass, name] = params.data;
+                    const spectralType = getSpectralType(temp);
+                    return `
+                        <div style="padding: 10px;">
+                            <strong>${name}</strong><br/>
+                            Type spectral: ${spectralType}<br/>
+                            Température: ${temp.toLocaleString()} K<br/>
+                            Luminosité: ${luminosity.toLocaleString()} L☉<br/>
+                            Masse: ${mass} M☉<br/>
+                            Classe: ${params.seriesName}
+                        </div>
+                    `;
+                },
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                borderColor: '#333',
+                textStyle: {
+                    color: '#fff'
+                }
+            },
+            grid: {
+                left: '10%',
+                right: '10%',
+                bottom: '15%',
+                top: '15%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'log',
+                name: 'Température de surface (K)',
+                nameLocation: 'middle',
+                nameGap: 30,
+                inverse: true, // Inverse pour avoir les étoiles chaudes à gauche
+                min: 2500,
+                max: 50000,
+                axisLabel: {
+                    color: '#cccccc',
+                    formatter: function(value) {
+                        return value.toLocaleString();
+                    }
+                },
+                nameTextStyle: {
+                    color: '#cccccc',
+                    fontSize: 12
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#555'
+                    }
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: '#333'
+                    }
+                }
+            },
+            yAxis: {
+                type: 'log',
+                name: 'Luminosité (L☉)',
+                nameLocation: 'middle',
+                nameGap: 50,
+                min: 0.00001,
+                max: 500000,
+                axisLabel: {
+                    color: '#cccccc',
+                    formatter: function(value) {
+                        if (value >= 1) {
+                            return value.toLocaleString();
+                        } else {
+                            return value.toExponential(1);
+                        }
+                    }
+                },
+                nameTextStyle: {
+                    color: '#cccccc',
+                    fontSize: 12
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#555'
+                    }
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: '#333'
+                    }
+                }
+            },
+            series: series,
+            legend: {
+                show: false // Masqué car nous avons notre propre légende
+            },
+            animation: true,
+            animationDuration: 1000,
+            animationEasing: 'cubicOut'
+        };
+
+        // Initialisation du graphique
+        const chart = echarts.init(document.getElementById('chart'));
+        chart.setOption(option);
+
+        // Responsivité
+        window.addEventListener('resize', function() {
+            chart.resize();
+        });
+    </script>
+</body>
+</html>

@@ -23,6 +23,7 @@ const drakeTerms = {
             <h5>État de l'art des connaissances :</h5>
             <ul>
                 <li><strong>Nombre d'étoiles (N*) :</strong> Les estimations, basées sur des missions comme <span class="besancon-link" onclick="showHipparcosModal()">Hipparcos</span> et <span class="besancon-link" onclick="showGaiaModal()">Gaia</span>, varient de 100 à 400 milliards d'étoiles.</li>
+                <li><strong>Classification stellaire :</strong> Le <a href="#" onclick="showHRDiagramModal();return false;">diagramme de Hertzsprung-Russell</a> permet de visualiser l'évolution et la répartition des types d'étoiles dans la galaxie.</li>
                 <li><strong>Âge de la galaxie (Ag) :</strong> L'âge de la Voie lactée est estimé principalement grâce à la datation des plus vieilles étoiles et des <span class="besancon-link" onclick="showGlobularClustersModal()">amas globulaires</span> qui la composent. Les plus vieux amas globulaires connus ont un âge d'environ 13,2 milliards d'années, ce qui donne une estimation minimale pour l'âge de la galaxie.</li>
                 <li><strong>Modèle de référence :</strong> Le <span class="besancon-link" onclick="showBesanconModal()">modèle de la galaxie de Besançon</span> aide à affiner ces estimations en simulant l'évolution de la galaxie.</li>
             </ul>
@@ -737,4 +738,8 @@ function updateSubParamBoundFromInput(termId, subParamId, bound, value) {
     // Si la valeur courante était sur la borne, la mettre à jour aussi
     if (currentValues[subParamId] === v) currentValues[subParamId] = v;
     showRStarDetail(termId);
+}
+
+function showHRDiagramModal() {
+    $("#hrDiagramModal").modal("show");
 }
