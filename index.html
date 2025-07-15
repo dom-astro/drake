@@ -10,7 +10,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
     <script src="js/popup-rstar.js"></script>
+    <script src="data/trappist-1.js"></script>
+    <script src="data/proxima-b.js"></script>
+    <script src="data/kepler-452b.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/exoplanets.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+    <script src="js/exoplanets.js"></script>
 </head>
 <body>
     <!-- Écran d'intro -->
@@ -543,7 +549,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="text-center mb-3">
-                        <img src="img/kepler-452b.gif" alt="Kepler-452b" style="width:320px;max-width:100%;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:10px;" />
+                        <div id="kepler452b-viz" style="width:100%;max-width:600px;min-height:350px;margin:auto;"></div>
+                        <button id="kepler452b-play-toggle" class="btn btn-secondary mt-2" style="display:inline-block;">
+                            <i class="fas fa-pause"></i> Pause
+                        </button>
                         <div style="font-size:0.95em;color:#555;margin-top:0.5em;">Vue d'artiste de Kepler-452b (Crédit : NASA Ames/JPL-Caltech/T. Pyle)</div>
                     </div>
                     <h5>Une exoplanète potentiellement habitable</h5>
@@ -583,7 +592,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="text-center mb-3">
-                        <img src="img/proxima-b.jpg" alt="Proxima b" style="width:320px;max-width:100%;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:10px;" />
+                        <div id="proximab-viz" style="width:100%;max-width:600px;min-height:350px;margin:auto;"></div>
+                        <button id="proximab-play-toggle" class="btn btn-secondary mt-2" style="display:inline-block;">
+                            <i class="fas fa-pause"></i> Pause
+                        </button>
                         <div style="font-size:0.95em;color:#555;margin-top:0.5em;">Vue d'artiste de Proxima b (Crédit : ESO/M. Kornmesser)</div>
                     </div>
                     <h5>La planète la plus proche du Système solaire</h5>
@@ -623,7 +635,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="text-center mb-3">
-                        <img src="img/trappist-1.jpg" alt="TRAPPIST-1" style="width:320px;max-width:100%;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:10px;" />
+                        <div id="trappist1-viz" style="width:100%;max-width:600px;min-height:350px;margin:auto;"></div>
+                        <button id="trappist1-play-toggle" class="btn btn-secondary mt-2" style="display:inline-block;">
+                            <i class="fas fa-pause"></i> Pause
+                        </button>
                         <div style="font-size:0.95em;color:#555;margin-top:0.5em;">Vue d'artiste du système TRAPPIST-1 (Crédit : NASA/JPL-Caltech)</div>
                     </div>
                     <h5>Un système planétaire exceptionnel</h5>

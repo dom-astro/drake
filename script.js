@@ -195,6 +195,113 @@ $(document).ready(function() {
     // Animation intro
     typewriterIntro();
 
+    // --- Dataviz TRAPPIST-1 dans la modale ---
+    let trappist1Viz = null;
+    $('#trappist1Modal').on('shown.bs.modal', function () {
+        if (!trappist1Viz) {
+            // On suppose que exoplanetData est défini par data/trappist-1.js
+            trappist1Viz = new Exoplanets('trappist1-viz', exoplanetData, {
+                width: document.getElementById('trappist1-viz').offsetWidth || 540,
+                height: 350,
+                enableZoom: true,
+                showLegend: false
+            });
+        }
+        // Initialiser le bouton play/stop
+        const $btn = $('#trappist1-play-toggle');
+        $btn.off('click').on('click', function() {
+            if (trappist1Viz && trappist1Viz.isPlaying) {
+                trappist1Viz.pause();
+                $btn.find('i').removeClass('fa-pause').addClass('fa-play');
+                $btn.contents().filter(function(){return this.nodeType===3;}).remove();
+                $btn.append(' Reprendre');
+            } else if (trappist1Viz) {
+                trappist1Viz.play();
+                $btn.find('i').removeClass('fa-play').addClass('fa-pause');
+                $btn.contents().filter(function(){return this.nodeType===3;}).remove();
+                $btn.append(' Pause');
+            }
+        });
+        // Mettre à jour l'état initial du bouton
+        $btn.find('i').removeClass('fa-play').addClass('fa-pause');
+        $btn.contents().filter(function(){return this.nodeType===3;}).remove();
+        $btn.append(' Pause');
+    });
+    $('#trappist1Modal').on('hidden.bs.modal', function () {
+        $('#trappist1-viz').empty();
+        trappist1Viz = null;
+    });
+
+    // --- Dataviz Proxima b dans la modale ---
+    let proximabViz = null;
+    $('#proximabModal').on('shown.bs.modal', function () {
+        if (!proximabViz) {
+            proximabViz = new Exoplanets('proximab-viz', proximaBData, {
+                width: document.getElementById('proximab-viz').offsetWidth || 540,
+                height: 350,
+                enableZoom: true,
+                showLegend: false
+            });
+        }
+        // Initialiser le bouton play/stop
+        const $btn = $('#proximab-play-toggle');
+        $btn.off('click').on('click', function() {
+            if (proximabViz && proximabViz.isPlaying) {
+                proximabViz.pause();
+                $btn.find('i').removeClass('fa-pause').addClass('fa-play');
+                $btn.contents().filter(function(){return this.nodeType===3;}).remove();
+                $btn.append(' Reprendre');
+            } else if (proximabViz) {
+                proximabViz.play();
+                $btn.find('i').removeClass('fa-play').addClass('fa-pause');
+                $btn.contents().filter(function(){return this.nodeType===3;}).remove();
+                $btn.append(' Pause');
+            }
+        });
+        $btn.find('i').removeClass('fa-play').addClass('fa-pause');
+        $btn.contents().filter(function(){return this.nodeType===3;}).remove();
+        $btn.append(' Pause');
+    });
+    $('#proximabModal').on('hidden.bs.modal', function () {
+        $('#proximab-viz').empty();
+        proximabViz = null;
+    });
+
+    // --- Dataviz Kepler-452b dans la modale ---
+    let kepler452bViz = null;
+    $('#kepler452bModal').on('shown.bs.modal', function () {
+        if (!kepler452bViz) {
+            kepler452bViz = new Exoplanets('kepler452b-viz', kepler452bData, {
+                width: document.getElementById('kepler452b-viz').offsetWidth || 540,
+                height: 350,
+                enableZoom: true,
+                showLegend: false
+            });
+        }
+        // Initialiser le bouton play/stop
+        const $btn = $('#kepler452b-play-toggle');
+        $btn.off('click').on('click', function() {
+            if (kepler452bViz && kepler452bViz.isPlaying) {
+                kepler452bViz.pause();
+                $btn.find('i').removeClass('fa-pause').addClass('fa-play');
+                $btn.contents().filter(function(){return this.nodeType===3;}).remove();
+                $btn.append(' Reprendre');
+            } else if (kepler452bViz) {
+                kepler452bViz.play();
+                $btn.find('i').removeClass('fa-play').addClass('fa-pause');
+                $btn.contents().filter(function(){return this.nodeType===3;}).remove();
+                $btn.append(' Pause');
+            }
+        });
+        $btn.find('i').removeClass('fa-play').addClass('fa-pause');
+        $btn.contents().filter(function(){return this.nodeType===3;}).remove();
+        $btn.append(' Pause');
+    });
+    $('#kepler452bModal').on('hidden.bs.modal', function () {
+        $('#kepler452b-viz').empty();
+        kepler452bViz = null;
+    });
+
     // Retour à l'intro au clic sur la fusée
     $(document).on('click', '#back-to-intro', function() {
         $('#main-content').fadeOut(400, function() {
